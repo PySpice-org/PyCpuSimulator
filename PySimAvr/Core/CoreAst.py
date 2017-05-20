@@ -93,25 +93,6 @@ class Constant(object):
     
 ####################################################################################################
 
-class Assignation(object):
-    def __init__(self, destination, value):
-        self._destination = destination
-        self._value = value
-
-    @property
-    def destination(self):
-        return self._destination
-
-    @property
-    def value(self):
-        return self._value
-    
-    def __str__(self):
-        # ←
-        return ' '.join((str(self._destination), '<-', str(self._value)))
-    
-####################################################################################################
-
 class Expression(object):
 
     __number_of_operands__ = None
@@ -124,10 +105,6 @@ class Expression(object):
             raise ValueError("Wrong number of operands")
         
         self._operands = args
-        # self._operand_size = args[0].size
-        # for operand in self._operands[1:]:
-        #     if operand.size != self._operand_size:
-        #         raise ValueError('Incompatible operands')
 
     ##############################################
 
@@ -168,6 +145,22 @@ class BinaryOperator(BinaryExpression):
 
     def __str__(self):
         return ' '.join((str(self.operand1), self.__operator__, str(self.operand2)))
+
+####################################################################################################
+
+class Assignation(BinaryExpression):
+
+    @property
+    def destination(self):
+        return self._operands[1]
+
+    @property
+    def value(self):
+        return self._operands[0]
+    
+    def __str__(self):
+        # ←
+        return ' '.join((str(self.destination), '<-', str(self.value)))
 
 ####################################################################################################
 

@@ -45,10 +45,11 @@ register_definitions = [
     Register16('PC'),
     Register16('STACK'),
     Register8('SREG'),
+    Register16('X'),
 ]
 register_definitions.extend(general_purpose_registers)
 
-ram = RamMemory('SRAM', cell_size=8, size=8*1024)
+ram = RamMemory('RAM', cell_size=8, size=8*1024)
 registers = RegisterMemory('REGISTER', register_definitions)
 
 core = StandardCore(memories=(registers, ram))
@@ -63,8 +64,11 @@ R1 <- 20;
 R2 <- R0 + R1;
 R2 <- R2 |! R2;
 R2 <- R0 + 30;
+X <- 0x13;
+[X] <- R2;
 '''
 print(source)
+micro_code_parser.test_lexer(source)
 ast_program = micro_code_parser.parse(source)
 # print()
 # print(ast_program)

@@ -136,7 +136,7 @@ class Parser(object):
 
     ##############################################
 
-    def t_ANY_error(self, token):
+    def t_error(self, token):
         self._logger.error("Illegal character '%s' at line %u and position %u" %
                            (token.value[0],
                             token.lexer.lineno,
@@ -148,13 +148,15 @@ class Parser(object):
 
     t_ignore  = ' \t'
 
-    def t_ANY_newline(self, token):
+    def t_newline(self, t):
         r'\n+'
         # Track newline
-        token.lexer.lineno += len(token.value)
-        self._previous_newline_position = token.lexer.lexpos
-
-    t_ignore_COMMENT = r'\#.*' # Fixme: newline ?
+        t.lexer.lineno += len(t.value)
+        self._previous_newline_position = t.lexer.lexpos
+        # t.type = 'SEMICOLON'
+        # return t
+        
+    t_ignore_COMMENT = r'\#[^\n]*'
     
     ##############################################
 
@@ -186,34 +188,29 @@ class Parser(object):
     t_AT = r'@'
     t_DOLLAR = r'\$'
     
-    t_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    
+    def t_NAME(self, t):
+        r'[a-zA-Z_][a-zA-Z_0-9]*'
+        t.type = self.reserved.get(t.value, 'NAME') # Check for reserved words
+        return t
+
     def t_BINARY_NUMBER(self, t):
         r'0b(0|1)+'
-        # try:
         t.value = int(t.value, 2)
-        # except ValueError:
         return t
 
     def t_OCTAL_NUMBER(self, t):
-        r'0o[0..7]+'
-        # try:
+        r'0o[0-7]+'
         t.value = int(t.value, 8)
-        # except ValueError:
         return t
 
     def t_HEX_NUMBER(self, t):
-        r'0x[0..9a..fA..F]+'
-        # try:
+        r'0x[0-9a-fA-F]+'
         t.value = int(t.value, 16)
-        # except ValueError:
         return t
 
     def t_DECIMAL_NUMBER(self, t):
         r'\d+'
-        # try:
         t.value = int(t.value)
-        # except ValueError:
         return t
     
     ##############################################
@@ -248,7 +245,7 @@ class Parser(object):
     
     def p_assignation(self, p):
         'assignation : destination SET expression'
-        p[0] = Assignation(p[1], p[3])
+        p[0] = Assignation(p[3], p[1]) # eval value first
 
     def p_destination(self, p):
         # R

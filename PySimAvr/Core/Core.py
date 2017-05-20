@@ -31,16 +31,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-def two_complement(x, number_of_bits):
-    return 2**number_of_bits -1 - x
-
-def xor(x, y, number_of_bits):
-    """ x.not(y) + not(x).y  """
-    return x & two_complement(y, number_of_bits) | two_complement(x, number_of_bits) & y
-
-####################################################################################################
-
-class Memory(object):
+class NamedObject(object):
 
     ##############################################    
 
@@ -56,13 +47,13 @@ class Memory(object):
     
 ####################################################################################################
         
-class CellSizeMemory(Memory):
+class Memory(NamedObject):
 
     ##############################################    
 
     def __init__(self, name, cell_size):
 
-        super(CellSizeMemory, self).__init__(name)
+        super(Memory, self).__init__(name)
         self._cell_size = cell_size
 
     ##############################################
@@ -70,9 +61,41 @@ class CellSizeMemory(Memory):
     @property
     def cell_size(self):
         return self._cell_size
+
+    ##############################################
+
+    @property
+    def inf(self):
+        return 0
     
     ##############################################
 
+    @property
+    def sup(self):
+        return 2**self._cell_size -1
+
+    ##############################################
+
+    def check_value(self, value):
+        if value < self.inf or value > self.sup:
+            raise ValueError("Value is out of range")
+    
+    ##############################################
+
+    def truncate(self, value):
+        # Numpy array performs this action natively
+        # return value &_self.sup
+        return value % 2**self._cell_size
+
+    ##############################################
+
+    def two_complement(self, value):
+        self.check_value(value)
+        return self.sup - value
+    
+    ##############################################
+
+    @property
     def np_dtype(self):
         
         if self._cell_size == 8:
@@ -88,7 +111,16 @@ class CellSizeMemory(Memory):
 
 ####################################################################################################
 
-class Register(CellSizeMemory):
+class MemoryValueMixin(object):
+
+    ##############################################
+
+    def two_complement(self):
+        return self.sup - int(self)
+
+####################################################################################################
+
+class Register(MemoryValueMixin, Memory):
 
     __cell_size__ = None
     
@@ -101,7 +133,7 @@ class Register(CellSizeMemory):
         
         super(Register, self).__init__(name, cell_size)
         
-        self._dtype = self.np_dtype()
+        self._dtype = self.np_dtype
         self._value = self._dtype(0)
         
     ##############################################
@@ -112,25 +144,27 @@ class Register(CellSizeMemory):
     ##############################################
 
     def __int__(self):
-        return int(self._value) # make a copy
+        # make a copy
+        # self._dtype(self._value)
+        return int(self._value)
         
     ##############################################
 
-    @property
-    def v(self):
-        return int(self._value) # self._dtype(self._value)
-        
-    ##############################################
-
-    @v.setter
-    def v(self, value):
+    def set(self, value):
         self._value = self._dtype(value)
 
     ##############################################
 
     def __str__(self):
-        return "{}: 0x{:X}".format(self._name, self._value)
+        return self._name
 
+    ##############################################
+
+    def str_value(self):
+        return "{}: 0x{:X}".format(self._name, self._value)
+    
+####################################################################################################
+    
 class Register8(Register):
   __cell_size__ = 8
 
@@ -145,8 +179,10 @@ class Register64(Register):
   
 ####################################################################################################
 
-class RegisterMemory(Memory):
+class RegisterMemory(NamedObject):
 
+    # RegisterFile
+    
     ##############################################    
 
     def __init__(self, name, registers):
@@ -162,30 +198,69 @@ class RegisterMemory(Memory):
 
         for register in self._registers.values():
             register.reset()
-        
+
+    ##############################################
+
+    def cell(self, register):
+        return self._registers[register]
+
     ##############################################
 
     def __getitem__(self, register):
-
         return self._registers[register]
 
     ##############################################
 
     def __setitem__(self, register, value):
-
-        self._registers[register].v = value
+        self._registers[register].set(value)
 
     ##############################################
 
     def dump(self):
 
-        # for register in self._sorted_register:
-        #     print(self._registers[register])
-        print(' | '.join([str(self._registers[register]) for register in self._registers]))
-        
+        # for register in self._registers.values():
+        #     print(register)
+        print(' | '.join([register.str_value() for register in self._registers.values()]))
+
 ####################################################################################################
 
-class RomMemory(CellSizeMemory):
+class MemoryCell(MemoryValueMixin):
+
+    ##############################################
+
+    def __init__(self, memory, address):
+
+        self._memory = memory
+        self._address = address
+
+    ##############################################
+
+    @property
+    def memory(self):
+        return self._memory
+
+    @property
+    def address(self):
+        return self._address
+
+    ##############################################
+
+    def __int__(self):
+        return self._memory[self._address]
+
+    ##############################################
+
+    def set(self, value):
+        self._memory[self._address] = value
+
+    ##############################################
+
+    def __str__(self):
+        return "{}[0x{:x}]".format(self._memory.name, int(self._address))
+    
+####################################################################################################
+
+class RomMemory(Memory):
 
     ##############################################    
 
@@ -193,7 +268,7 @@ class RomMemory(CellSizeMemory):
 
         super(RomMemory, self).__init__(name, cell_size)
 
-        self._memory = np.zeros(size, dtype=self.np_dtype())
+        self._memory = np.zeros(size, dtype=self.np_dtype)
         if data is not None:
             self._memory[...] = data
     
@@ -202,6 +277,11 @@ class RomMemory(CellSizeMemory):
     @property
     def size(self):
         return self._memory.shape[0]
+
+    ##############################################
+
+    def cell(self, address):
+        return MemoryCell(self, address)
     
     ##############################################
 
@@ -266,205 +346,214 @@ class Core(object):
 
     ##############################################
 
-    def eval_statement(self, statement, level=0):
+    def split_operand_by_type(self, operands):
+
+        registers = []
+        constants = []
+        for operand in operands:
+            if isinstance(operand, int):
+                constants.append(operand)
+            else: # Register or MemoryCell
+                registers.append(operand)
+
+        return registers, constants
+
+    ##############################################
+
+    def check_for_register_operand(self, *operands):
+
+        registers, constants = self.split_operand_by_type(operands)
+        if not registers:
+            raise NameError("Forbidden operation, at least one register operand is required")
+        else:
+            return registers
+        
+    ##############################################
+
+    def eval_statement(self, level, statement):
 
         self._logger.debug('')
         
         statement_class = statement.__class__.__name__
         print('  '*level + statement_class, statement)
         evaluator = getattr(self, 'eval_' + statement_class)
-        value = evaluator(statement, level)
+        if hasattr(statement, 'iter_on_operands'):
+            # Compute the operand values: traverse recursively the AST
+            args=  [self.eval_statement(level+1, operand)
+                    for operand in statement.iter_on_operands()]
+            value = evaluator(level, statement, *args)
+        else:
+            value = evaluator(level, statement)
+            
         if value is not None:
-            if isinstance(value, str):
-                value_string = value
+            if isinstance(value, int):
+                value_string = hex(value)
             else:
-                value_string = hex(int(value))
-            print('  '*level + '=', value_string)
+                value_string = str(value)
+            print('  '*(level+1) + '=', str(value_string))
+
         return value
-        
-    ##############################################
-
-    def eval_operands(self, statement, level):
-
-        self._logger.debug('')
-        
-        return [self.eval_statement(operand, level+1)
-                for operand in statement.iter_on_operands()]
-                
+    
     ##############################################
     
     def run_ast_program(self, program):
 
         for statement in program:
             print()
-            self.eval_statement(statement)
+            self.eval_statement(0, statement)
             self.memory['REGISTER'].dump()
             
 ####################################################################################################
 
 class StandardCore(Core):
 
-    ##############################################
+    """This class implements a standard core with a very felxible ALU. For example we can add directly
+    two constants.
+
+    ALU operations are performed using Python integer. The value is truncated to the data type in
+    the Numpy cell.
+
+    """
     
-    def eval_Assignation(self, statement, level):
-
-        self._logger.debug('')
-        
-        value = self.eval_statement(statement.value, level+1)
-        self.set_Addressing(statement.destination, value, level)
-        
     ##############################################
         
-    def eval_Constant(self, statement, level):
+    def eval_Constant(self, level, statement):
 
+        # Return the constant value
         return int(statement)
 
     ##############################################
         
-    def eval_Register(self, statement, level):
+    def eval_Register(self, level, statement):
 
+        # Return the register name
         return str(statement)
+
+    ##############################################
+    
+    def eval_Assignation(self, level, statement, value, cell):
+
+        self._logger.debug('')
+
+        int_value = int(value)
+        # int_value = cell.truncate(int_value)
+        cell.set(value)
+        print('  '*(level+1) + '{} <- 0x{:x}'.format(cell, int_value))
     
     ##############################################
 
-    def _memory_address(self, statement, level):
+    def eval_Addressing(self, level, statement, address):
 
         self._logger.debug('')
-        
-        address = self.eval_operands(statement, level)[0]
+
+        # Return a register instance, use int(register) to retrieve the value
         memory = self.memory[statement.memory]
-        return memory, address
+        # return memory[address]
+        return memory.cell(address)
     
     ##############################################
-
-    def eval_Addressing(self, statement, level):
-
-        self._logger.debug('')
         
-        memory, address = self._memory_address(statement, level)
-        return memory[address]
+    def eval_Concatenation(self, level, statement, operand1, operand2):
+
+        # operand2 must be a register
+        return int(operand1) << operand2.cell_size + int(operand2)
 
     ##############################################
 
-    def set_Addressing(self, statement, value, level):
+    def eval_Bit(self, level, statement, operand1, operand2):
 
-        self._logger.debug('')
-        
-        memory, address = self._memory_address(statement, level)
-        memory[address] = value # .set(value)
-        print('  '*(level+1) + '{}[{}] <- 0x{:x}'.format(memory.name, address, value))
-        
-    ##############################################
-        
-    def eval_Concatenation(self, statement, level):
-
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 << statement.operand1.operand_size + int(operand2)
-
-    ##############################################
-
-    def eval_Bit(self, statement, level):
-
-        operand1, operand2 = self.eval_operands(statement, level)
-        return (operand1 >> operand2) & 0x1
+        return (int(operand1) >> int(operand2)) & 0x1
 
     ##############################################
     
-    def eval_BitRange(self, statement, level):
+    def eval_BitRange(self, level, statement, operand1, operand2, operand3):
 
-        operand1, operand2, operand3 = self.eval_operands(statement, level)
-        return (operand1 >> operand2) & (2**(operand3 - operand2 +1) -1)
+        return (int(operand1) >> int(operand2)) & (2**(int(operand3) - int(operand2) +1) -1)
 
     ##############################################    
 
-    def eval_LowerNibble(self, statement, level):
+    def eval_LowerNibble(self, level, statement, operand1):
 
-        operand1 = self.eval_operands(statement, level)
-        return operand1 & 0x0F
+        return int(operand1) & 0x0F
 
     ##############################################
 
-    def eval_UpperNibble(self, statement, level):
+    def eval_UpperNibble(self, level, statement, operand1):
 
-        operand1 = self.eval_operands(statement, level)
-        return operand1 >> 4
+        return (int(operand1) >> 4) & 0x0F
 
     ##############################################
     
-    def eval_Addition(self, statement, level):
+    def eval_Addition(self, level, statement, operand1, operand2):
         
-        operand1, operand2 = self.eval_operands(statement, level)
         return int(operand1) + int(operand2)
 
     ##############################################
     
-    def eval_SaturatedAddition(self, statement, level):
-        
-        operand1, operand2 = self.eval_operands(statement, level)
-        return max(operand1 + operand2, statement.operand_sup)
+    def eval_SaturatedAddition(self, level, statement, operand1, operand2):
+
+        # operand1 must be a register
+        return max(int(operand1) + int(operand2), operand1.sup)
     
     ##############################################
 
-    def eval_Subtraction(self, statement, level):
+    def eval_Subtraction(self, level, statement, operand1, operand2):
 
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 - operand2
+        return int(operand1) - int(operand2)
 
     ##############################################
     
-    def eval_SaturatedSubtraction(self, statement, level):
+    def eval_SaturatedSubtraction(self, level, statement, operand1, operand2):
         
-        operand1, operand2 = self.eval_operands(statement, level)
-        return min(operand1 - operand2, 0)
+        return min(int(operand1) - int(operand2), 0)
     
     ##############################################
 
-    def eval_Multiplication(self, statement, level):
+    def eval_Multiplication(self, level, statement, operand1, operand2):
         
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 * operand2
+        return int(operand1) * int(operand2)
 
     ##############################################
 
-    def eval(self, statement, level):
+    def eval_Division(self, level, statement, operand1, operand2):
 
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 // operand2
-
-    ##############################################
-
-    def eval_And(self, statement, level):
-
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 & operand2
+        return int(operand1) // int(operand2)
 
     ##############################################
 
-    def eval_Or(self, statement, level):
+    def eval_And(self, level, statement, operand1, operand2):
 
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 | operand2
-
-    ##############################################
-
-    def eval_Xor(self, statement, level):
-
-        operand1, operand2 = self.eval_operands(statement, level)
-        return xor(int(operand1), int(operand2), operand1.cell_size)
+        return int(operand1) & int(operand2)
 
     ##############################################
 
-    def eval_LeftShift(self, statement, level):
+    def eval_Or(self, level, statement, operand1, operand2):
 
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 << operand2
+        return int(operand1) | int(operand2)
 
     ##############################################
 
-    def eval_RightShift(self, statement, level):
+    def eval_Xor(self, level, statement, operand1, operand2):
 
-        operand1, operand2 = self.eval_operands(statement, level)
-        return operand1 >> operand2
+        # registers = self.check_for_register_operand(operand1, operand2)
+        # if len(registers) == 2:
+        #     return int(operand1) & operand2.two_complement() | operand1.two_complement() & int(operand2)
+        # else:
+        #     ...
+
+        return int(operand1) ^ int(operand2)
+        
+    ##############################################
+
+    def eval_LeftShift(self, level, statement, operand1, operand2):
+
+        return int(operand1) << int(operand2)
+
+    ##############################################
+
+    def eval_RightShift(self, level, statement, operand1, operand2):
+
+        return int(operand1) >> int(operand2)
 
 ####################################################################################################
 # 
