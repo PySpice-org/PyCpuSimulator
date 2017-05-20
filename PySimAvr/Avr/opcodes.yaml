@@ -1,0 +1,1073 @@
+# -*- mode: yaml -*-
+
+# and: & ∧ •
+#  or: | ∨ +
+# xor: ^ ⊻ ⊗
+# not: ! ¬
+
+ADC:
+  description: Add with Carry
+  alternate: Add with Carry two Registers
+  operations:
+    -
+      opcode: 0001 11rd dddd rrrr
+      operands: [Rd, Rr]
+      operation:
+        R = Rd + Rr + C
+        H = Rd3•Rr3 + (Rd3 + Rr3)•¬R3
+        C = Rd7•Rr7 + (Rd7 + Rr7)•¬R7
+        V = Rd7•Rr7•¬R7 + ¬Rd7•¬Rr7•R7
+        N = R7
+        Z = R == 0
+        S = N ⊗ V
+        Rd = R
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+ADD:
+  description: Add without Carry
+  alternate: Add two Registers
+  operations:
+    -
+      opcode: 0000 11rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd + Rr
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+ADIW:
+  description: Add Immediate to Word
+  operations:
+    -
+      opcode: 1001 0110 KKdd KKKK
+      operands: [Rdl, K]
+      operation: Rdh:Rdl = Rdh:Rdl + K
+      flags: [Z, C, N, V, S]
+      cycles: 2
+
+AND:
+  description: Logical AND
+  alternate: Logical AND Registers
+  operations:
+    -
+      opcode: 0010 00rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd & Rr
+      flags: [Z, N, V]
+      cycles: 1
+
+ANDI:
+  description: Logical AND with Immediate
+  alternate: Logical AND Register and Constant
+  operations:
+    -
+      opcode: 0111 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd = Rd & K
+      flags: [Z, N, V]
+      cycles: 1
+
+ASR:
+  description: Arithmetic Shift Right
+  operations:
+    -
+      opcode: 1001 010d dddd 0101
+      operands: [Rd]
+      operation: Rd(n) = Rd(n+1), n=0..6
+      flags: [Z, C, N, V]
+      cycles: 1
+
+BCLR:
+  description: Bit Clear in SREG
+  alternate: Flag Clear
+  operations:
+    -
+      opcode: 1001 0100 1sss 1000
+      operands: [s]
+      operation: SREG(s) = 0
+      flags: [SREG(s)]
+      cycles: 1
+
+BLD:
+  description: Bit Load from the T Flag in SREG to a Bit in Register
+  alternate: Bit load from T to Register
+  operations:
+    -
+      opcode: 1111 100d dddd 0bbb
+      operands: [Rd, b]
+      operation: Rd(b) = T
+      cycles: 1
+
+BRBC:
+  description: Branch if Bit in SREG is Cleared
+  alternate: Branch if Status Flag Cleared
+  operations:
+    -
+      opcode: 1111 01kk kkkk ksss
+      operands: [s, k]
+      operation: if (SREG(s) == 0) then PC = PC + k + 1
+      cycles: [1, 2]
+
+BRBS:
+  description: Branch if Bit in SREG is Set
+  alternate: Branch if Status Flag Set
+  operations:
+    -
+      opcode: 1111 00kk kkkk ksss
+      operands: [s, k]
+      operation: if (SREG(s) == 1) then PC <- PC + k + 1
+      cycles: [1, 2]
+
+BRCC:
+  description: Branch if Carry Cleared
+  alias_of: BRBC
+  alias_substitution: s = 0
+ 
+BRCS:
+  description: Branch if Carry Set
+  alias_of: BRBS
+  alias_substitution: s = 0
+
+BREAK:
+  description: Break
+  operations:
+    -
+      opcode: 1001 0101 1001 1000
+      operation: For On-chip Debug Only
+
+BREQ:
+  description: Branch if Equal
+  alias_of: BRBS
+  alias_substitution: s = 1
+
+BRGE:
+  description: Branch if Greater or Equal (Signed)
+  alternate: Branch if Greater or Equal, Signed
+  alias_of: BRBS
+  alias_substitution: s = 4
+
+BRHC:
+  description: Branch if Half Carry Flag is Cleared
+  alternate: Branch if Half Carry Flag Cleared
+  alias_of: BRBC
+  alias_substitution: s = 5
+
+BRHS:
+  description: Branch if Half Carry Flag is Set
+  alternate: Branch if Half Carry Flag Set
+  alias_of: BRBS
+  alias_substitution: s = 5
+
+BRID:
+  description: Branch if Global Interrupt is Disabled
+  alternate: Branch if Interrupt Disabled
+  alias_of: BRBC
+  alias_substitution: s = 7
+
+BRIE:
+  description: Branch if Global Interrupt is Enabled
+  alternate: Branch if Interrupt Enabled
+  alias_of: BRBS
+  alias_substitution: s = 7
+
+BRLO:
+  description: Branch if Lower (Unsigned)
+  alternate: Branch if Lower
+  alias_of: BRBS
+  alias_substitution: s = 0
+
+BRLT:
+  description: Branch if Less Than (Signed)
+  alternate: Branch if Less Than Zero, Signed
+  alias_of: BRBS
+  alias_substitution: s = 4
+
+BRMI:
+  description: Branch if Minus
+  alias_of: BRBS
+  alias_substitution: s = 2
+
+BRNE:
+  description: Branch if Not Equal
+  alias_of: BRBC
+  alias_substitution: s = 1
+
+BRPL:
+  description: Branch if Plus
+  alias_of: BRBC
+  alias_substitution: s = 2
+
+BRSH:
+  description: Branch if Same or Higher (Unsigned)
+  alternate: Branch if Same or Higher
+  alias_of: BRBC
+  alias_substitution: s = 0
+
+BRTC:
+  description: Branch if the T Flag is Cleared
+  alternate: Branch if T Flag Cleared
+  alias_of: BRBC
+  alias_substitution: s = 6
+
+BRTS:
+  description: Branch if the T Flag is Set
+  alternate: Branch if T Flag Set
+  alias_of: BRBS
+  alias_substitution: s = 6
+
+BRVC:
+  description: Branch if Overflow Cleared
+  alternate: Branch if Overflow Flag is Cleared
+  alias_of: BRBC
+  alias_substitution: s = 3
+
+BRVS:
+  description: Branch if Overflow Set
+  alternate: Branch if Overflow Flag is Set
+  alias_of: BRBS
+  alias_substitution: s = 3
+
+BSET:
+  description: Bit Set in SREG
+  alternate: Flag Set
+  operations:
+    -
+      opcode: 1001 0100 0sss 1000
+      operands: [s]
+      operation: SREG(s) = 1
+      flags: [SREG(s)]
+      cycles: 1
+
+BST:
+  description: Bit Store from Bit in Register to T Flag in SREG
+  alternate: Bit Store from Register to T
+  operations:
+    -
+      opcode: 1111 101d dddd 0bbb
+      operands: [Rr, b]
+      operation: T = Rr(b)
+      flags: [T]
+      cycles: 1
+
+CALL:
+  description: Long Call to a Subroutine
+  alternate: Direct Subroutine Call
+  operations:
+    -
+      opcode: 1001 010k kkkk 111k kkkk kkkk kkkk kkkk
+      operands: [k]
+      operation: PC = k
+      cycles: 5
+
+CBI:
+  description: Clear Bit in I/O Register
+  operations:
+    -
+      opcode: 1001 1000 AAAA Abbb
+      operands: [P, b]
+      operation: I/O(P, b) = 0
+      cycles: 2
+
+CBR:
+  description: Clear Bits in Register (cf. ANDI with K complemented)
+  alternate: Clear Bit(s) in Register
+  operations: []
+
+CLC:
+  description: Clear Carry Flag
+  alternate: Clear Carry
+  alias_of: BCLR
+  alias_substitution: s = 0
+
+CLH:
+  description: Clear Half Carry Flag
+  alternate: Clear Half Carry Flag in SREG
+  alias_of: BCLR
+  alias_substitution: s = 5
+
+CLI:
+  description: Clear Global Interrupt Flag
+  alternate: Global Interrupt Disable
+  alias_of: BCLR
+  alias_substitution: s = 7
+
+CLN:
+  description: Clear Negative Flag
+  alias_of: BCLR
+  alias_substitution: s = 2
+
+CLR:
+  description: Clear Register
+  alias_of: EOR
+  alias_substitution: Rr = Rd
+
+CLS:
+  description: Clear Signed Flag
+  alternate: Clear Signed Test Flag
+  alias_of: BCLR
+  alias_substitution: s = 4
+
+CLT:
+  description: Clear T Flag
+  alternate: Clear T in SREG
+  alias_of: BCLR
+  alias_substitution: s = 6
+
+CLV:
+  description: Clear Overflow Flag
+  alternate: Clear Twos Complement Overflow
+  alias_of: BCLR
+  alias_substitution: s = 3
+
+CLZ:
+  description: Clear Zero Flag
+  alias_of: BCLR
+  alias_substitution: s = 1
+
+COM:
+  description: One's Complement
+  alternate: One\u2019s Complement
+  operations:
+    -
+      opcode: 1001 010d dddd 0000
+      operands: [Rd]
+      operation: Rd = 0xFF - Rd
+      flags: [Z, C, N, V]
+      cycles: 1
+
+CP:
+  description: Compare
+  operations:
+    -
+      opcode: 0001 01rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd - Rr
+      flags: [Z, N, V, C, H]
+      cycles: 1
+
+CPC:
+  description: Compare with Carry
+  operations:
+    -
+      opcode: 0000 01rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd - Rr - C
+      flags: [Z, N, V, C, H]
+      cycles: 1
+
+CPI:
+  description: Compare with Immediate
+  alternate: Compare Register with Immediate
+  operations:
+    -
+      opcode: 0011 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd - K
+      flags: [Z, N, V, C, H]
+      cycles: 1
+
+CPSE:
+  description: Compare Skip if Equal
+  alternate: Compare, Skip if Equal
+  operations:
+    -
+      opcode: 0001 00rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: if (Rd == Rr) PC = PC + 2 or 3
+      cycles: [1, 2, 3]
+
+DEC:
+  description: Decrement
+  operations:
+    -
+      opcode: 1001 010d dddd 1010
+      operands: [Rd]
+      operation: Rd = Rd - 1
+      flags: [Z, N, V]
+      cycles: 1
+
+EICALL:
+  description: Extended Indirect Call to Subroutine
+  alternate: Extended Indirect Call to (Z)
+  operations:
+    -
+      opcode: 1001 0101 0001 1001
+      operation: PC = (EIND:Z)
+      cycles: 4
+
+EIJMP:
+  description: Extended Indirect Jump
+  alternate: Extended Indirect Jump to (Z)
+  operations:
+    -
+      opcode: 1001 0100 0001 1001
+      operation: PC = (EIND:Z)
+      cycles: 2
+
+ELPM:
+  description: Extended Load Program Memory
+  operations:
+    -
+      opcode: 1001 0101 1101 1000
+      operation: R0 = (RAMPZ:Z)
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 0110
+      operands: [Rd, Z]
+      operation: Rd = (RAMPZ:Z)
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 0111
+      operands: [Rd, Z++]
+      operation: Rd = (RAMPZ:Z), RAMPZ:Z = RAMPZ:Z + 1
+      cycles: 3
+
+EOR:
+  description: Exclusive OR
+  alternate: Exclusive OR Registers
+  operations:
+    -
+      opcode: 0010 01rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd + Rr
+      flags: [Z, N, V]
+      cycles: 1
+
+FMUL:
+  description: Fractional Multiply Unsigned
+  operations:
+    -
+      opcode: 0000 0011 0ddd 1rrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = (Rd x Rr) << 1
+      flags: [Z, C]
+      cycles: 2
+
+FMULS:
+  description: Fractional Multiply Signed
+  operations:
+    -
+      opcode: 0000 0011 1ddd 0rrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = (Rd x Rr) << 1
+      flags: [Z, C]
+      cycles: 2
+
+FMULSU:
+  description: Fractional Multiply Signed with Unsigned
+  operations:
+    -
+      opcode: 0000 0011 1ddd 1rrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = (Rd x Rr) << 1
+      flags: [Z, C]
+      cycles: 2
+
+ICALL:
+  description: Indirect Call to Subroutine
+  alternate: Indirect Call to (Z)
+  operations:
+    -
+      opcode: 1001 0101 0000 1001
+      operation: PC = Z
+      cycles: 4
+
+IJMP:
+  description: Indirect Jump
+  alternate: Indirect Jump to (Z)
+  operations:
+    -
+      opcode: 1001 0100 0000 1001
+      operation: PC = Z
+      cycles: 2
+
+IN:
+  description: Load an I/O Location to Register
+  alternate: In Port
+  operations:
+    -
+      opcode: 1011 0AAd dddd AAAA
+      operands: [Rd, P]
+      operation: Rd = P
+      cycles: 1
+
+INC:
+  description: Increment
+  operations:
+    -
+      opcode: 1001 010d dddd 0011
+      operands: [Rd]
+      operation: Rd = Rd + 1
+      flags: [Z, N, V]
+      cycles: 1
+
+JMP:
+  description: Jump
+  alternate: Direct Jump
+  operations:
+    -
+      opcode: 1001 010k kkkk 110k kkkk kkkk kkkk kkkk
+      operands: [k]
+      operation: PC = k
+      cycles: 3
+
+LD:
+  description: Load Indirect from Data Space to Register using Index X/Y/Z
+  alternate: Load Indirect and Pre-Dec.
+  operations:
+    -
+      opcode: 1001 000d dddd 1100
+      operands: [Rd, Z]
+      operation: Rd = (X)
+      cycles: 1
+    -
+      opcode: 1001 000d dddd 1101
+      operands: [Rd, X++]
+      operation: Rd = (X), X = X + 1
+      cycles: 2
+    -
+      opcode: 1001 000d dddd 1110
+      operands: [Rd, --X]
+      operation: X = X - 1, Rd = (X)
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 1001
+      operands: [Rd, Y++]
+      operation: Rd = (Y), Y = Y + 1
+      cycles: 2
+    -
+      opcode: 1001 000d dddd 1010
+      operands: [Rd, --Y]
+      operation: Y = Y - 1, Rd = (Y)
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 0001
+      operands: [Rd, Z++]
+      operation: Rd = (Z), Z = Z + 1
+      cycles: 2
+    -
+      opcode: 1001 000d dddd 0010
+      operands: [Rd, --Z]
+      operation: Z = Z - 1, Rd = (Z)
+      cycles: 3
+
+LDD:
+  description: Load Indirect with Displacement
+  operations:
+    -
+      opcode: 10q0 qq0d dddd 1qqq
+      operands: [Rd, Y+q]
+      operation: Rd = (Y + q)
+      cycles: 2
+    -
+      opcode: 10q0 qq0d dddd 0qqq
+      operands: [Rd, Z+q]
+      operation: Rd = (Z + q)
+      cycles: 2
+
+LDI:
+  description: Load Immediate
+  operations:
+    -
+      opcode: 1110 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd = K
+      cycles: 1
+
+LDS:
+  description: Load Direct from Data Space
+  alternate: Load Direct from SRAM
+  operations:
+    # http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_LDS_-_Load_direct_from_SRAM.html
+    # This 1-word form of the LDS instruction is only used on ATtiny10-based devices.
+    # Clash with LDD 10q0 qq0d dddd 1qqq
+    #            STD 10q0 qq1r rrrr 0qqq
+    #            STD 10q0 qq1r rrrr 1qqq
+    # -
+    #   opcode: 1010 0kkk dddd kkkk
+    #   operands: [Rd, k]
+    #   operation: Rd = (k)
+    #   cycles: 1
+    -
+      opcode: 1001 000d dddd 0000 kkkk kkkk kkkk kkkk
+      operands: [Rd, k]
+      operation: Rd = (k)
+      cycles: 2
+
+LPM:
+  description: Load Program Memory
+  alternate: Load Program Memory and Post-Inc
+  operations:
+    -
+      opcode: 1001 0101 1100 1000
+      operands: [Rd, Z++]
+      operation: Rd = (Z), Z = Z + 1
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 0100
+      operands: [Rd, Z++]
+      operation: Rd = (Z), Z = Z + 1
+      cycles: 3
+    -
+      opcode: 1001 000d dddd 0101
+      operands: [Rd, Z++]
+      operation: Rd = (Z), Z = Z + 1
+      cycles: 3
+
+LSL:
+  description: Logical Shift Left
+  alias_of: ADD
+  alias_substitution: Rr = Rd
+
+LSR:
+  description: Logical Shift Right
+  operations:
+    -
+      opcode: 1001 010d dddd 0110
+      operands: [Rd]
+      operation: Rd(n) = Rd(n+1), Rd(7) = 0
+      flags: [Z, C, N, V]
+      cycles: 1
+
+MOV:
+  description: Copy Register
+  alternate: Move Between Registers
+  operations:
+    -
+      opcode: 0010 11rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rr
+      cycles: 1
+
+MOVW:
+  description: Copy Register Word
+  operations:
+    -
+      opcode: 0000 0001 dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd+1:Rd = Rr+1:Rr
+      cycles: 1
+
+MUL:
+  description: Multiply Unsigned
+  operations:
+    -
+      opcode: 1001 11rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = Rd x Rr
+      flags: [Z, C]
+      cycles: 2
+
+MULS:
+  description: Multiply Signed
+  operations:
+    -
+      opcode: 0000 0010 dddd rrrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = Rd x Rr
+      flags: [Z, C]
+      cycles: 2
+
+MULSU:
+  description: Multiply Signed with Unsigned
+  operations:
+    -
+      opcode: 0000 0011 0ddd 0rrr
+      operands: [Rd, Rr]
+      operation: R1:R0 = Rd x Rr
+      flags: [Z, C]
+      cycles: 2
+
+NEG:
+  description: Two's Complement
+  alternate: Two\u2019s Complement
+  operations:
+    -
+      opcode: 1001 010d dddd 0001
+      operands: [Rd]
+      operation: Rd = 0x00 - Rd
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+NOP:
+  description: No Operation
+  operations:
+    -
+      opcode: 0000 0000 0000 0000
+      cycles: 1
+
+OR:
+  description: Logical OR
+  alternate: Logical OR Registers
+  operations:
+    -
+      opcode: 0010 10rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd | Rr
+      flags: [Z, N, V]
+      cycles: 1
+
+ORI:
+  description: Logical OR with Immediate
+  alternate: Logical OR Register and Constant
+  operations:
+    -
+      opcode: 0110 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd = Rd | K
+      flags: [Z, N, V]
+      cycles: 1
+
+OUT:
+  description: Store Register to I/O Location
+  alternate: Out Port
+  operations:
+    -
+      opcode: 1011 1AAr rrrr AAAA
+      operands: [A, Rr]
+      operation: A = Rr
+      cycles: 1
+
+POP:
+  description: Pop Register from Stack
+  operations:
+    -
+      opcode: 1001 000d dddd 1111
+      operands: [Rd]
+      operation: Rd = STACK
+      cycles: 2
+
+PUSH:
+  description: Push Register on Stack
+  operations:
+    -
+      opcode: 1001 001d dddd 1111
+      operands: [Rr]
+      operation: STACK = Rr
+      cycles: 2
+
+RCALL:
+  description: Relative Call to Subroutine
+  alternate: Relative Subroutine Call
+  operations:
+    -
+      opcode: 1101 kkkk kkkk kkkk
+      operands: [k]
+      operation: PC = PC + k + 1
+      cycles: 4
+
+RET:
+  description: Return from Subroutine
+  alternate: Subroutine Return
+  operations:
+    -
+      opcode: 1001 0101 0000 1000
+      operation: PC = STACK
+      cycles: 5
+
+RETI:
+  description: Return from Interrupt
+  alternate: Interrupt Return
+  operations:
+    -
+      opcode: 1001 0101 0001 1000
+      operation: PC = STACK
+      flags: [I]
+      cycles: 5
+
+RJMP:
+  description: Relative Jump
+  operations:
+    -
+      opcode: 1100 kkkk kkkk kkkk
+      operands: [k]
+      operation: PC = PC + k + 1
+      cycles: 2
+
+ROL:
+  description: Rotate Left trough Carry
+  alternate: Rotate Left Through Carry
+  alias_of: ADC
+  alias_substitution: Rr = Rd
+  
+ROR:
+  description: Rotate Right through Carry
+  alternate: Rotate Right Through Carry
+  operations:
+    -
+      opcode: 1001 010d dddd 0111
+      operands: [Rd]
+      operation: Rd(7) = C, Rd(n) = Rd(n+1), C = Rd(0)
+      flags: [Z, C, N, V]
+      cycles: 1
+
+SBC:
+  description: Subtract with Carry
+  alternate: Subtract with Carry two Registers
+  operations:
+    -
+      opcode: 0000 10rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd - Rr - C
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+SBCI:
+  description: Subtract Immediate with Carry
+  alternate: Subtract with Carry Constant from Reg.
+  operations:
+    -
+      opcode: 0100 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd = Rd - K - C
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+SBI:
+  description: Set Bit in I/O Register
+  operations:
+    -
+      opcode: 1001 1010 AAAA Abbb
+      operands: [A, b]
+      operation: I/O(A, b) = 1
+      cycles: 2
+
+SBIC:
+  description: Skip if Bit in I/O Register is Cleared
+  alternate: Skip if Bit in I/O Register Cleared
+  operations:
+    -
+      opcode: 1001 1001 AAAA Abbb
+      operands: [P, b]
+      operation: if (P(b) == 0) PC = PC + 2 or 3
+      cycles: [1, 2, 3]
+
+SBIS:
+  description: Skip if Bit in I/O Register is Set
+  operations:
+    -
+      opcode: 1001 1011 AAAA Abbb
+      operands: [P, b]
+      operation: if (P(b) == 1) PC = PC + 2 or 3
+      cycles: [1, 2, 3]
+
+SBIW:
+  description: Subtract Immediate from Word
+  operations:
+    -
+      opcode: 1001 0111 KKdd KKKK
+      operands: [Rdl, K]
+      operation: Rdh:Rdl = Rdh:Rdl - K
+      flags: [Z, C, N, V, S]
+      cycles: 2
+
+SBR:
+  description: Set Bits in Register
+  alternate: Set Bit(s) in Register
+  alias_of: ORI
+
+SBRC:
+  description: Skip if Bit in Register is Cleared
+  alternate: Skip if Bit in Register Cleared
+  operations:
+    -
+      opcode: 1111 110r rrrr 0bbb
+      operands: [Rr, b]
+      operation: if (Rr(b) == 0) PC = PC + 2 or 3
+      cycles: [1, 2, 3]
+
+SBRS:
+  description: Skip if Bit in Register is Set
+  operations:
+    -
+      opcode: 1111 111r rrrr 0bbb
+      operands: [Rr, b]
+      operation: if (Rr(b) == 1) PC = PC + 2 or 3
+      cycles: [1, 2, 3]
+
+SEC:
+  description: Set Carry Flag
+  alternate: Set Carry
+  alias_of: BSET
+  alias_substitution: s = 0
+
+SEH:
+  description: Set Half Carry Flag
+  alternate: Set Half Carry Flag in SREG
+  alias_of: BSET
+  alias_substitution: s = 5
+
+SEI:
+  description: Set Global Interrupt Flag
+  alternate: Global Interrupt Enable
+  alias_of: BSET
+  alias_substitution: s = 7
+
+SEN:
+  description: Set Negative Flag
+  alias_of: BSET
+  alias_substitution: s = 2
+
+SER:
+  description: Set all Bits in Register
+  alternate: Set Register
+  alias_of: LDI
+  alias_substitution: K = 0xFF
+
+SES:
+  description: Set Signed Flag
+  alternate: Set Signed Test Flag
+  alias_of: BSET
+  alias_substitution: s = 4
+
+SET:
+  description: Set T Flag
+  alternate: Set T in SREG
+  alias_of: BSET
+  alias_substitution: s = 6
+
+SEV:
+  description: Set Overflow Flag
+  alternate: Set Twos Complement Overflow.
+  alias_of: BSET
+  alias_substitution: s = 3
+
+SEZ:
+  description: Set Zero Flag
+  alias_of: BSET
+  alias_substitution: s = 1
+
+SLEEP:
+  description: Sleep
+  operations:
+    -
+      opcode: 1001 0101 1000 1000
+      cycles: 1
+
+SPM:
+  description: Store Program Memory
+  alternate: Store Program Memory In Port
+  operations:
+    -
+      opcode: 1001 0101 1110 1000
+      operation: ...
+    -
+      opcode: 1001 0101 1111 1000
+      operation: ...
+
+ST:
+  description: Store Indirect From Register to Data Space using Index X/Y/Z
+  alternate: Store Indirect and Pre-Dec.
+  operations:
+    -
+      opcode: 1001 001r rrrr 1100
+      operands: [Rr]
+      operation: (X) = Rr
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 1101
+      operands: [Rr, X++]
+      operation: (X) = Rr, X = X + 1
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 1110
+      operands: [--X, Rr]
+      operation: X = X - 1, (X) = Rr
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 1001
+      operands: [Rr, Y++]
+      operation: (Y) = Rr, Y = Y + 1
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 1010
+      operands: [--Y, Rr]
+      operation: Y = Y - 1, (Y) = Rr
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 0001
+      operands: [Rr, Z++]
+      operation: (Z) = Rr, Z = Z + 1
+      cycles: 2
+    -
+      opcode: 1001 001r rrrr 0010
+      operands: [--Z, Rr]
+      operation: Z = Z - 1, (Z) = Rr
+      cycles: 2
+
+STD:
+  description: Store Indirect From Register to Data Space using Index X/Y/Z
+  alternate: Store Indirect with Displacement
+  operations:
+    -
+      opcode: 10q0 qq1r rrrr 1qqq
+      operands: [Y+q, Rr]
+      operation: (Y + q) = Rr
+      cycles: 2
+    -
+      opcode: 10q0 qq1r rrrr 0qqq
+      operands: [Z+q, Rr]
+      operation: (Z + q) = Rr
+      cycles: 2
+
+STS:
+  description: Store Direct to Data Space
+  alternate: Store Direct to SRAM
+  operations:
+    # http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_STS_-_Store_Direct_to_SRAM.html
+    # This 1-word form of the STS instruction is only used on ATtiny10-based devices.
+    # Clash with STD 10q0 qq1r rrrr 1qqq
+    # -
+    #   opcode: 1010 1kkk dddd kkkk
+    #   operands: [k, Rr]
+    #   operation: (k) = Rr
+    #   cycles: 1
+    -
+      opcode: 1001 001d dddd 0000 kkkk kkkk kkkk kkkk
+      operands: [k, Rr]
+      operation: (k) = Rr
+      cycles: 2
+
+SUB:
+  description: Subtract without Carry
+  alternate: Subtract two Registers
+  operations:
+    -
+      opcode: 0001 10rd dddd rrrr
+      operands: [Rd, Rr]
+      operation: Rd = Rd - Rr
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+SUBI:
+  description: Subtract Immediate
+  alternate: Subtract Constant from Register
+  operations:
+    -
+      opcode: 0101 KKKK dddd KKKK
+      operands: [Rd, K]
+      operation: Rd = Rd - K
+      flags: [Z, C, N, V, H]
+      cycles: 1
+
+SWAP:
+  description: Swap Nibbles
+  operations:
+    -
+      opcode: 1001 010d dddd 0010
+      operands: [Rd]
+      operation: Rd(3..0) = Rd(7..4), Rd(7..4) = Rd(3..0)
+      cycles: 1
+
+TST:
+  description: Test for Zero or Minus
+  alias_of: AND
+  alias_substitution: Rr = Rd
+
+WDR:
+  description: Watchdog Reset
+  operations:
+    -
+      opcode: 1001 0101 1010 1000
+      cycles: 1
+
