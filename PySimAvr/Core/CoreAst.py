@@ -28,18 +28,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-def two_complement(x, number_of_bits):
-    return 2**number_of_bits -1 - x
-
-def xor(x, y, number_of_bits):
-    """ x.not(y) + not(x).y  """
-    return x & two_complement(y, number_of_bits) | two_complement(x, number_of_bits) & y
-
-####################################################################################################
-
 class Program(object):
-
-    _logger = _module_logger.getChild('Program')
 
     ##############################################
 
@@ -63,40 +52,64 @@ class Program(object):
 
     ##############################################
 
-    def eval(self, cpu):
-
-        for statement in self:
-            statement.eval(cpu)
-
-    ##############################################
-
     def __str__(self):
 
         return '\n'.join([str(statement) for statement in self])
     
 ####################################################################################################
 
+class Operand(object):
+    def __init__(self, name):
+        self._name = name
+
+class RegisterOperand(Operand):
+    def __str__(self):
+        return '@' + self._name
+
+class ConstantOperand(Operand):
+    def __str__(self):
+        return '$' + self._name
+
+####################################################################################################
+
+class Register(object):
+    def __init__(self, name):
+        self._name = name
+        
+    def __str__(self):
+        return self._name
+    
+####################################################################################################
+
+class Constant(object):
+    def __init__(self, value):
+        self._value = value
+
+    def __int__(self):
+        return self._value
+        
+    def __str__(self):
+        return hex(self._value)
+    
+####################################################################################################
+
 class Assignation(object):
-
-    ##############################################
-
     def __init__(self, destination, value):
-
         self._destination = destination
         self._value = value
 
-    ##############################################
+    @property
+    def destination(self):
+        return self._destination
 
-    def eval(self, cpu):
-
-        self._destination.set(cpu, self._value.eval(cpu))
-
-    ##############################################
-
+    @property
+    def value(self):
+        return self._value
+    
     def __str__(self):
-
+        # ←
         return ' '.join((str(self._destination), '<-', str(self._value)))
-        
+    
 ####################################################################################################
 
 class Expression(object):
@@ -118,6 +131,11 @@ class Expression(object):
 
     ##############################################
 
+    def iter_on_operands(self):
+        return iter(self._operands)
+    
+    ##############################################
+
     @property
     def operand(self):
         return self._operands[0]
@@ -133,72 +151,6 @@ class Expression(object):
     @property
     def operand3(self):
         return self._operands[2]
-    
-    ##############################################
-
-    @property
-    def operand_size(self):
-        return self._operand_size
-    
-    ##############################################
-
-    def eval_operands(self, cpu):
-        return [operand.eval(cpu) for operand in self._operands]
-    
-    ##############################################
-
-    def eval(self, cpu):
-
-        raise NotImplementedError
-
-####################################################################################################
-
-class Operand(object):
-
-    ##############################################
-
-    def __init__(self, name):
-    
-        self._name = name
-
-    ##############################################
-        
-    def eval(self, cpu):
-
-        raise NotImplementedError
-
-####################################################################################################
-    
-class RegisterOperand(Operand):
-    def __str__(self):
-        return '@' + self._name
-
-class ConstantOperand(Operand):
-    def __str__(self):
-        return '$' + self._name
-
-####################################################################################################
-
-class Constant(object):
-
-    ##############################################
-
-    def __init__(self, value):
-    
-        self._value = value
-
-    ##############################################
-        
-    def eval(self, cpu):
-
-        return self._value
-
-    ##############################################
-
-    def __str__(self):
-        return hex(self._value)
-    
-####################################################################################################
 
 class UnaryExpression(Expression):
     __number_of_operands__ = 1
@@ -213,42 +165,21 @@ class TernaryExpression(Expression):
 
 class BinaryOperator(BinaryExpression):
     __operator__ = None
+
     def __str__(self):
         return ' '.join((str(self.operand1), self.__operator__, str(self.operand2)))
 
 ####################################################################################################
 
 class Addressing(UnaryExpression):
-
-    ##############################################
-
-    def __init__(self, operand, memory):
-    
-        super(Addressing, self).__init__(operand)
+    def __init__(self, memory, address):
+        super(Addressing, self).__init__(address)
         self._memory = memory
-
-    ##############################################
-
-    def _memory_address(self, cpu):
-
-        address = self.eval_operands(cpu)
-        memory = cpu.memory[self._memory]
-        return memory, address
     
-    ##############################################
-
-    def eval(self, cpu):
-        memory, address = self._memory_address(cpu)
-        return memory[address]
-
-    ##############################################
-
-    def set(self, cpu, value):
-        memory, address = self._memory_address(cpu)
-        memory[address] = value # .set(value)
-
-    ##############################################
-
+    @property
+    def memory(self):
+        return self._memory
+        
     def __str__(self):
         return "{}[{}]".format(self._memory, str(self.operand))
         
@@ -256,97 +187,53 @@ class Addressing(UnaryExpression):
 
 class Concatenation(BinaryOperator):
     __operator__ = ':'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 << self.operand_size + int(operand2)
-    
-####################################################################################################
 
 class Bit(BinaryExpression):
     def __str__(self):
         return "{}[{}]".format(self.operand1, self.operand2)
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return (operand1 >> operand2) & 0x1
     
 class BitRange(TernaryExpression):
     def __str__(self):
         return "{}[{}..{}]".format(str(self.operand1), str(self.operand2), str(self.operand3))
-    def eval(self, cpu):
-        operand1, operand2, operand3 = self.eval_operands(cpu)
-        return (operand1 >> operand2) & (2**(operand3 - operand2 +1) -1)
     
 class LowerNibble(TernaryExpression):
     def __str__(self):
         return str(self.operand) + "[3:0]"
-    def eval(self, cpu):
-        operand1 = self.eval_operands(cpu)
-        return operand1 & 0x0F
 
 class UpperNibble(TernaryExpression):
     def __str__(self):
         return str(self.operand) + "op1[7:4]"
-    def eval(self, cpu):
-        operand1 = self.eval_operands(cpu)
-        return operand1 >> 4
     
 ####################################################################################################
 
 class Addition(BinaryOperator):
     __operator__ = '+'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 + operand2
 
 class Subtraction(BinaryOperator):
     __operator__ = '-'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 - operand2
 
 class Multiplication(BinaryOperator):
     __operator__ = '*'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 * operand2
 
 class Division(BinaryOperator):
     __operator__ = '/'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 // operand2
 
 ####################################################################################################
 
 class And(BinaryOperator):
     __operator__ = '&'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 & operand2
 
 class Or(BinaryOperator):
     __operator__ = '|'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 | operand2
 
 class Xor(BinaryOperator):
     __operator__ = '|!'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return xor(operand1, operand2, self.operand_size)
 
 class LeftShift(BinaryOperator):
     __operator__ = '<<'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 << operand2
 
 class RightShift(BinaryOperator):
     __operator__ = '>>'
-    def eval(self, cpu):
-        operand1, operand2 = self.eval_operands(cpu)
-        return operand1 >> operand2
 
 ####################################################################################################
 # 

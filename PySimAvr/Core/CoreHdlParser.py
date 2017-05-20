@@ -18,6 +18,58 @@
 # 
 ####################################################################################################
 
+"""
+
+Micro Code Language
+-------------------
+
+ASCII symbols are:
+
+* `` ` ``
+* ``!``
+* ``"``
+* ``#`` comment
+* ``$``
+* ``%``
+* ``&`` and
+* ``'``
+* ``()``
+* ``*`` multiplication
+* ``+`` addition
+* ``,``
+* ``-`` subtraction
+* ``.`` floating point
+* ``/`` division
+* ``:``
+* ``;`` statement separator
+* ``< >``
+* ``=``
+* ``?``
+* ``@``
+* ``[]`` addressing
+* ``\``
+* ``^``
+* ``_`` allowed in name
+* ``{}``
+* ``|`` or
+* ``~`` not
+
+Compounds:
+
+* ``++`` increment
+* ``--`` decrement
+* ``//``
+* ``<=`` inferior equal 
+* ``==`` equal
+* ``>=`` superior equal
+* ``->`
+
+Ambiguous:
+
+* ``<-``
+
+"""
+
 ####################################################################################################
 
 import logging
@@ -190,7 +242,9 @@ class Parser(object):
                    | assignation SEMICOLON program
                    | empty
         '''
-        self._program.add(p[1]) # Fixme: reversed for ... ; ...
+        statement = p[1]
+        if statement is not None:
+            self._program.add(statement) # Fixme: reversed for ... ; ...
     
     def p_assignation(self, p):
         'assignation : destination SET expression'
@@ -225,7 +279,7 @@ class Parser(object):
         # R
         '''register : NAME
         '''
-        p[0] = Addressing(p[1], 'REGISTER')
+        p[0] = Addressing('REGISTER', Register(p[1]))
 
     def p_register_operand(self, p):
         # R
@@ -261,7 +315,7 @@ class Parser(object):
         # [ ... ]
         '''addressing : LEFT_BRACKET expression RIGHT_BRACKET
         '''
-        p[0] = Addressing(p[2], 'RAM')
+        p[0] = Addressing('RAM', p[2])
 
     def p_source(self, p):
         '''expression : register

@@ -54,8 +54,8 @@ loggers:
 #
 
   PySimAvr:
-    level: DEBUG
-    #level: INFO
+    #level: DEBUG
+    level: INFO
     #level: WARNING
     handlers: [console]
 
