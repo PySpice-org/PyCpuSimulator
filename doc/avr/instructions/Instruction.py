@@ -15,6 +15,12 @@
 
 ####################################################################################################
 
+import collections
+import json
+import os
+
+####################################################################################################
+
 class OpcodeChunk(object):
 
     ##############################################
@@ -105,18 +111,30 @@ class Opcode(object):
 
     ##############################################
 
-    def __init__(self, instruction, opcode):
+    def __init__(self, instruction, opcode,
+                 operands=None, operation=None, flags=None, cycles=None):
 
 
         self.instruction = instruction
         self.opcode_string = opcode
-
+        self.operands = operands
+        self.operation = operation
+        self.flags = flags
+        self.cycles = cycles
+        
         self._parse_opcode()
         
     ##############################################
 
     def _parse_opcode(self):
 
+        """Parse the opcode bit pattern.
+
+        Group the bit so as to make chuncks corresponding to the opcode and the operands.  Then
+        generate an opcode mask, an opcode value and an operand bit pattern.
+
+        """
+        
         opcode = ''.join(self.opcode_string.split(' '))
 
         self.opcode_size = len(opcode)
@@ -154,9 +172,14 @@ class Opcode(object):
             else:
                 self.operand_pattern += '{}{}'.format(chunk.letter, len(chunk))
         if count != 16:
-            print(self.chunks, self.operand_32)
+            # print(self.chunks, self.operand_32)
             raise ValueError("%s %s", self.opcode_string, self.operand_pattern)
 
+    ##############################################
+
+    def __repr__(self):
+        return self.opcode_string
+        
     ##############################################
 
     @property
@@ -169,19 +192,26 @@ class Instruction(object):
 
     ##############################################
 
-    def __init__(self, name, description, opcodes):
+    def __init__(self, mnemonic, description, opcodes, alternate=None):
 
-        self.name = name
+        self.mnemonic = mnemonic
         self.description = description
+        self.alternate = alternate
 
-        self.opcodes = [Opcode(self, opcode) for opcode in opcodes]
+        self.opcodes = [Opcode(self, **opcode_dict) for opcode_dict in opcodes]
         
     ##############################################
 
     def __str__(self):
 
-        return self.name
+        return self.mnemonic
 
+    ##############################################
+
+    @property
+    def single_opcode(self):
+        return len(self.opcodes) == 1
+    
     ##############################################
 
     @property
@@ -209,20 +239,29 @@ class DecisionTree(object):
     ##############################################
 
     def _build(self, instructions):
+
+        """Build a decision tree using the mask.
+
+        Diverge on mask's nibbles from the higher to the lowest.
+
+        """
         
         for instruction in instructions.values():
             for opcode in instruction.opcodes:
-                keys = [opcode.opcode & mask for mask in (0xF000, 0x0F00, 0x00F0, 0x000F)]
-                # print([hex(key) for key in keys])
+                keys = [opcode.mask & nibble_mask
+                        for nibble_mask in (0xF000, 0x0F00, 0x00F0, 0x000F)]
                 tree1 = self._tree.setdefault(keys[0], dict())
                 tree2 = tree1.setdefault(keys[1], dict())
                 tree3 = tree2.setdefault(keys[2], dict())
-                tree3[keys[3]] = opcode
-
+                tree4 = tree3.setdefault(keys[3], dict())
+                tree4[opcode.opcode] = opcode
+        
     ##############################################
 
     def _simplify(self):
 
+        """ Compress the tree when a branch is alone. """
+        
         tree0 = self._tree
         for key0 in list(tree0):
             tree1 = self._tree[key0]
@@ -255,73 +294,56 @@ class DecisionTree(object):
 
     def print_tree(self):
         
-        self._print_tree(self._tree, 0)
+        self._print_tree(self._tree)
         
     ##############################################
 
-    def _print_tree(self, tree, level):
+    def _print_tree(self, tree, stack=None):
 
-        indentation = " "*2*level
-        for key in sorted(tree):
+        if stack is None:
+            stack = []
+        
+        indentation = " "*4*len(stack)
+        for key in sorted(tree, reverse=True):
             item = tree[key]
             if isinstance(item, dict):
-                print(indentation + "+ Ox{:04x}".format(key))
-                self._print_tree(item, level+1)
+                branch_stack = stack + [key]
+                mask = sum(branch_stack)
+                if key:
+                    print(indentation + "& Ox{:04x}".format(mask))
+                else:
+                    print(indentation + "*& Ox{:04x}".format(mask))
+                    # print(indentation + "True")
+                self._print_tree(item, branch_stack)
             else:
-                print(indentation + "+ Ox{:04x} Ox{:04x} {}".format(key, item.opcode, item.instruction))
-                
+                print(indentation + "= Ox{:04x} {}".format(item.opcode, item.instruction))
+
+    ##############################################
+
+    def print_masks(self):
+
+        masks = set()
+        for instruction in instructions.values():
+            for opcode in instruction.opcodes:
+                masks.add(opcode.mask)
+        masks = sorted(masks, reverse=True)
+        for mask in masks:
+            print("  Ox{:04x} {}".format(mask, bin(mask)))
+    
 ####################################################################################################
 
-import json
-import collections
+json_path = os.path.join(os.path.dirname(__file__), 'opcodes.json')
 
 instructions = collections.OrderedDict()
+with open(json_path) as f:
+    json_dict = json.load(f)
+    for mnemonic in sorted(json_dict.keys()):
+        d = json_dict[mnemonic]
+        instructions[mnemonic] = Instruction(mnemonic,
+                                             description=d['description'],
+                                             alternate=d.get('alternate', None),
+                                             opcodes=d['operations'])
 
-with open('opcodes.json') as f:
-    d = json.load(f)
-    for name in sorted(d.keys()):
-        description, opcodes = d[name]
-        instructions[name] = Instruction(name, description, opcodes)
-
-for instruction in instructions.values():
-    print()
-    print(instruction.name)
-    for i, opcode in enumerate(instruction.opcodes):
-        print("  {:2} 0x{:04x} 0x{:04x} | {} | {}".format(i,
-                                                          opcode.opcode, opcode.mask,
-                                                          opcode.opcode_string,
-                                                          opcode.operand_pattern))
-
-print("\nInstructions without operand:")
-for instruction in instructions.values():
-    # if instruction.no_operand:
-    for opcode in instruction.opcodes:
-        if opcode.no_operand:
-            print('  {:6s} 0x{:04x}'.format(instruction.name, opcode.opcode))
-
-print("\n32-bit Instructions:")
-for instruction in instructions.values():
-    for opcode in instruction.opcodes:
-        if opcode.opcode_size == 32:
-            print('  {:6s} 0x{:04x} 0x{:04x}'.format(instruction.name, opcode.opcode, opcode.mask))
-            
-print("\nOperand patterns:")
-operand_patterns = {}
-for instruction in instructions.values():
-    for opcode in instruction.opcodes:
-        if opcode.no_operand:
-            continue
-        if opcode.operand_pattern in operand_patterns:
-            operand_patterns[opcode.operand_pattern] += 1
-        else:
-            operand_patterns[opcode.operand_pattern] = 1
-for operand_pattern in sorted(operand_patterns):
-    print('  {:16} {:3}'.format(operand_pattern, operand_patterns[operand_pattern]))
-
-# decision_tree = DecisionTree(instructions)
-# print("\nDecision Tree:")
-# decision_tree.print_tree()
-        
 ####################################################################################################
 # 
 # End
