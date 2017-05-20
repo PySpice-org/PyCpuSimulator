@@ -463,12 +463,13 @@ class DecisionTree(object):
 
         """Build a decision tree using the mask.
 
-        Diverge on mask's nibbles from the higher to the lowest.
+        Diverge on mask's nibbles from the highest to the lowest.
 
         """
         
         for instruction in instructions.values():
             for opcode in instruction.opcodes:
+                print("mask Ox{:04x} opcode Ox{:04x}".format(opcode.mask, opcode.opcode))
                 keys = [opcode.mask & nibble_mask
                         for nibble_mask in (0xF000, 0x0F00, 0x00F0, 0x000F)]
                 tree1 = self._tree.setdefault(keys[0], dict())
@@ -495,21 +496,22 @@ class DecisionTree(object):
                     len3 = len(tree3)
                     if len3 == 1:
                         key3 = list(tree3.keys())[0]
-                        opcode = tree3[key3]
+                        opcode_tree = tree3[key3]
                         key23 = key2 + key3
                         if len2 == 1:
                             key123 = key1 + key23
                             if len1 == 1:
-                                self._tree[key0 + key123] = opcode
+                                self._tree[key0 + key123] = opcode_tree
                                 if key123:
                                     del tree0[key0] # tree1
                             else:
-                                tree1[key123] = opcode
+                                tree1[key123] = opcode_tree
                             if key23:
                                 del tree1[key1] # tree2
                         else:
-                            tree2[key23] = opcode
-                        del tree2[key2] # tree3
+                            tree2[key23] = opcode_tree
+                        if key2:
+                            del tree2[key2] # tree3
 
     ##############################################
 
@@ -550,7 +552,42 @@ class DecisionTree(object):
         masks = sorted(masks, reverse=True)
         for mask in masks:
             print("  Ox{:04x} {}".format(mask, bin(mask)))
-    
+
+    ##############################################
+
+    def find_instruction(self, bytecode):
+
+        # switch (opcode & 0xf000)
+        #   case 0x0000:
+        #       switch (opcode)
+        #         case 0x0000:
+        #         default:
+        #             switch (opcode & 0xfc00)
+        #               case 0x0400:
+        
+        nibbles = [(bytecode >> 4*i) & 0xF for i in range(4)]
+        print("bytecode Ox{:04x} Ob {:04b} {:04b} {:04b} {:04b}".format(bytecode, *nibbles))
+        nibbles = [bytecode & nibble_mask
+                   for nibble_mask in (0xF000, 0x0F00, 0x00F0, 0x000F)]
+        tree0 = self._tree
+        for key0 in sorted(tree0, reverse=True):
+            if nibbles[0] & key0:
+                print("& Ox{:04x}".format(key0))
+                tree1 = tree0[key0]
+                for key1 in sorted(tree1, reverse=True):
+                    if nibbles[1] & key1:
+                        print(' '*2 + "& Ox{:04x}".format(key0 + key1))
+                        tree2 = tree1[key1]
+                        for key2 in sorted(tree2, reverse=True):
+                            if nibbles[2] & key2:
+                                print(' '*4 + "& Ox{:04x}".format(key0 + key1 + key2))
+                                tree3 = tree2[key2]
+                                for key3 in sorted(tree3, reverse=True):
+                                    if nibbles[3] & key3:
+                                        print(' '*6 + "& Ox{:04x}".format(key0 + key1 + key2 + key3))
+                                        tree4 = tree3[key3]
+                                        print(tree4)
+                                        
 ####################################################################################################
 
 _json_path = os.path.join(os.path.dirname(__file__), 'opcodes.json')

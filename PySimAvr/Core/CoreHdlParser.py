@@ -18,68 +18,6 @@
 # 
 ####################################################################################################
 
-"""
-
-Micro Code Language
--------------------
-
-ASCII symbols are:
-
-* `` ` ``
-* ``!``
-* ``"``
-* ``#`` comment
-* ``$``
-* ``%``
-* ``&`` and
-* ``'``
-* ``()``
-* ``*`` multiplication
-* ``+`` addition
-* ``,``
-* ``-`` subtraction
-* ``.`` floating point
-* ``/`` division
-* ``:``
-* ``;`` statement separator
-* ``< >``
-* ``=``
-* ``?``
-* ``@``
-* ``[]`` addressing
-* ``\``
-* ``^`` xor
-* ``_`` allowed in name
-* ``{}``
-* ``|`` or
-* ``~`` not
-
-Compounds:
-
-* ``!=``  not equal
-* ``%=``
-* ``&=``
-* ``*=``
-* ``++`` increment
-* ``+=``
-* ``--`` decrement
-* ``-=``
-* ``->`
-* ``//``
-* ``/=``
-* ``<<=``
-* ``<=`` inferior equal 
-* ``==`` equal
-* ``>=`` superior equal
-* ``>>=``
-* ``^=``
-
-Ambiguous:
-
-* ``<-``
-
-"""
-
 ####################################################################################################
 
 import logging
@@ -88,7 +26,6 @@ import logging
 
 import ply.lex as lex
 import ply.yacc as yacc
-from ply.lex import TOKEN
 
 ####################################################################################################
 
@@ -117,20 +54,20 @@ class Parser(object):
     _operator_to_class = {operator_class.__operator__:operator_class
                           for operator_class in (
                                   Addition,
-                                  Subtraction,
-                                  Multiplication,
-                                  Division,
                                   And,
-                                  Or,
-                                  Xor,
-                                  LeftShift,
-                                  RightShift,
+                                  Division,
                                   Equal,
-                                  NotEqual,
-                                  Less,
                                   Greater,
-                                  LessEqual,
                                   GreaterEqual,
+                                  LeftShift,
+                                  Less,
+                                  LessEqual,
+                                  Multiplication,
+                                  NotEqual,
+                                  Or,
+                                  RightShift,
+                                  Subtraction,
+                                  Xor,
                           )
     }
     
@@ -138,7 +75,6 @@ class Parser(object):
 
     reserved = {
         'if' : 'IF',
-        # 'elif' : 'ELIF',
         'else' : 'ELSE',
     }
     
@@ -155,10 +91,6 @@ class Parser(object):
         'AT', 'DOLLAR',
         'NAME',
     ] + list(reserved.values())
-
-    # Declare the lexer states
-    # states = (
-    #     )
 
     ##############################################
 
@@ -225,7 +157,8 @@ class Parser(object):
     
     def t_NAME(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'
-        t.type = self.reserved.get(t.value, 'NAME') # Check for reserved words
+        # Check for reserved words
+        t.type = self.reserved.get(t.value, 'NAME')
         return t
 
     def t_BINARY_NUMBER(self, t):

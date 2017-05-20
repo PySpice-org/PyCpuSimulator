@@ -33,16 +33,14 @@ _module_logger = logging.getLogger(__name__)
 
 class NamedObject(object):
 
-    ##############################################    
-
     def __init__(self, name):
-
         self._name = name
-
-    ##############################################
 
     @property
     def name(self):
+        return self._name
+
+    def __str__(self):
         return self._name
     
 ####################################################################################################
@@ -91,7 +89,7 @@ class Memory(NamedObject):
 
     def two_complement(self, value):
         self.check_value(value)
-        return self.sup - value
+        return self.sup - value # +1 ?
     
     ##############################################
 
@@ -99,7 +97,7 @@ class Memory(NamedObject):
     def np_dtype(self):
         
         if self._cell_size == 8:
-            return  np.uint8
+            return np.uint8
         elif self._cell_size == 16:
             return np.uint16
         elif self._cell_size == 32:
@@ -116,7 +114,7 @@ class MemoryValueMixin(object):
     ##############################################
 
     def two_complement(self):
-        return self.sup - int(self)
+        return self.sup - int(self) # +1?
 
 ####################################################################################################
 
@@ -131,7 +129,7 @@ class Register(MemoryValueMixin, Memory):
         if cell_size is None:
             cell_size = self.__cell_size__
         
-        super(Register, self).__init__(name, cell_size)
+        Memory.__init__(self, name, cell_size)
         
         self._dtype = self.np_dtype
         self._value = self._dtype(0)
@@ -156,11 +154,6 @@ class Register(MemoryValueMixin, Memory):
 
     ##############################################
 
-    def __str__(self):
-        return self._name
-
-    ##############################################
-
     def str_value(self):
         return "{} = 0x{:X}".format(self._name, self._value)
     
@@ -177,18 +170,53 @@ class Register32(Register):
 
 class Register64(Register):
   __cell_size__ = 64
-  
+
+
 ####################################################################################################
 
-class RegisterMemory(NamedObject):
+class MappedRegister(MemoryValueMixin, Memory):
 
-    # RegisterFile
-    
+    ##############################################    
+
+    def __init__(self, name, memory_cell):
+
+        Memory.__init__(self, name, memory_cell.cell_size)
+        self._memory_cell = memory_cell
+
+    ##############################################
+
+    def reset(self):
+        self._memory_cell.set(0)
+
+    ##############################################
+
+    def __int__(self):
+        return int(self._memory_cell)
+
+    ##############################################
+
+    def set(self, value):
+        self._memory_cell.set(value)
+
+    ##############################################
+
+    def __str__(self):
+        return self._name + ' / ' + str(self._memory_cell)
+        
+    ##############################################
+
+    def str_value(self):
+        return self._name + ' / ' + self._memory_cell.str_value()
+
+####################################################################################################
+
+class RegisterFile(NamedObject):
+
     ##############################################    
 
     def __init__(self, name, registers):
 
-        super(RegisterMemory, self).__init__(name)
+        super(RegisterFile, self).__init__(name)
 
         self._registers = OrderedDict([(register.name, register)
                                        for register in registers])
@@ -244,6 +272,10 @@ class MemoryCell(MemoryValueMixin):
     def address(self):
         return self._address
 
+    @property
+    def cell_size(self):
+        return self._memory.cell_size
+    
     ##############################################
 
     def __int__(self):
@@ -291,9 +323,9 @@ class RomMemory(Memory):
     
     ##############################################
 
-    def __getitem__(self, address):
+    def __getitem__(self, address_slice):
 
-        return self._memory[address]
+        return self._memory[address_slice]
         
 ####################################################################################################
 
@@ -307,10 +339,10 @@ class RamMemory(RomMemory):
     
     ##############################################
 
-    def __setitem__(self, address, value):
+    def __setitem__(self, address_slice, value):
 
-        self._memory[address] = value
-        
+        self._memory[address_slice] = value
+
 ####################################################################################################
 
 class Core(object):
