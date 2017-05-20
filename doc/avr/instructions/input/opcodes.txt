@@ -1,0 +1,393 @@
+ADC - Add with Carry
+0001 11rd dddd rrrr
+
+ADD - Add without Carry
+0000 11rd dddd rrrr
+
+ADIW - Add Immediate to Word
+1001 0110 KKdd KKKK
+
+AND - Logical AND
+0010 00rd dddd rrrr
+
+ANDI - Logical AND with Immediate
+0111 KKKK dddd KKKK
+
+ASR - Arithmetic Shift Right
+1001 010d dddd 0101
+
+BCLR - Bit Clear in SREG
+1001 0100 1sss 1000
+
+BLD - Bit Load from the T Flag in SREG to a Bit in Register
+1111 100d dddd 0bbb
+
+BRBC - Branch if Bit in SREG is Cleared
+1111 01kk kkkk ksss
+
+BRBS - Branch if Bit in SREG is Set
+1111 00kk kkkk ksss
+
+BRCC - Branch if Carry Cleared
+1111 01kk kkkk k000
+
+BRCS - Branch if Carry Set
+1111 00kk kkkk k000
+
+BREAK - Break
+1001 0101 1001 1000
+
+BREQ - Branch if Equal
+1111 00kk kkkk k001
+
+BRGE - Branch if Greater or Equal (Signed)
+1111 01kk kkkk k100
+
+BRHC - Branch if Half Carry Flag is Cleared
+1111 01kk kkkk k101
+
+BRHS - Branch if Half Carry Flag is Set
+1111 00kk kkkk k101
+
+BRID - Branch if Global Interrupt is Disabled
+1111 01kk kkkk k111
+
+BRIE - Branch if Global Interrupt is Enabled
+1111 00kk kkkk k111
+
+BRLO - Branch if Lower (Unsigned)
+1111 00kk kkkk k000
+
+BRLT - Branch if Less Than (Signed)
+1111 00kk kkkk k100
+
+BRMI - Branch if Minus
+1111 00kk kkkk k010
+
+BRNE - Branch if Not Equal
+1111 01kk kkkk k001
+
+BRPL - Branch if Plus
+1111 01kk kkkk k010
+
+BRSH - Branch if Same or Higher (Unsigned)
+1111 01kk kkkk k000
+
+BRTC - Branch if the T Flag is Cleared
+1111 01kk kkkk k110
+
+BRTS - Branch if the T Flag is Set
+1111 00kk kkkk k110
+
+BRVC - Branch if Overflow Cleared
+1111 01kk kkkk k011
+
+BRVS - Branch if Overflow Set
+1111 00kk kkkk k011
+
+BSET - Bit Set in SREG
+1001 0100 0sss 1000
+
+BST - Bit Store from Bit in Register to T Flag in SREG
+1111 101d dddd 0bbb
+
+CALL - Long Call to a Subroutine
+1001 010k kkkk 111k kkkk kkkk kkkk kkkk
+
+CBI - Clear Bit in I/O Register
+1001 1000 AAAA Abbb
+
+CBR - Clear Bits in Register
+see ANDI
+
+CLC - Clear Carry Flag
+1001 0100 1000 1000
+
+CLH - Clear Half Carry Flag
+1001 0100 1101 1000
+
+CLI - Clear Global Interrupt Flag
+1001 0100 1111 1000
+
+CLN - Clear Negative Flag
+1001 0100 1010 1000
+
+CLR - Clear Register
+0010 01dd dddd dddd
+
+CLS - Clear Signed Flag
+1001 0100 1100 1000
+
+CLT - Clear T Flag
+1001 0100 1110 1000
+
+CLV - Clear Overflow Flag
+1001 0100 1011 1000
+
+CLZ - Clear Zero Flag
+1001 0100 1001 1000
+
+COM - One’s Complement
+1001 010d dddd 0000
+
+CP - Compare
+0001 01rd dddd rrrr
+
+CPC - Compare with Carry
+0000 01rd dddd rrrr
+
+CPI - Compare with Immediate
+0011 KKKK dddd KKKK
+
+CPSE - Compare Skip if Equal
+0001 00rd dddd rrrr
+
+DEC - Decrement
+1001 010d dddd 1010
+
+DES - Data Encryption Standard
+1001 0100 KKKK 1011
+
+EICALL - Extended Indirect Call to Subroutine
+1001 0101 0001 1001
+
+EIJMP - Extended Indirect Jump
+1001 0100 0001 1001
+
+ELPM - Extended Load Program Memory
+(i) 1001 0101 1101 1000
+(ii) 1001 000d dddd 0110
+(iii) 1001 000d dddd 0111
+
+EOR - Exclusive OR
+0010 01rd dddd rrrr
+
+FMUL - Fractional Multiply Unsigned
+0000 0011 0ddd 1rrr
+
+FMULS - Fractional Multiply Signed
+0000 0011 1ddd 0rrr
+
+FMULSU - Fractional Multiply Signed with Unsigned
+0000 0011 1ddd 1rrr
+
+ICALL - Indirect Call to Subroutine
+1001 0101 0000 1001
+
+IJMP - Indirect Jump
+1001 0100 0000 1001
+
+IN - Load an I/O Location to Register
+1011 0AAd dddd AAAA
+
+INC - Increment
+1001 010d dddd 0011
+
+JMP - Jump
+1001 010k kkkk 110k kkkk kkkk kkkk kkkk
+
+LAC - Load And Clear
+1001 001r rrrr 0110
+
+LAS - Load And Set
+1001 001r rrrr 0101
+
+LAT - Load And Toggle
+1001 001r rrrr 0111
+
+LD - Load Indirect from Data Space to Register using Index X
+(i) 1001 000d dddd 1100
+(ii) 1001 000d dddd 1101
+(iii) 1001 000d dddd 1110
+
+LD (LDD) - Load Indirect from Data Space to Register using Index Y
+(i) 1000 000d dddd 1000
+(ii) 1001 000d dddd 1001
+(iii) 1001 000d dddd 1010
+(iv) 10q0 qq0d dddd 1qqq
+     
+LD (LDD) - Load Indirect From Data Space to Register using Index Z
+(i) 1000 000d dddd 0000
+(ii) 1001 000d dddd 0001
+(iii) 1001 000d dddd 0010
+(iv) 10q0 qq0d dddd 0qqq
+
+LDI - Load Immediate
+1110 KKKK dddd KKKK
+
+LDS - Load Direct from Data Space
+1001 000d dddd 0000 kkkk kkkk kkkk kkkk
+
+LDS (16-bit) - Load Direct from Data Space
+1010 0kkk dddd kkkk
+
+LPM - Load Program Memory
+(i) 1001 0101 1100 1000
+(ii) 1001 000d dddd 0100
+(iii) 1001 000d dddd 0101
+
+LSL - Logical Shift Left
+0000 11dd dddd dddd
+
+LSR - Logical Shift Right
+1001 010d dddd 0110
+
+MOV - Copy Register
+0010 11rd dddd rrrr
+
+MOVW - Copy Register Word
+0000 0001 dddd rrrr
+
+MUL - Multiply Unsigned
+1001 11rd dddd rrrr
+
+MULS - Multiply Signed
+0000 0010 dddd rrrr
+
+MULSU - Multiply Signed with Unsigned
+0000 0011 0ddd 0rrr
+
+NEG - Two’s Complement
+1001 010d dddd 0001
+
+NOP - No Operation
+0000 0000 0000 0000
+
+OR - Logical OR
+0010 10rd dddd rrrr
+
+ORI - Logical OR with Immediate
+0110 KKKK dddd KKKK
+
+OUT - Store Register to I/O Location
+1011 1AAr rrrr AAAA
+
+POP - Pop Register from Stack
+1001 000d dddd 1111
+
+PUSH - Push Register on Stack
+1001 001d dddd 1111
+
+RCALL - Relative Call to Subroutine
+1101 kkkk kkkk kkkk
+
+RET - Return from Subroutine
+1001 0101 0000 1000
+
+RETI - Return from Interrupt
+1001 0101 0001 1000
+
+RJMP - Relative Jump
+1100 kkkk kkkk kkkk
+
+ROL - Rotate Left trough Carry
+0001 11dd dddd dddd
+
+ROR - Rotate Right through Carry
+1001 010d dddd 0111
+
+SBC - Subtract with Carry
+0000 10rd dddd rrrr
+
+SBCI - Subtract Immediate with Carry
+0100 KKKK dddd KKKK
+
+SBI - Set Bit in I/O Register
+1001 1010 AAAA Abbb
+
+SBIC - Skip if Bit in I/O Register is Cleared
+1001 1001 AAAA Abbb
+
+SBIS - Skip if Bit in I/O Register is Set
+1001 1011 AAAA Abbb
+
+SBIW - Subtract Immediate from Word
+1001 0111 KKdd KKKK
+
+SBR - Set Bits in Register
+0110 KKKK dddd KKKK
+
+SBRC - Skip if Bit in Register is Cleared
+1111 110r rrrr 0bbb
+
+SBRS - Skip if Bit in Register is Set
+1111 111r rrrr 0bbb
+
+SEC - Set Carry Flag
+1001 0100 0000 1000
+
+SEH - Set Half Carry Flag
+1001 0100 0101 1000
+
+SEI - Set Global Interrupt Flag
+1001 0100 0111 1000
+
+SEN - Set Negative Flag
+1001 0100 0010 1000
+
+SER - Set all Bits in Register
+1110 1111 dddd 1111
+
+SES - Set Signed Flag
+1001 0100 0100 1000
+
+SET - Set T Flag
+1001 0100 0110 1000
+
+SEV - Set Overflow Flag
+1001 0100 0011 1000
+
+SEZ - Set Zero Flag
+1001 0100 0001 1000
+1001 0101 1000 1000
+
+SLEEP - Sleep
+1001 0101 1000 1000
+
+SPM - Store Program Memory
+1001 0101 1110 1000
+
+SPM #2 - Store Program Memory
+(i)-(iii) 1001 0101 1110 1000
+(iv)-(vi) 1001 0101 1111 1000
+
+ST - Store Indirect From Register to Data Space using Index X
+(i) 1001 001r rrrr 1100 
+(ii) 1001 001r rrrr 1101 
+(iii) 1001 001r rrrr 1110
+
+ST (STD) - Store Indirect From Register to Data Space using Index Y
+(i) 1000 001r rrrr 1000
+(ii) 1001 001r rrrr 1001
+(iii) 1001 001r rrrr 1010
+(iv) 10q0 qq1r rrrr 1qqq
+
+ST (STD) - Store Indirect From Register to Data Space using Index Z
+(i) 1000 001r rrrr 0000 
+(ii) 1001 001r rrrr 0001 
+(iii) 1001 001r rrrr 0010 
+(iv) 10q0 qq1r rrrr 0qqq
+
+STS - Store Direct to Data Space
+1001 001d dddd 0000 kkkk kkkk kkkk kkkk
+
+STS (16-bit) - Store Direct to Data Space
+1010 1kkk dddd kkkk
+
+SUB - Subtract without Carry
+0001 10rd dddd rrrr
+
+SUBI - Subtract Immediate
+0101 KKKK dddd KKKK
+
+SWAP - Swap Nibbles
+1001 010d dddd 0010
+
+TST - Test for Zero or Minus
+0010 00dd dddd dddd
+
+WDR - Watchdog Reset
+1001 0101 1010 1000
+
+XCH - Exchange
+1001 001r rrrr 0100
