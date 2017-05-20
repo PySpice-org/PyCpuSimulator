@@ -33,7 +33,7 @@ def to_absolute_path(path):
 ####################################################################################################
 
 def parent_directory_of(file_name, step=1):
-    
+
     directory = file_name
     for i in range(step):
         directory = os.path.dirname(directory)
@@ -42,7 +42,7 @@ def parent_directory_of(file_name, step=1):
 ####################################################################################################
 
 def find(file_name, directories):
-    
+
     if isinstance(directories, bytes):
         directories = (directories,)
     for directory in directories:
@@ -62,7 +62,7 @@ def find_alias(directory, file_names):
             return absolut_file_name
 
     raise NameError("Any file in %s found in directory %s" % (str(file_names), directory))
-            
+
 ####################################################################################################
 #
 # End

@@ -178,7 +178,7 @@ class Opcode(object):
         self._operation = operation
         self._flags = flags
         self._cycles = cycles
-        
+
         self._parse_opcode()
 
     ##############################################
@@ -246,13 +246,13 @@ class Opcode(object):
         generate an opcode mask, an opcode value and an operand bit pattern.
 
         """
-        
+
         opcode = ''.join(self._opcode_string.split(' '))
-        
+
         self._opcode_size = len(opcode)
         if self._opcode_size not in (16, 32):
             raise ValueError('%s', opcode)
-        
+
         self._chunks = chunks = []
         for c in opcode[:16]:
             if c in ('0', '1'):
@@ -263,12 +263,12 @@ class Opcode(object):
                 chunks.append(chunk)
             else:
                 chunks[-1] += chunk
-        
+
         if self._opcode_size == 32:
             self._operand_32 = opcode[16:]
         else:
             self._operand_32 = None
-        
+
         #! Opcode value
         self._opcode = 0
         #! Opcode mask
@@ -277,7 +277,7 @@ class Opcode(object):
         #! Run length encoding of the operand pattern where opcode bit are represented by '_'
         self._operand_pattern = ''
         self._opcode_operands = {}
-        
+
         operand_size = {}
         count = 0
         shift = 16
@@ -386,16 +386,16 @@ class Opcode(object):
         # Opcodes with less significant bits (e.g. xxxx x100) introduces steps
         if self._mask & 1:
             raise NotImplementedError
-        
+
         last_chunk = self._chunks[-1]
         if isinstance(last_chunk, OpcodeChunk):
             opcode_step = int(last_chunk)
             print('low bit opcode', last_chunk, int(last_chunk))
         else:
             opcode_step = 0
-        
+
         operand_intervals = self._merge_operands()
-        
+
         # Compute a cartesian product of the operand chuncks
         bytecode_intervals = []
         for combination in itertools.product((0, 1), repeat=len(operand_intervals)):
@@ -463,7 +463,7 @@ class Instruction(InstructionBase):
 
         super(Instruction, self).__init__(mnemonic, description)
         self._alternate = alternate
-        
+
         self._opcodes = [Opcode(self, **opcode_dict) for opcode_dict in opcodes]
 
     ##############################################
@@ -591,9 +591,9 @@ class DecisionTree(object):
     def __init__(self, instruction_set):
 
         self._instruction_set = instruction_set
-        
+
         opcode_set = instruction_set.opcode_set()
-        
+
         # opcode_set.sort(key=lambda opcode: opcode.opcode)
         # for opcode in opcode_set:
         #     string_format = "{:016b}  0x{:04x}  {:016b}  {:6}  {}"
@@ -636,7 +636,7 @@ class DecisionTree(object):
         """Group opcodes having the same bit values for the significant bits defined by mask."""
 
         sorted_opcode_set = sorted(opcode_set, key=lambda opcode: opcode.opcode & mask)
-        
+
         # print('\nPartitioning of the opcode set with mask:\n{:016b}'.format(mask))
         partitions = []
         partition = None
@@ -657,7 +657,7 @@ class DecisionTree(object):
             #                                 coloured_mask,
             #                                 opcode.instruction.mnemonic, opcode))
         partitions.append(partition)
-        
+
         return partitions
 
     ##############################################
@@ -677,21 +677,21 @@ class DecisionTree(object):
         if not mask and len(opcode_set) == 1:
             # print('Terminate for null mask and singleton')
             return opcode_set[0]
-        
+
         # Construct an new node
         node = DecisionTreeNode()
-        
+
         # Decide about default node
         if not mask:
             singleton, opcode_set, mask = self._get_default(opcode_set, gmask)
             node.default = singleton
-        
+
         # label the current node
         node._mask = mask
-        
+
         # make partition of the opcode set using mask
         partitions = self._partitions(opcode_set, mask)
-        
+
         # recurse on subsets
         for partition in partitions:
             label = partition[0].opcode & mask
@@ -739,7 +739,7 @@ class InstructionSet(collections.OrderedDict):
         super(InstructionSet, self).__init__()
 
         self._decision_tree = None
-        
+
         if yaml_path is not None:
             self._load_yaml(yaml_path)
 
@@ -803,7 +803,7 @@ class InstructionSet(collections.OrderedDict):
     def check_for_clash(self, verbose=False):
 
         number_of_bytecodes = 2**16
-        
+
         bytecode_array = np.zeros(number_of_bytecodes, dtype=np.uint64)
         opcode_map = {}
         opcode_clash = collections.OrderedDict()
@@ -821,7 +821,7 @@ class InstructionSet(collections.OrderedDict):
                         #                      format_as_nibble(bytecode)))
                     else:
                         bytecode_array[bytecode] = id(opcode)
-        
+
         for opcode_id1, opcode_id2 in opcode_clash.items():
             opcode1 = opcode_map[opcode_id1]
             instruction1 = opcode1.instruction
@@ -830,7 +830,7 @@ class InstructionSet(collections.OrderedDict):
             message = "Clash for  {} {}  with  {} {}"
             print(message.format(instruction1.mnemonic, opcode1.opcode_string,
                                  instruction2.mnemonic, opcode2.opcode_string))
-        
+
         if verbose:
             free_bytecodes = np.where(bytecode_array == 0)[0]
             free_intervals = []

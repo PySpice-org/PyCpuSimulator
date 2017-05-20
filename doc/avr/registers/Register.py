@@ -38,7 +38,7 @@ class BitRegister(object):
 
     def __repr__(self):
         return '{} 0x{:03x}({})'.format(self.name, self.byte_register.address, bit)
-    
+
 ####################################################################################################
 
 class ByteRegister(object):
@@ -49,7 +49,7 @@ class ByteRegister(object):
 
         self.address = address
         self.name = name
-        
+
         if bits is not None:
             self.bits = [BitRegister(self, i, name)
                          for i, name in enumerate(bits)
@@ -61,7 +61,7 @@ class ByteRegister(object):
 
     def __repr__(self):
         return '{} 0x{:03x}(0:7)'.format(self.name, self.address)
-            
+
 ####################################################################################################
 
 class NibbleRegister(ByteRegister):
@@ -70,7 +70,7 @@ class NibbleRegister(ByteRegister):
 
     def __repr__(self):
         return '{} 0x{:03x}(0:3)'.format(self.name, self.address)
-        
+
 ####################################################################################################
 
 _csv_name = 'atmega-640-1280-2560.register-summary.csv'
@@ -110,7 +110,7 @@ with open(_csv_path) as f:
 
 for address in range(number_of_registers):
     print(sram[address])
-        
+
 ####################################################################################################
 # 
 # End

@@ -50,7 +50,7 @@ with open('operations.txt') as f:
             program = parser.parse(line)
             print()
             print(program)
-            
+
 ####################################################################################################
 # 
 # End

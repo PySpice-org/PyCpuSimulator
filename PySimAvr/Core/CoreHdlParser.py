@@ -70,14 +70,14 @@ class Parser(object):
                                   Xor,
                           )
     }
-    
+
     ##############################################
 
     reserved = {
         'if' : 'IF',
         'else' : 'ELSE',
     }
-    
+
     tokens = [
         'SEMICOLON',
         'LEFT_PARENTHESIS', 'RIGHT_PARENTHESIS',
@@ -115,7 +115,7 @@ class Parser(object):
         # return t
         
     t_ignore_COMMENT = r'\#[^\n]*'
-    
+
     ##############################################
 
     t_SEMICOLON = r';'
@@ -125,9 +125,9 @@ class Parser(object):
 
     t_LEFT_BRACE = r'\{'
     t_RIGHT_BRACE = r'\}'
-    
+
     t_SET = r'='
-    
+
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_TIMES = r'\*'
@@ -145,7 +145,7 @@ class Parser(object):
     t_GREATER = r'>'
     t_LESS_EQUAL = r'<='
     t_GREATER_EQUAL = r'>='
-                
+
     t_LEFT_BRACKET = r'\['
     t_RIGHT_BRACKET = r'\]'
     t_COMMA = r','
@@ -154,7 +154,7 @@ class Parser(object):
 
     t_AT = r'@'
     t_DOLLAR = r'\$'
-    
+
     def t_NAME(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'
         # Check for reserved words
@@ -180,7 +180,7 @@ class Parser(object):
         r'\d+'
         t.value = int(t.value)
         return t
-    
+
     ##############################################
     #
     # Grammar
@@ -205,13 +205,13 @@ class Parser(object):
     def p_error(self, p):
         self._logger.error("Syntax error at '%s'", p.value)
         raise NameError('Parser error')
-    
+
     start = 'program'
 
     def p_empty(self, p):
         'empty :'
         pass
-    
+
     def p_program(self, p):
         '''program : statement
                    | program statement
@@ -230,7 +230,7 @@ class Parser(object):
                      | if_statement
         '''
         p[0] = p[1]
-            
+
     def p_expression_statement(self, p):
         '''expression_statement : assignation SEMICOLON
                                 | function SEMICOLON
@@ -248,7 +248,7 @@ class Parser(object):
             p[0] = p[1]
         else:
             p[0] = StatementList(p[1])
-            
+
     def p_compound_statement(self, p):
         '''compound_statement : LEFT_BRACE statement_list RIGHT_BRACE
                               | LEFT_BRACE RIGHT_BRACE
@@ -277,7 +277,7 @@ class Parser(object):
             p[0] = p[1]
         else:
             p[0] = StatementList(p[1])
-            
+
     def p_function(self, p):
         '''function : NAME LEFT_PARENTHESIS expression_list RIGHT_PARENTHESIS
                     | NAME LEFT_PARENTHESIS RIGHT_PARENTHESIS
@@ -286,7 +286,7 @@ class Parser(object):
             p[0] = Function(p[1], p[3])
         else:
             p[0] = Function(p[1])
-            
+
     def p_assignation(self, p):
         'assignation : destination SET expression'
         p[0] = Assignation(p[3], p[1]) # eval value first
@@ -306,7 +306,7 @@ class Parser(object):
         '''
         # | NAME LEFT_BRACKET NAME COMMA NAME RIGHT_BRACKET
         p[0] = p[1]
-    
+
     def p_number(self, p):
         # constant
         '''constant : DECIMAL_NUMBER
@@ -315,7 +315,7 @@ class Parser(object):
                     | HEX_NUMBER
         '''
         p[0] = Constant(p[1])
-    
+
     def p_register(self, p):
         # R
         '''register : NAME
@@ -333,13 +333,13 @@ class Parser(object):
         '''constant : DOLLAR NAME
         '''
         p[0] = ConstantOperand(p[2])
-        
+
     def p_register_concatenation(self, p):
         # Xh:Xl
         '''register_concatenation : register COLON register
         '''
         p[0] = Concatenation(p[1], p[3])
-   
+
     def p_register_bit(self, p):
         # R[b]
         '''register_bit : register LEFT_BRACKET expression RIGHT_BRACKET
@@ -357,7 +357,7 @@ class Parser(object):
         '''addressing : LEFT_BRACKET expression RIGHT_BRACKET
         '''
         p[0] = Addressing('RAM', p[2])
-        
+
     def p_source(self, p):
         '''expression : register
                       | register_concatenation
@@ -367,7 +367,7 @@ class Parser(object):
                       | constant
         '''
         p[0] = p[1]
-    
+
     def p_binary_operation(self, p):
         # ... OP ...
         '''expression : expression PLUS expression
@@ -387,7 +387,7 @@ class Parser(object):
                       | expression GREATER_EQUAL expression
         '''
         p[0] = self._operator_to_class[p[2]](p[1], p[3])    
-    
+
     ##############################################
 
     def __init__(self):
@@ -407,7 +407,7 @@ class Parser(object):
 
         self._previous_newline_position = 0
         self._program = Program()
-        
+
     ##############################################
 
     def parse(self, text):
@@ -415,7 +415,7 @@ class Parser(object):
         self._reset() # Fixme: after ?
         self._parser.parse(text, lexer=self._lexer)
         return self._program
-        
+
     ##############################################
 
     def test_lexer(self, text):

@@ -41,13 +41,13 @@ class StatementList(object):
     def __nonzero__(self):
 
         return bool(self._statements)
-    
+
     ##############################################
 
     def __iter__(self):
 
         return iter(self._statements)
-        
+
     ##############################################
 
     def add(self, statement):
@@ -84,10 +84,10 @@ class ConstantOperand(Operand):
 class Register(object):
     def __init__(self, name):
         self._name = name
-        
+
     def __str__(self):
         return self._name
-    
+
 ####################################################################################################
 
 class Constant(object):
@@ -96,10 +96,10 @@ class Constant(object):
 
     def __int__(self):
         return self._value
-        
+
     def __str__(self):
         return hex(self._value)
-    
+
 ####################################################################################################
 
 class If(object):
@@ -140,11 +140,11 @@ class If(object):
         string += '}'
 
         return string
-        
+
     ##############################################
         
     def __str__(self):
-        
+
         if self._then_expression or self._else_expression:
             if_string = 'if (' + str(self._condition) + ') '
             if_string += self._str_compound_expression(self._then_expression)
@@ -153,13 +153,13 @@ class If(object):
                 if_string += self._str_compound_expression(self._else_expression)
 
         return if_string
-            
+
 ####################################################################################################
 
 class Expression(object):
 
     __number_of_operands__ = None
-    
+
     ##############################################
 
     def __init__(self, *args, **kwargs):
@@ -167,20 +167,20 @@ class Expression(object):
         if (self.__number_of_operands__ is not None
             and len(args) != self.__number_of_operands__):
             raise ValueError("Wrong number of operands")
-        
+
         self._operands = args
 
     ##############################################
 
     def iter_on_operands(self):
         return iter(self._operands)
-    
+
     ##############################################
 
     @property
     def operand(self):
         return self._operands[0]
-    
+
     @property
     def operand1(self):
         return self._operands[0]
@@ -195,10 +195,10 @@ class Expression(object):
 
 class UnaryExpression(Expression):
     __number_of_operands__ = 1
-    
+
 class BinaryExpression(Expression):
     __number_of_operands__ = 2
-    
+
 class TernaryExpression(Expression):
     __number_of_operands__ = 3
 
@@ -218,7 +218,7 @@ class Function(Expression):
     @property
     def name(self):
         return self._name
-    
+
     ##############################################
         
     def __str__(self):
@@ -245,7 +245,7 @@ class Assignation(BinaryExpression):
     @property
     def value(self):
         return self._operands[0]
-    
+
     def __str__(self):
         # ←
         return ' '.join((str(self.destination), '<-', str(self.value)))
@@ -256,14 +256,14 @@ class Addressing(UnaryExpression):
     def __init__(self, memory, address):
         super(Addressing, self).__init__(address)
         self._memory = memory
-    
+
     @property
     def memory(self):
         return self._memory
-        
+
     def __str__(self):
         return "{}[{}]".format(self._memory, str(self.operand))
-        
+
 ####################################################################################################
 
 class Concatenation(BinaryOperator):
@@ -272,11 +272,11 @@ class Concatenation(BinaryOperator):
 class Bit(BinaryExpression):
     def __str__(self):
         return "{}[{}]".format(self.operand1, self.operand2)
-    
+
 class BitRange(TernaryExpression):
     def __str__(self):
         return "{}[{}..{}]".format(str(self.operand1), str(self.operand2), str(self.operand3))
-    
+
 class LowerNibble(TernaryExpression):
     def __str__(self):
         return str(self.operand) + "[3:0]"
@@ -284,7 +284,7 @@ class LowerNibble(TernaryExpression):
 class UpperNibble(TernaryExpression):
     def __str__(self):
         return str(self.operand) + "op1[7:4]"
-    
+
 ####################################################################################################
 
 class Addition(BinaryOperator):
@@ -335,7 +335,7 @@ class LessEqual(BinaryOperator):
 
 class GreaterEqual(BinaryOperator):
     __operator__ = '>='
-    
+
 ####################################################################################################
 # 
 # End

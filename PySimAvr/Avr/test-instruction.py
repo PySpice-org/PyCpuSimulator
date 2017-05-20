@@ -75,20 +75,20 @@ if False:
     for instruction in instruction_set.iter_on_instructions():
         if not instruction.single_opcode:
             print(' ', instruction.mnemonic)
-    
+
     print("\n32-bit Opcodes:")
     for instruction in instruction_set.iter_on_instructions():
         for opcode in instruction.opcodes:
             if opcode.opcode_size == 32:
                 print('  {:6s} 0x{:04x} 0x{:04x}'.format(instruction.mnemonic, opcode.opcode, opcode.mask))
-    
+
     print("\nOpcodes without operand:")
     for instruction in instruction_set.iter_on_instructions():
         # if instruction.no_operand:
         for opcode in instruction.opcodes:
             if opcode.no_operand:
                 print('  {:6s} 0x{:04x}'.format(instruction.mnemonic, opcode.opcode))
-    
+
     print("\nOperand patterns:")
     operand_patterns = {}
     for instruction in instruction_set.iter_on_instructions():

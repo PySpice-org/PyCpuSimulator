@@ -42,7 +42,7 @@ class NamedObject(object):
 
     def __str__(self):
         return self._name
-    
+
 ####################################################################################################
         
 class Memory(NamedObject):
@@ -65,7 +65,7 @@ class Memory(NamedObject):
     @property
     def inf(self):
         return 0
-    
+
     ##############################################
 
     @property
@@ -77,7 +77,7 @@ class Memory(NamedObject):
     def check_value(self, value):
         if value < self.inf or value > self.sup:
             raise ValueError("Value is out of range")
-    
+
     ##############################################
 
     def truncate(self, value):
@@ -90,12 +90,12 @@ class Memory(NamedObject):
     def two_complement(self, value):
         self.check_value(value)
         return self.sup - value # +1 ?
-    
+
     ##############################################
 
     @property
     def np_dtype(self):
-        
+
         if self._cell_size == 8:
             return np.uint8
         elif self._cell_size == 16:
@@ -121,19 +121,19 @@ class MemoryValueMixin(object):
 class Register(MemoryValueMixin, Memory):
 
     __cell_size__ = None
-    
+
     ##############################################    
 
     def __init__(self, name, cell_size=None):
 
         if cell_size is None:
             cell_size = self.__cell_size__
-        
+
         Memory.__init__(self, name, cell_size)
-        
+
         self._dtype = self.np_dtype
         self._value = self._dtype(0)
-        
+
     ##############################################
 
     def reset(self):
@@ -156,7 +156,7 @@ class Register(MemoryValueMixin, Memory):
 
     def str_value(self):
         return "{} = 0x{:X}".format(self._name, self._value)
-    
+
 ####################################################################################################
     
 class Register8(Register):
@@ -164,7 +164,7 @@ class Register8(Register):
 
 class Register16(Register):
   __cell_size__ = 16
-  
+
 class Register32(Register):
   __cell_size__ = 32
 
@@ -202,7 +202,7 @@ class MappedRegister(MemoryValueMixin, Memory):
 
     def __str__(self):
         return self._name + ' / ' + str(self._memory_cell)
-        
+
     ##############################################
 
     def str_value(self):
@@ -275,7 +275,7 @@ class MemoryCell(MemoryValueMixin):
     @property
     def cell_size(self):
         return self._memory.cell_size
-    
+
     ##############################################
 
     def __int__(self):
@@ -295,7 +295,7 @@ class MemoryCell(MemoryValueMixin):
 
     def str_value(self):
         return str(self) + " = 0x{:X}".format(int(self))
-    
+
 ####################################################################################################
 
 class RomMemory(Memory):
@@ -309,7 +309,7 @@ class RomMemory(Memory):
         self._memory = np.zeros(size, dtype=self.np_dtype)
         if data is not None:
             self._memory[...] = data
-    
+
     ##############################################
 
     @property
@@ -320,13 +320,13 @@ class RomMemory(Memory):
 
     def cell(self, address):
         return MemoryCell(self, address)
-    
+
     ##############################################
 
     def __getitem__(self, address_slice):
 
         return self._memory[address_slice]
-        
+
 ####################################################################################################
 
 class RamMemory(RomMemory):
@@ -336,7 +336,7 @@ class RamMemory(RomMemory):
     def reset(self):
 
         self._memory[...] = 0
-    
+
     ##############################################
 
     def __setitem__(self, address_slice, value):
@@ -348,7 +348,7 @@ class RamMemory(RomMemory):
 class Core(object):
 
     _logger = _module_logger.getChild('Core')
-    
+
     ##############################################
 
     def __init__(self, memories):
@@ -357,7 +357,7 @@ class Core(object):
 
         self._cycles = 0 # could be a register
         self._modified_registers = set()
-        
+
     ##############################################
 
     @property
@@ -375,7 +375,7 @@ class Core(object):
     def reset_trackers(self):
 
         self._modified_registers = set()
-    
+
     ##############################################
 
     def increment_cycle(self, cycles):
@@ -413,13 +413,13 @@ class Core(object):
             raise NameError("Forbidden operation, at least one register operand is required")
         else:
             return registers
-        
+
     ##############################################
 
     def eval_statement(self, level, statement):
 
         self._logger.debug('')
-        
+
         statement_class = statement.__class__.__name__
         print('  '*level + statement_class, statement)
         if statement_class == 'Function':
@@ -432,7 +432,7 @@ class Core(object):
             value = evaluator(level, statement, *args)
         else:
             value = evaluator(level, statement)
-            
+
         if value is not None:
             if isinstance(value, int):
                 value_string = hex(value)
@@ -441,7 +441,7 @@ class Core(object):
             print('  '*(level+1) + '=', str(value_string))
 
         return value
-    
+
     ##############################################
     
     def run_ast_program(self, program):
@@ -452,7 +452,7 @@ class Core(object):
             print(' | '.join([register.str_value() for register in self._modified_registers]))
             # self.memory['REGISTER'].dump()
             self.reset_trackers()
-            
+
     ##############################################
 
     def eval_If(self, level, statement):
@@ -477,7 +477,7 @@ class StandardCore(Core):
     the Numpy cell.
 
     """
-    
+
     ##############################################
         
     def eval_Constant(self, level, statement):
@@ -504,7 +504,7 @@ class StandardCore(Core):
         cell.set(value)
         self._modified_registers.add(cell)
         print('  '*(level+1) + '{} <- 0x{:x}'.format(cell, int_value))
-    
+
     ##############################################
 
     def eval_Addressing(self, level, statement, address):
@@ -515,7 +515,7 @@ class StandardCore(Core):
         memory = self.memory[statement.memory]
         # return memory[address]
         return memory.cell(address)
-    
+
     ##############################################
         
     def eval_Concatenation(self, level, statement, operand1, operand2):
@@ -552,7 +552,7 @@ class StandardCore(Core):
     ##############################################
     
     def eval_Addition(self, level, statement, operand1, operand2):
-        
+
         return int(operand1) + int(operand2)
 
     ##############################################
@@ -561,7 +561,7 @@ class StandardCore(Core):
 
         # operand1 must be a register
         return max(int(operand1) + int(operand2), operand1.sup)
-    
+
     ##############################################
 
     def eval_Subtraction(self, level, statement, operand1, operand2):
@@ -571,13 +571,13 @@ class StandardCore(Core):
     ##############################################
     
     def eval_SaturatedSubtraction(self, level, statement, operand1, operand2):
-        
+
         return min(int(operand1) - int(operand2), 0)
-    
+
     ##############################################
 
     def eval_Multiplication(self, level, statement, operand1, operand2):
-        
+
         return int(operand1) * int(operand2)
 
     ##############################################
@@ -591,7 +591,7 @@ class StandardCore(Core):
     def eval_TwoComplement(self, level, statement, operand1):
 
         return operand1.two_complement()
-    
+
     ##############################################
 
     def eval_And(self, level, statement, operand1, operand2):
@@ -609,7 +609,7 @@ class StandardCore(Core):
     def eval_Xor(self, level, statement, operand1, operand2):
 
         return int(operand1) ^ int(operand2)
-        
+
     ##############################################
 
     def eval_LeftShift(self, level, statement, operand1, operand2):

@@ -192,7 +192,7 @@ class Interval(object):
         """ Test if the interval is empty. """
 
         return self.inf is None and self.sup is None
- 
+
    ##############################################
 
     def zero_length(self):
@@ -314,7 +314,7 @@ class Interval(object):
         """ Test whether the interval intersects with i2? """
 
         return i1.inf <= i2.sup and i2.inf <= i1.sup
-                
+
     ##############################################
 
     def is_included_in(i1, i2):
@@ -409,7 +409,7 @@ class Interval(object):
         """ Return ``x - inf``. If *clamp* parameter is set True then the value is clamped in the
         interval.
         """
-  
+
         x = int(x) # Fixme: why int?
         if clamp:
             if x <= self.inf:
@@ -417,13 +417,13 @@ class Interval(object):
             elif x >= self.sup:
                 x = self.sup
         return x - self.inf
-  
+
     ##############################################
   
     def unmap_x_in(self, x):
 
         """ Return ``x + inf``. """
-  
+
         return x + self.inf
 
 ####################################################################################################
@@ -492,7 +492,7 @@ class IntervalInt(Interval):
     ##############################################
   
     def to_slice(self):
-    
+
         """ Return a slice instance. """
 
         return slice(self.inf, self.sup +1)
@@ -576,7 +576,7 @@ class IntervalIntSupOpen(IntervalInt):
                         (IntervalIntSupOpen(i2.sup, i1.sup), True))
         else:
             return None
-       
+
 #################################################################################
 
 class Interval2D(object):

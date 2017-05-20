@@ -12,7 +12,7 @@ with open('opcodes.old.json') as f:
         instructions[name] = Instruction(name, description, opcodes)
 
 instructions2 = collections.OrderedDict()
-        
+
 with open('instruction-summary.csv') as f:
     for line in f:
         line = line.strip()
@@ -76,7 +76,7 @@ for line in string.split('\n'):
         array_string = line.rstrip()
     else:
         string2 += line + '\n'
-        
+
 print(string2)
 
 

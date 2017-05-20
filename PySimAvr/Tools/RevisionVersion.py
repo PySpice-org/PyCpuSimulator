@@ -45,7 +45,7 @@ class RevisionVersion(object):
                 self.suffix = groups[3]
             else:
                 raise NameError('Bad version string %s' % (version))
-        
+
         elif isinstance(version, tuple):
             self.major, self.minor, self.revision = version[:3]
             if len(version) == 4:
@@ -62,7 +62,7 @@ class RevisionVersion(object):
 
         else:
             raise NameError('parameter must be a string or a tuple')
-        
+
         # Check the scale
         for x in self.major, self.minor, self.revision:
             if x >= self.scale:
@@ -97,11 +97,11 @@ class RevisionVersion(object):
     def __lt__(a, b):
 
         return int(a) < int(b)
-    
+
     ##############################################
 
     def __int__(self):
-        
+
         return (self.major * self.scale + self.minor) * self.scale + self.revision           
 
     ##############################################

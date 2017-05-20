@@ -48,7 +48,7 @@ class HexFile(object):
     def __init__(self, path):
 
         self._path = path
-        
+
         chunks = []
         next_address = None
         with open(path) as f:
@@ -85,7 +85,7 @@ class HexFile(object):
             np_byte_array = np.array(byte_array, dtype=np.uint8)
             np_chunks.append((address, np_byte_array))
         self._logger.info("Hex file {} requires {:1} kB", path, interval.sup / 1024)
-        
+
         self._data = np.zeros(interval.sup, dtype=np.uint8)
         for address, data in np_chunks:
            self._data[address:data.shape[0]] = data
