@@ -1,5 +1,5 @@
 ####################################################################################################
-# 
+#
 # PySimAvr - Python binding to simavr.
 # Copyright (C) 2015 Fabrice Salvaire
 #
@@ -7,15 +7,15 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -42,13 +42,13 @@ class HexFile(object):
     __byte_count_size__ = 2 # 1-2
     __address_size___ = 4 # 3-6
     __record_type_size__ = 2 # 7-8
-    
+
     ##############################################
 
     def __init__(self, path):
 
         self._path = path
-
+        
         chunks = []
         next_address = None
         with open(path) as f:
@@ -75,7 +75,7 @@ class HexFile(object):
                 elif line_type in (2, 3, 4 ,5):
                     raise NotImplementedError('Unsupported Intel 80x86 line type')
                 # else: end of file
-                
+        
         np_chunks = []
         interval = IntervalInt(0, 0) # Fixme: right ?
         for address, data in chunks:
@@ -85,7 +85,7 @@ class HexFile(object):
             np_byte_array = np.array(byte_array, dtype=np.uint8)
             np_chunks.append((address, np_byte_array))
         self._logger.info("Hex file {} requires {:1} kB", path, interval.sup / 1024)
-
+        
         self._data = np.zeros(interval.sup, dtype=np.uint8)
         for address, data in np_chunks:
            self._data[address:data.shape[0]] = data
@@ -106,9 +106,32 @@ class HexFile(object):
     @property
     def data(self):
         return self._data
-    
+
+    ##############################################
+
+    def __len__(self):
+        return self._data.shape[0]
+
+    ##############################################
+
+    def uint16_length(self):
+        return len(self) // 2
+
+    ##############################################
+
+    def read_uint16(self, i):
+
+        return (self._data[i+1] << 8) + self._data[i]
+
+    ##############################################
+
+    def iter_on_uint16(self):
+
+        for i in range(0, len(self), 2):
+            yield self.read_uint16(i)
+
 ####################################################################################################
-# 
+#
 # End
-# 
+#
 ####################################################################################################
