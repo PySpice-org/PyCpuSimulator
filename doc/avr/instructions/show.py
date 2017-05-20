@@ -8,10 +8,27 @@ from Instruction import instructions, DecisionTree
 #     print()
 #     print(instruction.mnemonic)
 #     for i, opcode in enumerate(instruction.opcodes):
-#         print("  {:2} 0x{:04x} 0x{:04x} | {} | {}".format(i,
-#                                                           opcode.opcode, opcode.mask,
-#                                                           opcode.opcode_string,
-#                                                           opcode.operand_pattern))
+#         print("  {:2} 0x{:04x} 0x{:04x} | {} | {} | {}".format(
+#             i,
+#             opcode.opcode, opcode.mask,
+#             opcode.opcode_string,
+#             opcode.operand_pattern,
+#             ' '.join(opcode.opcode_operands),
+#         ))
+
+sbc = instructions['SBC'].first_opcode
+print(sbc.instruction.mnemonic, sbc.opcode_string)
+operands_in = dict(r=15, d=31)
+bytecode = sbc.encode(**operands_in)
+operands_out = sbc.decode(bytecode)
+print(operands_in, bin(bytecode), operands_out)
+
+ldd = instructions['LDD'].first_opcode
+print(ldd.instruction.mnemonic, ldd.opcode_string)
+operands_in = dict(d=0xA, q=0x2A)
+bytecode = ldd.encode(**operands_in)
+operands_out = ldd.decode(bytecode)
+print(operands_in, bin(bytecode), operands_out)
 
 # print("\nMulti-Opcodes Instructions:")
 # for instruction in instructions.values():
@@ -44,13 +61,13 @@ from Instruction import instructions, DecisionTree
 # for operand_pattern in sorted(operand_patterns):
 #     print('  {:16} {:3}'.format(operand_pattern, operand_patterns[operand_pattern]))
 
-print("\nOpcodes:")
-opcodes = []
-for instruction in instructions.values():
-    for opcode in instruction.opcodes:
-        opcodes.append(opcode)
-for opcode in sorted(opcodes, key=lambda x: x.opcode):
-    print('  0x{:04x} 0x{:04x} {}'.format(opcode.opcode, opcode.mask, opcode.instruction.mnemonic))
+# print("\nOpcodes:")
+# opcodes = []
+# for instruction in instructions.values():
+#     for opcode in instruction.opcodes:
+#         opcodes.append(opcode)
+# for opcode in sorted(opcodes, key=lambda x: x.opcode):
+#     print('  0x{:04x} 0x{:04x} {}'.format(opcode.opcode, opcode.mask, opcode.instruction.mnemonic))
 
 # decision_tree = DecisionTree(instructions)
 # print("\nMasks:")

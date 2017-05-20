@@ -21,14 +21,36 @@ import os
 
 ####################################################################################################
 
-class OpcodeChunk(object):
+class Chunk(object):
+
+    ##############################################
+
+    def __init__(self):
+
+        self.opcode_shift = None
+
+    ##############################################
+
+    @property
+    def mask(self):
+        return 2**len(self) -1
+        
+####################################################################################################
+
+class OpcodeChunk(Chunk):
 
     ##############################################
 
     def __init__(self, opcode):
 
+        super(OpcodeChunk, self).__init__()
         self.opcode = opcode
 
+    ##############################################
+
+    def compatible(self, other):
+        return isinstance(other, self.__class__)
+        
     ##############################################
 
     def __iadd__(self, other):
@@ -56,25 +78,16 @@ class OpcodeChunk(object):
     def __str__(self):
         return hex(int(self)) + " #{}".format(len(self)) 
 
-    ##############################################
-
-    def compatible(self, other):
-        return isinstance(other, self.__class__)
-
-    ##############################################
-
-    @property
-    def mask(self):
-        return 2**len(self) -1
-
 ####################################################################################################
     
-class OperandChunk(object):
+class OperandChunk(Chunk):
 
     ##############################################
 
     def __init__(self, letter, count=1):
 
+        super(OperandChunk, self).__init__()
+        self.operand_shift = None
         self.letter = letter
         self.count = count
         
@@ -105,6 +118,16 @@ class OperandChunk(object):
     def compatible(self, other):
         return isinstance(other, self.__class__) and self.letter == other.letter
 
+    ##############################################
+
+    def encode(self, value):
+        return ((value >> self.operand_shift) & self.mask) << self.opcode_shift
+
+    ##############################################
+
+    def decode(self, bytecode):
+        return ((bytecode >> self.opcode_shift) & self.mask) << self.operand_shift
+    
 ####################################################################################################
 
 class Opcode(object):
@@ -159,22 +182,36 @@ class Opcode(object):
             
         self.opcode = 0
         self.mask = 0
+        self.opcode_operands = {}
+        operand_size = {}
         self.operand_pattern = ''
         shift = 16
         count = 0
         for chunk in self.chunks:
             count += len(chunk)
             shift -= len(chunk)
+            chunk.opcode_shift = shift
             if isinstance(chunk, OpcodeChunk):
                 self.opcode += int(chunk) << shift
                 self.mask += chunk.mask << shift
                 self.operand_pattern += '_{}'.format(len(chunk))
             else:
+                if chunk.letter in operand_size:
+                    self.opcode_operands[chunk.letter].append(chunk)
+                    operand_size[chunk.letter] += len(chunk)
+                else:
+                    self.opcode_operands[chunk.letter] = [chunk]
+                    operand_size[chunk.letter] = len(chunk)
                 self.operand_pattern += '{}{}'.format(chunk.letter, len(chunk))
         if count != 16:
             # print(self.chunks, self.operand_32)
             raise ValueError("%s %s", self.opcode_string, self.operand_pattern)
 
+        for operand, chunks in self.opcode_operands.items():
+            for chunk in chunks:
+                operand_size[operand] -= len(chunk)
+                chunk.operand_shift = operand_size[operand]
+        
     ##############################################
 
     def __repr__(self):
@@ -185,7 +222,27 @@ class Opcode(object):
     @property
     def no_operand(self):
         return self.mask == 0xFFFF
-        
+
+    ##############################################
+
+    def encode(self, **args):
+
+        bytecode = self.opcode
+        for operand, chunks in self.opcode_operands.items():
+            for chunk in chunks:
+                bytecode += chunk.encode(args[operand])
+        return bytecode
+
+    ##############################################
+
+    def decode(self, bytecode):
+
+        operands = {operand:0 for operand in self.opcode_operands}
+        for operand, chunks in self.opcode_operands.items():
+            for chunk in chunks:
+                operands[operand] += chunk.decode(bytecode)
+        return operands
+    
 ####################################################################################################
 
 class Instruction(object):
