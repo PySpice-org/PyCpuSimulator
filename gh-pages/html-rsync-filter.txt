@@ -1,0 +1,6 @@
+.buildinfo
+.git
+.gitignore
+html-rsync-filter.txt
+README.rst
+update-gh-pages
