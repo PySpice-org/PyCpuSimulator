@@ -6,7 +6,7 @@ AVR Datasheet
   :hidden:
 
   atmega-640-1280-2560.register-summary
-  
+     
 This part contains a subtract of Atmel datasheets on AVR.
 
 How to Extract Data from Atmel Datasheets
@@ -179,6 +179,89 @@ Addr.         Name
 Register Summary
 ================
 
-* :ref:`atmega-640-1280-2560-register-summary`.
-   
+* :ref:`atmega-640-1280-2560-register-summary`
+
+Instructions
+============
+
+.. toctree::
+
+  instructions
+  instruction-decision-tree
+
+32-bit Instructions:
+
+==== ====== ======
+Name Opcode Mask
+CALL 0x940e 0xfe0e
+JMP  0x940c 0xfe0e
+LDS  0x9000 0xfe0f
+STS  0x9200 0xfe0f
+==== ====== ======
+
+Instructions without operand:
+
+====== ======
+BREAK  0x9598
+CLC    0x9488
+CLH    0x94d8
+CLI    0x94f8
+CLN    0x94a8
+CLS    0x94c8
+CLT    0x94e8
+CLV    0x94b8
+CLZ    0x9498
+EICALL 0x9519
+EIJMP  0x9419
+ELPM   0x95d8
+ICALL  0x9509
+IJMP   0x9409
+LPM    0x95c8
+NOP    0x0000
+RET    0x9508
+RETI   0x9518
+SEC    0x9408
+SEH    0x9458
+SEI    0x9478
+SEN    0x9428
+SES    0x9448
+SET    0x9468
+SEV    0x9438
+SEZ    0x9418
+SEZ    0x9588
+SLEEP  0x9588
+SPM    0x95e8
+SPM    0x95f8
+WDR    0x95a8
+====== ======
+
+Operand patterns:
+
+================  =====
+Pattern           Count
+_2q1_1q2_1d5_1q3   2
+_2q1_1q2_1r5_1q3   2
+_4K4d4K4           7
+_4k12              2
+_5A2d5A4           1
+_5A2r5A4           1
+_5k3d4k4           2
+_6d10              4
+_6k7_3            18
+_6k7s3             2
+_6r1d5r4          12
+_7d5_1b3           2
+_7d5_4            25
+_7k5_3k1           2
+_7r5_1b3           2
+_7r5_4            13
+_8A5b3             4
+_8K2d2K4           2
+_8K4_4             1
+_8d4_4             1
+_8d4r4             2
+_9d3_1r3           4
+_9s3_4             2
+================  =====
+
 .. End
