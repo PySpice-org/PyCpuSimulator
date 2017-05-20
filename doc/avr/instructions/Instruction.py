@@ -299,6 +299,12 @@ for instruction in instructions.values():
         if opcode.no_operand:
             print('  {:6s} 0x{:04x}'.format(instruction.name, opcode.opcode))
 
+print("\n32-bit Instructions:")
+for instruction in instructions.values():
+    for opcode in instruction.opcodes:
+        if opcode.opcode_size == 32:
+            print('  {:6s} 0x{:04x} 0x{:04x}'.format(instruction.name, opcode.opcode, opcode.mask))
+            
 print("\nOperand patterns:")
 operand_patterns = {}
 for instruction in instructions.values():
@@ -312,9 +318,9 @@ for instruction in instructions.values():
 for operand_pattern in sorted(operand_patterns):
     print('  {:16} {:3}'.format(operand_pattern, operand_patterns[operand_pattern]))
 
-decision_tree = DecisionTree(instructions)
-print("\nDecision Tree:")
-decision_tree.print_tree()
+# decision_tree = DecisionTree(instructions)
+# print("\nDecision Tree:")
+# decision_tree.print_tree()
         
 ####################################################################################################
 # 
