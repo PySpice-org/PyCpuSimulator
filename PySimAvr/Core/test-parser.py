@@ -32,55 +32,32 @@ logger = Logging.setup_logging('pysimavr')
 ####################################################################################################
 
 from PySimAvr.Core.CoreHdlParser import Parser
-from PySimAvr.Core.Core import (StandardCore,
-                                RegisterMemory, RamMemory,
-                                Register8, Register16)
-
-####################################################################################################
 
 micro_code_parser = Parser()
 
-general_purpose_registers = [Register8('R' + str(i)) for i in range(4)]
-register_definitions = [
-    Register16('PC'),
-    Register16('STACK'),
-    Register8('SREG'),
-    Register16('X'),
-]
-register_definitions.extend(general_purpose_registers)
-
-ram = RamMemory('RAM', cell_size=8, size=8*1024)
-registers = RegisterMemory('REGISTER', register_definitions)
-
-core = StandardCore(memories=(registers, ram))
-
-####################################################################################################
-
-print()
-
 source = '''
-R0 = 10 + 10;
+R0 = 10; R2 = 10;
 R1 = 20;
-R2 = R0 + R1;
-R2 = R2 ^ R2;
-R2 = R0 + 30;
-X = 0x13;
-[X] = R2;
-R1 = 1;
-if (R1 == 1) {
-  R2 = 3;
-  [0x145] = 0x1F;
+
+if (R1)
+  R0 = 10;
+else {
+  R0 = 10; R2 = 10;
+  R1 = 20;
+  Foo (R2, 1 + 1);
 }
-else
-  R2 = 4;
+
+if (R1)
+  R0 = 10;
+else if (R2)
+   R5 = 10;
+
 '''
 print(source)
-# micro_code_parser.test_lexer(source)
+micro_code_parser.test_lexer(source)
 ast_program = micro_code_parser.parse(source)
-# print()
-# print(ast_program)
 print()
-core.run_ast_program(ast_program)
+print(ast_program)
 
 ####################################################################################################
 # 

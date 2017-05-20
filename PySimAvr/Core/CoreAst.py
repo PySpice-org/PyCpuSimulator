@@ -28,14 +28,20 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class Program(object):
+class StatementList(object):
 
     ##############################################
 
-    def __init__(self):
+    def __init__(self, *statements):
 
-        self._statements = []
+        self._statements = list(statements)
 
+    ##############################################
+
+    def __nonzero__(self):
+
+        return bool(self._statements)
+    
     ##############################################
 
     def __iter__(self):
@@ -46,16 +52,19 @@ class Program(object):
 
     def add(self, statement):
 
-        # Fixme: reverse ?
-        # self._statements.append(statement)
-        self._statements.insert(0, statement)
+        self._statements.append(statement)
 
     ##############################################
 
     def __str__(self):
 
         return '\n'.join([str(statement) for statement in self])
-    
+
+####################################################################################################
+
+class Program(StatementList):
+    pass
+
 ####################################################################################################
 
 class Operand(object):
@@ -93,6 +102,60 @@ class Constant(object):
     
 ####################################################################################################
 
+class If(object):
+
+    ##############################################
+
+    def __init__(self, condition, then_expression, else_expression=None):
+
+        self._condition = condition
+        self._then_expression = then_expression
+        self._else_expression = else_expression
+
+    ##############################################
+
+    @property
+    def condition(self):
+        return self._condition
+
+    ##############################################
+
+    @property
+    def then_expression(self):
+        return self._then_expression
+
+    ##############################################
+
+    @property
+    def else_expression(self):
+        return self._else_expression
+
+    ##############################################
+        
+    def _str_compound_expression(self, expressions):
+
+        string = '{\n'
+        if expressions:
+            string += str(expressions) + '\n'
+        string += '}'
+
+        return string
+        
+    ##############################################
+        
+    def __str__(self):
+        
+        if self._then_expression or self._else_expression:
+            if_string = 'if (' + str(self._condition) + ') '
+            if_string += self._str_compound_expression(self._then_expression)
+            if self._else_expression:
+                if_string += '\nelse '
+                if_string += self._str_compound_expression(self._else_expression)
+
+        return if_string
+            
+####################################################################################################
+
 class Expression(object):
 
     __number_of_operands__ = None
@@ -101,7 +164,8 @@ class Expression(object):
 
     def __init__(self, *args, **kwargs):
 
-        if len(args) != self.__number_of_operands__:
+        if (self.__number_of_operands__ is not None
+            and len(args) != self.__number_of_operands__):
             raise ValueError("Wrong number of operands")
         
         self._operands = args
@@ -137,6 +201,30 @@ class BinaryExpression(Expression):
     
 class TernaryExpression(Expression):
     __number_of_operands__ = 3
+
+####################################################################################################
+
+class Function(Expression):
+
+    ##############################################
+
+    def __init__(self, name, *args):
+
+        super(Function, self).__init__(*args)
+        self._name = name
+
+    ##############################################
+
+    @property
+    def name(self):
+        return self._name
+    
+    ##############################################
+        
+    def __str__(self):
+
+        parameters = ', '.join([str(operand) for operand in self.iter_on_operands()])
+        return self._name + ' (' + parameters  + ')'
 
 ####################################################################################################
 
@@ -206,7 +294,7 @@ class Subtraction(BinaryOperator):
     __operator__ = '-'
 
 class Multiplication(BinaryOperator):
-    __operator__ = '*'
+    __operator__ = '*' # ×
 
 class Division(BinaryOperator):
     __operator__ = '/'
@@ -214,13 +302,13 @@ class Division(BinaryOperator):
 ####################################################################################################
 
 class And(BinaryOperator):
-    __operator__ = '&'
+    __operator__ = '&' # ∧
 
 class Or(BinaryOperator):
-    __operator__ = '|'
+    __operator__ = '|' # ∨
 
 class Xor(BinaryOperator):
-    __operator__ = '|!'
+    __operator__ = '^' # ⊻
 
 class LeftShift(BinaryOperator):
     __operator__ = '<<'
@@ -228,6 +316,26 @@ class LeftShift(BinaryOperator):
 class RightShift(BinaryOperator):
     __operator__ = '>>'
 
+####################################################################################################
+
+class Equal(BinaryOperator):
+    __operator__ = '=='
+
+class NotEqual(BinaryOperator):
+    __operator__ = '!='
+
+class Less(BinaryOperator):
+    __operator__ = '<'
+
+class Greater(BinaryOperator):
+    __operator__ = '>'
+
+class LessEqual(BinaryOperator):
+    __operator__ = '<='
+
+class GreaterEqual(BinaryOperator):
+    __operator__ = '>='
+    
 ####################################################################################################
 # 
 # End

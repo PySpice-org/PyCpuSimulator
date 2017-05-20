@@ -48,7 +48,7 @@ ASCII symbols are:
 * ``@``
 * ``[]`` addressing
 * ``\``
-* ``^``
+* ``^`` xor
 * ``_`` allowed in name
 * ``{}``
 * ``|`` or
@@ -56,13 +56,23 @@ ASCII symbols are:
 
 Compounds:
 
+* ``!=``  not equal
+* ``%=``
+* ``&=``
+* ``*=``
 * ``++`` increment
+* ``+=``
 * ``--`` decrement
+* ``-=``
+* ``->`
 * ``//``
+* ``/=``
+* ``<<=``
 * ``<=`` inferior equal 
 * ``==`` equal
 * ``>=`` superior equal
-* ``->`
+* ``>>=``
+* ``^=``
 
 Ambiguous:
 
@@ -90,6 +100,14 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+def ensure_statement_list(x):
+    if isinstance(x, StatementList):
+        return x
+    else:
+        return StatementList(x)
+
+####################################################################################################
+
 class Parser(object):
 
     _logger = _module_logger.getChild('Parser')
@@ -107,6 +125,12 @@ class Parser(object):
                                   Xor,
                                   LeftShift,
                                   RightShift,
+                                  Equal,
+                                  NotEqual,
+                                  Less,
+                                  Greater,
+                                  LessEqual,
+                                  GreaterEqual,
                           )
     }
     
@@ -114,17 +138,19 @@ class Parser(object):
 
     reserved = {
         'if' : 'IF',
-        'then' : 'THEN',
+        # 'elif' : 'ELIF',
         'else' : 'ELSE',
     }
     
     tokens = [
         'SEMICOLON',
         'LEFT_PARENTHESIS', 'RIGHT_PARENTHESIS',
+        'LEFT_BRACE', 'RIGHT_BRACE',
         'SET',         
         'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-        'AND', 'OR', 'XOR', 'LEFT_SHIFT', 'RIGHT_SHIFT', 'EQUALS',
-        'LEFT_BRACKET', 'RIGHT_BRACKET', 'COLUMN', 'COLON', 'BIT_RANGE', 
+        'AND', 'OR', 'XOR', 'LEFT_SHIFT', 'RIGHT_SHIFT',
+        'EQUAL', 'NOT_EQUAL', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL',
+        'LEFT_BRACKET', 'RIGHT_BRACKET', 'COMMA', 'COLON', 'BIT_RANGE', 
         'BINARY_NUMBER', 'OCTAL_NUMBER', 'HEX_NUMBER', 'DECIMAL_NUMBER',
         'AT', 'DOLLAR',
         'NAME',
@@ -165,7 +191,10 @@ class Parser(object):
     t_LEFT_PARENTHESIS = r'\('
     t_RIGHT_PARENTHESIS = r'\)'
 
-    t_SET = r'<-'
+    t_LEFT_BRACE = r'\{'
+    t_RIGHT_BRACE = r'\}'
+    
+    t_SET = r'='
     
     t_PLUS = r'\+'
     t_MINUS = r'-'
@@ -174,14 +203,20 @@ class Parser(object):
 
     t_AND = r'&' # was .
     t_OR = r'\|'
-    t_XOR = r'\|!'
+    t_XOR = r'\^'
     t_LEFT_SHIFT = r'<<'
     t_RIGHT_SHIFT = r'>>'
-    t_EQUALS = r'=='
 
+    t_EQUAL = r'=='
+    t_NOT_EQUAL = r'!='
+    t_LESS = r'<'
+    t_GREATER = r'>'
+    t_LESS_EQUAL = r'<='
+    t_GREATER_EQUAL = r'>='
+                
     t_LEFT_BRACKET = r'\['
     t_RIGHT_BRACKET = r'\]'
-    t_COLUMN = r','
+    t_COMMA = r','
     t_COLON = r':'
     t_BIT_RANGE = r'\.\.'
 
@@ -218,11 +253,21 @@ class Parser(object):
     # Grammar
     #
 
-    # precedence = (
-    #     ('left','PLUS','MINUS'),
-    #     ('left','TIMES','DIVIDE'),
-    #     ('right','UMINUS'),
-    # )
+    # from lowest
+    precedence = (
+        ('left', 'COMMA'),
+        ('left', 'EQUAL'),
+        ('left', 'OR'),
+        ('left', 'XOR'),
+        ('left', 'AND'),
+        ('left', 'EQUAL', 'NOT_EQUAL'),
+        ('left', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL'),
+        ('left', 'LEFT_SHIFT', 'RIGHT_SHIFT'),
+        ('left', 'PLUS', 'MINUS'),
+        ('left', 'TIMES', 'DIVIDE'),
+        ('left', 'LEFT_BRACKET', 'RIGHT_BRACKET'),
+        # ('left', 'LEFT_PARENTHESIS', 'RIGHT_PARENTHESIS'),
+    )
 
     def p_error(self, p):
         self._logger.error("Syntax error at '%s'", p.value)
@@ -235,14 +280,80 @@ class Parser(object):
         pass
     
     def p_program(self, p):
-        '''program : assignation
-                   | assignation SEMICOLON program
+        '''program : statement
+                   | program statement
                    | empty
         '''
-        statement = p[1]
+        if len(p) == 3:
+            statement = p[2]
+        else:
+            statement = p[1]
         if statement is not None:
-            self._program.add(statement) # Fixme: reversed for ... ; ...
-    
+            self._program.add(statement)
+
+    def p_statement(self, p):
+        '''statement : expression_statement
+                     | compound_statement
+                     | if_statement
+        '''
+        p[0] = p[1]
+            
+    def p_expression_statement(self, p):
+        '''expression_statement : assignation SEMICOLON
+                                | function SEMICOLON
+                                | SEMICOLON
+        '''
+        if len(p) == 3:
+            p[0] = p[1]
+
+    def p_statement_list(self, p):
+        '''statement_list : statement
+                          | statement_list statement
+        '''
+        if len(p) == 3:
+            p[1].add(p[2])
+            p[0] = p[1]
+        else:
+            p[0] = StatementList(p[1])
+            
+    def p_compound_statement(self, p):
+        '''compound_statement : LEFT_BRACE statement_list RIGHT_BRACE
+                              | LEFT_BRACE RIGHT_BRACE
+        '''
+        if len(p) == 4:
+            p[0] = p[2]
+
+    def p_if_statement(self, p):
+        '''if_statement : IF LEFT_PARENTHESIS expression RIGHT_PARENTHESIS statement
+        | IF LEFT_PARENTHESIS expression RIGHT_PARENTHESIS statement ELSE statement
+        '''
+        condition = p[3]
+        then_expression = ensure_statement_list(p[5])
+        if len(p) == 8:
+            else_expression = ensure_statement_list(p[7])
+            p[0] = If(condition, then_expression, else_expression)
+        else:
+            p[0] = If(condition, then_expression)
+
+    def p_expression_list(self, p):
+        '''expression_list : expression
+                           | expression_list COMMA expression
+        '''
+        if len(p) == 3:
+            p[1].add(p[2])
+            p[0] = p[1]
+        else:
+            p[0] = StatementList(p[1])
+            
+    def p_function(self, p):
+        '''function : NAME LEFT_PARENTHESIS expression_list RIGHT_PARENTHESIS
+                    | NAME LEFT_PARENTHESIS RIGHT_PARENTHESIS
+        '''
+        if len(p) == 5:
+            p[0] = Function(p[1], p[3])
+        else:
+            p[0] = Function(p[1])
+            
     def p_assignation(self, p):
         'assignation : destination SET expression'
         p[0] = Assignation(p[3], p[1]) # eval value first
@@ -260,7 +371,7 @@ class Parser(object):
                        | register_bit_range
                        | addressing
         '''
-        # | NAME LEFT_BRACKET NAME COLUMN NAME RIGHT_BRACKET
+        # | NAME LEFT_BRACKET NAME COMMA NAME RIGHT_BRACKET
         p[0] = p[1]
     
     def p_number(self, p):
@@ -313,7 +424,7 @@ class Parser(object):
         '''addressing : LEFT_BRACKET expression RIGHT_BRACKET
         '''
         p[0] = Addressing('RAM', p[2])
-
+        
     def p_source(self, p):
         '''expression : register
                       | register_concatenation
@@ -335,6 +446,12 @@ class Parser(object):
                       | expression XOR expression
                       | expression LEFT_SHIFT expression
                       | expression RIGHT_SHIFT expression
+                      | expression EQUAL expression
+                      | expression NOT_EQUAL expression
+                      | expression LESS expression
+                      | expression GREATER expression
+                      | expression LESS_EQUAL expression
+                      | expression GREATER_EQUAL expression
         '''
         p[0] = self._operator_to_class[p[2]](p[1], p[3])    
     

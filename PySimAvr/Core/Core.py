@@ -145,9 +145,10 @@ class Register(MemoryValueMixin, Memory):
 
     def __int__(self):
         # make a copy
-        # self._dtype(self._value)
+        # TypeError: __int__ returned non-int (type numpy.uint8)
+        # return self._dtype(self._value) 
         return int(self._value)
-        
+
     ##############################################
 
     def set(self, value):
@@ -161,7 +162,7 @@ class Register(MemoryValueMixin, Memory):
     ##############################################
 
     def str_value(self):
-        return "{}: 0x{:X}".format(self._name, self._value)
+        return "{} = 0x{:X}".format(self._name, self._value)
     
 ####################################################################################################
     
@@ -246,7 +247,7 @@ class MemoryCell(MemoryValueMixin):
     ##############################################
 
     def __int__(self):
-        return self._memory[self._address]
+        return int(self._memory[self._address])
 
     ##############################################
 
@@ -257,6 +258,11 @@ class MemoryCell(MemoryValueMixin):
 
     def __str__(self):
         return "{}[0x{:x}]".format(self._memory.name, int(self._address))
+
+    ##############################################
+
+    def str_value(self):
+        return str(self) + " = 0x{:X}".format(int(self))
     
 ####################################################################################################
 
@@ -316,8 +322,10 @@ class Core(object):
     def __init__(self, memories):
 
         self._memories = {memory.name:memory for memory in memories}
-        self._cycles = 0 # could be a register
 
+        self._cycles = 0 # could be a register
+        self._modified_registers = set()
+        
     ##############################################
 
     @property
@@ -330,6 +338,12 @@ class Core(object):
     def cycles(self):
         return self._cycles
 
+    ##############################################
+
+    def reset_trackers(self):
+
+        self._modified_registers = set()
+    
     ##############################################
 
     def increment_cycle(self, cycles):
@@ -376,6 +390,8 @@ class Core(object):
         
         statement_class = statement.__class__.__name__
         print('  '*level + statement_class, statement)
+        if statement_class == 'Function':
+            statement_class = statement.name
         evaluator = getattr(self, 'eval_' + statement_class)
         if hasattr(statement, 'iter_on_operands'):
             # Compute the operand values: traverse recursively the AST
@@ -401,8 +417,23 @@ class Core(object):
         for statement in program:
             print()
             self.eval_statement(0, statement)
-            self.memory['REGISTER'].dump()
+            print(' | '.join([register.str_value() for register in self._modified_registers]))
+            # self.memory['REGISTER'].dump()
+            self.reset_trackers()
             
+    ##############################################
+
+    def eval_If(self, level, statement):
+
+        if self.eval_statement(level +1, statement.condition):
+            branch = statement.then_expression
+        else:
+            branch = statement.else_expression
+        if branch:
+            for statement in branch:
+                print()
+                self.eval_statement(level +1, statement)
+
 ####################################################################################################
 
 class StandardCore(Core):
@@ -420,6 +451,7 @@ class StandardCore(Core):
     def eval_Constant(self, level, statement):
 
         # Return the constant value
+        # Fixme: wrap constant in a class ?
         return int(statement)
 
     ##############################################
@@ -438,6 +470,7 @@ class StandardCore(Core):
         int_value = int(value)
         # int_value = cell.truncate(int_value)
         cell.set(value)
+        self._modified_registers.add(cell)
         print('  '*(level+1) + '{} <- 0x{:x}'.format(cell, int_value))
     
     ##############################################
@@ -468,7 +501,9 @@ class StandardCore(Core):
     
     def eval_BitRange(self, level, statement, operand1, operand2, operand3):
 
-        return (int(operand1) >> int(operand2)) & (2**(int(operand3) - int(operand2) +1) -1)
+        value2 = int(operand2)
+        mask = 2**(int(operand3) - value2 +1) -1
+        return (int(operand1) >> value2) & mask
 
     ##############################################    
 
@@ -521,6 +556,12 @@ class StandardCore(Core):
 
     ##############################################
 
+    def eval_TwoComplement(self, level, statement, operand1):
+
+        return operand1.two_complement()
+    
+    ##############################################
+
     def eval_And(self, level, statement, operand1, operand2):
 
         return int(operand1) & int(operand2)
@@ -535,18 +576,14 @@ class StandardCore(Core):
 
     def eval_Xor(self, level, statement, operand1, operand2):
 
-        # registers = self.check_for_register_operand(operand1, operand2)
-        # if len(registers) == 2:
-        #     return int(operand1) & operand2.two_complement() | operand1.two_complement() & int(operand2)
-        # else:
-        #     ...
-
         return int(operand1) ^ int(operand2)
         
     ##############################################
 
     def eval_LeftShift(self, level, statement, operand1, operand2):
 
+        # Fixme: -> ShiftLeft
+        
         return int(operand1) << int(operand2)
 
     ##############################################
@@ -555,6 +592,56 @@ class StandardCore(Core):
 
         return int(operand1) >> int(operand2)
 
+    ##############################################
+
+    def eval_RotateRight(self, level, statement, operand1, operand2):
+
+        cell_size = operand1.cell_size
+        rotation = int(operand2) % cell_size
+        value = int(operand1)
+        return value >> rotation | value << (cell_size - rotation)
+
+    ##############################################
+
+    def eval_Equal(self, level, statement, operand1, operand2):
+
+        return int(operand1) == int(operand2)
+
+    ##############################################
+
+    def eval_NotEqual(self, level, statement, operand1, operand2):
+
+        return int(operand1) != int(operand2)
+
+    ##############################################
+
+    def eval_Less(self, level, statement, operand1, operand2):
+
+        return int(operand1) < int(operand2)
+
+    ##############################################
+
+    def eval_Greater(self, level, statement, operand1, operand2):
+
+        return int(operand1) > int(operand2)
+
+    ##############################################
+
+    def eval_LessEqual(self, level, statement, operand1, operand2):
+
+        return int(operand1) <= int(operand2)
+
+    ##############################################
+
+    def eval_GreaterEqual(self, level, statement, operand1, operand2):
+
+        return int(operand1) >= int(operand2)
+
+    ##############################################
+
+    # Signed operations
+    # Arithmetic Shift Instructions
+    
 ####################################################################################################
 # 
 # End
