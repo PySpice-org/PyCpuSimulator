@@ -1,5 +1,5 @@
-simavr - a lean and mean Atmel AVR simulator for linux
-======================================================
+From GitHub simavr - a lean and mean Atmel AVR simulator for linux
+==================================================================
 
 *simavr* is a new AVR simulator for linux, or any platform that uses avr-gcc. It uses avr-gcc's own
 register definition to simplify creating new targets for supported AVR devices. The core was made to

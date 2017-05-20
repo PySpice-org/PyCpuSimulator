@@ -6,7 +6,10 @@
   :maxdepth: 2
   :numbered:
 
-  github-main.rst
-  gitorious-index.rst
-
+  features
+  github-main
+  gitorious/gitorious-index
+  avr/index
+  code-refactoring
+     
 .. End
