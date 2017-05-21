@@ -1,6 +1,10 @@
 *~
 __pycache__
 #
+build/
+dist/
+MANIFEST
+#
 PySimAvr/Core/parser.out
 PySimAvr/Core/parsetab.py
 doc/sphinx/build/
