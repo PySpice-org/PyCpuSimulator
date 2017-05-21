@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 ####################################################################################################
 #
 # PySimAvr - AVR Simulator
@@ -26,7 +28,7 @@ from PySimAvr.Core.Instruction import DecodeError
 
 ####################################################################################################
 
-path = '/home/gv/sys/fc14/fabrice/Arduino/blink-led/.build/mega2560/firmware.hex'
+path = 'data/blink-led-mega2560-firmware.hex'
 hex_file = HexFile(path)
 
 decision_tree = instruction_set.decision_tree

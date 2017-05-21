@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 ####################################################################################################
 #
@@ -37,7 +37,7 @@ from PySimAvr.Core.CoreHdlParser import Parser
 
 parser = Parser()
 
-with open('operations.txt') as f:
+with open('data/operations.txt') as f:
     source = f.read()
     # parser.test_lexer(source)
     for line_number, line in enumerate(source.split('\n')):

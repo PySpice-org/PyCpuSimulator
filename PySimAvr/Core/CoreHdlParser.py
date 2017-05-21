@@ -193,7 +193,8 @@ class Parser(object):
         ('left', 'OR'),
         ('left', 'XOR'),
         ('left', 'AND'),
-        ('left', 'EQUAL', 'NOT_EQUAL'),
+        # ('left', 'EQUAL', 'NOT_EQUAL'), # Fixme: EQUAL ???
+        ('left', 'NOT_EQUAL'),
         ('left', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL'),
         ('left', 'LEFT_SHIFT', 'RIGHT_SHIFT'),
         ('left', 'PLUS', 'MINUS'),

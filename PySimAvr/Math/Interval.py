@@ -18,6 +18,8 @@
 #
 ####################################################################################################
 
+# Fixme: use https://github.com/FabriceSalvaire/python-arithmetic-interval
+
 """ This module implements interval arithmetic.
 """
 

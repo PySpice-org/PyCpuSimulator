@@ -1,3 +1,3 @@
-from Hex import HexFile
-path = '/home/gv/sys/fc14/fabrice/Arduino/blink-led/.build/mega2560/firmware.hex'
+from PySimAvr.BinaryFormat.HexFile import HexFile
+path = 'data/blink-led-mega2560-firmware.hex'
 hex = HexFile(path)
