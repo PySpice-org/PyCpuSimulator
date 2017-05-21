@@ -4,6 +4,3 @@ __pycache__
 PySimAvr/Core/parser.out
 PySimAvr/Core/parsetab.py
 doc/sphinx/build/
-#
-apply-commits
-patches
