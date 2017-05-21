@@ -1,14 +1,15 @@
+===
+ALU
+===
 
 x xor y = (x + y) mod 2
 
-==============
 Floating Point
 ==============
 
 * IEEE 754 double    64-bit: 1 sign | 11 exponent | fraction 52 (53)
 * extended precision 80-bit: 1 sign | 15 exponent | 1 integer | fraction 63
 
-===============
 Binary Addition
 ===============
 
@@ -28,6 +29,7 @@ Truth table:
 === === === ====
 
 ::
+
     C = a ∧ b
     S = (¬a ∧ b) ∨ (a ∧ ¬b)
       = a ⊻ b
@@ -57,28 +59,29 @@ Truth table:
  1   1   1   1   1
 === === === === ====
 
-==================
 Binary Subtraction
 ==================
 
 ::
-   A - B = A - ¬B + 1
 
-=====================
+    A - B = A - ¬B + 1
+
 Binary Multiplication
 =====================
 
-     1011
-   × 1110
-   ──────
-     0000
-    1011
-   1011
-+ 1011
-─────────
- 10011010
+::
 
-Réferences:
+         1011
+       × 1110
+       ──────
+         0000
+        1011
+       1011
+    + 1011
+    ─────────
+     10011010
+
+References:
 
 * Baugh–Wooley algorithm
 * Wallace tree

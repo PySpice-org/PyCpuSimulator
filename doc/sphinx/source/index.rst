@@ -6,11 +6,10 @@
   :maxdepth: 2
   :numbered:
 
-  features
-  github-main
-  gitorious/gitorious-index
   avr/index
-  code-refactoring
+  core/alu
+  grammar
+  unicode-symbols
   reference-manual
 
 .. End

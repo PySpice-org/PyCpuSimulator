@@ -13,9 +13,9 @@ How to Extract Data from Atmel Datasheets
 =========================================
 
 There is two possibilities to extract data from datasheet, the first one is to copy text using a PDF
-viewer, and the second one is to dump the PDF text content using a tool like *pdftotext*.  Then use
-a mixture of scripts and a powerful editor to cleanup and reformat the text, a spreadsheet like
-Libre Office can help to deal with tables through a CSV file.
+viewer, and the second one is to dump the PDF text content using a tool like *pdftotext*.  And then
+use a mixture of scripts and a powerful editor to cleanup and reformat the text, a spreadsheet like
+Libre Office can help to deal with tables using a CSV file.
 
 AVR Registers
 =============

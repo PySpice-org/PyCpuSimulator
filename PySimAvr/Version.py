@@ -20,15 +20,11 @@
 
 ####################################################################################################
 
-# cf. http://en.wikipedia.org/wiki/Software_versioning
+from PySimAvr.Tools.RevisionVersion import RevisionVersion
 
 ####################################################################################################
 
-from Babel.Tools.RevisionVersion import RevisionVersion
-
-####################################################################################################
-
-babel = RevisionVersion({'major':0,
-                         'minor':1,
-                         'revision':0
-                         })
+pysimavr = RevisionVersion({'major':0,
+                            'minor':1,
+                            'revision':0
+})

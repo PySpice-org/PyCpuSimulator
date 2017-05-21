@@ -1,7 +1,6 @@
-"""
-
+===================
 Micro Code Language
--------------------
+===================
 
 ASCII symbols are:
 
@@ -57,5 +56,3 @@ Compounds:
 Ambiguous:
 
 * ``<-``
-
-"""

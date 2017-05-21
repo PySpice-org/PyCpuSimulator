@@ -61,9 +61,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'SimAVR'
-copyright = '2015, Michel Pollet'
-author = 'Michel Pollet'
+project = 'PySimAVR'
+copyright = 'Copyright (C) 2015 Fabrice Salvaire'
+author = 'Fabrice Salvaire'
 
 # The version info for the project you're documenting, acts as replacement for |version| and
 # |release|, also used in various other places throughout the built documents.
