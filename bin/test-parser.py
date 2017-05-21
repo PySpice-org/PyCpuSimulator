@@ -53,8 +53,10 @@ else if (R2)
    R5 = 10;
 
 '''
+
 print(source)
 micro_code_parser.test_lexer(source)
+
 ast_program = micro_code_parser.parse(source)
 print()
 print(ast_program)

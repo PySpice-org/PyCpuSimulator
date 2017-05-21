@@ -35,7 +35,7 @@ instruction_set.check_for_clash(verbose=False)
 # Build and verify the decision tree
 decision_tree = instruction_set.decision_tree
 decision_tree.brut_force_check()
-if False:
+if True:
     decision_tree.print()
 
 ####################################################################################################
@@ -43,7 +43,7 @@ if False:
 # Encode / Decode Instruction
 #
 
-if False:
+if True:
     sbc = instruction_set['SBC'].first_opcode
     print(sbc.instruction.mnemonic, sbc.opcode_string)
     operands_in = dict(r=15, d=31)
@@ -61,7 +61,7 @@ if False:
 ####################################################################################################
 
 # Dump all the bytecodes for an opcode
-if False:
+if True:
     opcode = instruction_set['LDD'].first_opcode
     print(opcode.opcode_string)
     for bytecode in opcode.iter_on_bytecodes():
@@ -70,7 +70,7 @@ if False:
 ####################################################################################################
 
 # Dump instruction set properties
-if False:
+if True:
     print("\nMulti-Opcodes Instructions:")
     for instruction in instruction_set.iter_on_instructions():
         if not instruction.single_opcode:
@@ -105,7 +105,7 @@ if False:
 ####################################################################################################
 
 # Dump operations
-if False:
+if True:
     for instruction in instruction_set.iter_on_instructions():
         print()
         print(instruction.mnemonic)
@@ -113,7 +113,7 @@ if False:
             print(i, opcode.operation)
 
 # Dump opcodes
-if False:
+if True:
     for instruction in instruction_set.iter_on_instructions():
         print()
         print(instruction.mnemonic)
@@ -126,7 +126,7 @@ if False:
                 ' '.join(opcode.opcode_operands),
             ))
 
-if False:
+if True:
     print("\nOpcodes:")
     opcode_set = instruction_set.opcode_set()
     for opcode in sorted(opcode_set, key=lambda x: x.opcode):
@@ -137,7 +137,7 @@ if False:
 # Bytecode Interval (but code is wrong)
 #
 
-if False:
+if True:
     bytecode_interval_pool = []
     for instruction in instruction_set.iter_on_instructions():
         for opcode in instruction.opcodes:
