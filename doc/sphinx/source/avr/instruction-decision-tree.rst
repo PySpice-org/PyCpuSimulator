@@ -4,6 +4,4 @@
 Instruction Decision Tree
 =========================
 
-::
-
 .. End

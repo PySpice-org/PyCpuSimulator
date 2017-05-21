@@ -1,5 +1,5 @@
 ####################################################################################################
-# 
+#
 # PySimAvr - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
@@ -7,15 +7,15 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -131,7 +131,7 @@ class If(object):
         return self._else_expression
 
     ##############################################
-        
+
     def _str_compound_expression(self, expressions):
 
         string = '{\n'
@@ -142,7 +142,7 @@ class If(object):
         return string
 
     ##############################################
-        
+
     def __str__(self):
 
         if self._then_expression or self._else_expression:
@@ -220,7 +220,7 @@ class Function(Expression):
         return self._name
 
     ##############################################
-        
+
     def __str__(self):
 
         parameters = ', '.join([str(operand) for operand in self.iter_on_operands()])
@@ -335,9 +335,3 @@ class LessEqual(BinaryOperator):
 
 class GreaterEqual(BinaryOperator):
     __operator__ = '>='
-
-####################################################################################################
-# 
-# End
-# 
-####################################################################################################

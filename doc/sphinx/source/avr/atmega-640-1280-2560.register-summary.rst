@@ -12,27 +12,27 @@ Comp:
 
 H:
   High
-  
+
 In:
   Input
 
 L:
   Low
-  
+
 Out:
   Output
 
 Serial:
   Serial Interface
-  
+
 T/C:
   Timer/Counter
-  
+
 .. raw:: html
 
    <div style="font-size: 85%">
 
-.. csv-table:: 
+.. csv-table::
   :header: "Ad.", "Name", "Bit 7", "Bit 6", "Bit 5", "Bit 4", "Bit 3", "Bit 2", "Bit 1", "Bit 0", "Page"
 
   "1FF", "Reserved", "", "", "", "", "", "", "", "", ""
@@ -265,5 +265,5 @@ T/C:
 .. raw:: html
 
    </div>
-  
+
 .. End

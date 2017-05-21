@@ -5,5 +5,3 @@ with open('register-summary-input.txt') as f:
             print('|'.join(fields))
             fields = []
         fields.append('"' + line.strip() + '"')
-
-        

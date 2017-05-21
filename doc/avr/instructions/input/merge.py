@@ -78,5 +78,3 @@ for line in string.split('\n'):
         string2 += line + '\n'
 
 print(string2)
-
-

@@ -23,11 +23,11 @@ C99 Features:
 * inline
 * long long int
 * support for one-line comments //
-  
+
 Implementations:
 
 * `Visual Studio C Language Reference <https://msdn.microsoft.com/en-us/library/fw5abdx6.aspx>`_
-  
+
 Intermediate Variable for Structure Access
 ==========================================
 
@@ -52,7 +52,7 @@ Value of a bit::
   #define BitValue(value, i) (value >> i) & 1
 
 Value against a mask (masked value ...)::
-  
+
   (A & ~mask) | (B & mask)
 
 addr > 31 && addr < 31 + MAX_IOs

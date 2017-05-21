@@ -36,9 +36,3 @@ _yaml_path = _os.path.join(_os.path.dirname(__file__), 'opcodes.yaml')
 
 #: Dictionnary providing the :class:`Instruction` instances for the AVR instruction set.
 instruction_set = InstructionSet(_yaml_path)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

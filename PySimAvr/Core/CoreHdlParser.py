@@ -1,5 +1,5 @@
 ####################################################################################################
-# 
+#
 # PySimAvr - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
@@ -7,15 +7,15 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -82,11 +82,11 @@ class Parser(object):
         'SEMICOLON',
         'LEFT_PARENTHESIS', 'RIGHT_PARENTHESIS',
         'LEFT_BRACE', 'RIGHT_BRACE',
-        'SET',         
+        'SET',
         'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
         'AND', 'OR', 'XOR', 'LEFT_SHIFT', 'RIGHT_SHIFT',
         'EQUAL', 'NOT_EQUAL', 'LESS', 'GREATER', 'LESS_EQUAL', 'GREATER_EQUAL',
-        'LEFT_BRACKET', 'RIGHT_BRACKET', 'COMMA', 'COLON', 'BIT_RANGE', 
+        'LEFT_BRACKET', 'RIGHT_BRACKET', 'COMMA', 'COLON', 'BIT_RANGE',
         'BINARY_NUMBER', 'OCTAL_NUMBER', 'HEX_NUMBER', 'DECIMAL_NUMBER',
         'AT', 'DOLLAR',
         'NAME',
@@ -113,7 +113,7 @@ class Parser(object):
         self._previous_newline_position = t.lexer.lexpos
         # t.type = 'SEMICOLON'
         # return t
-        
+
     t_ignore_COMMENT = r'\#[^\n]*'
 
     ##############################################
@@ -386,7 +386,7 @@ class Parser(object):
                       | expression LESS_EQUAL expression
                       | expression GREATER_EQUAL expression
         '''
-        p[0] = self._operator_to_class[p[2]](p[1], p[3])    
+        p[0] = self._operator_to_class[p[2]](p[1], p[3])
 
     ##############################################
 
@@ -427,9 +427,3 @@ class Parser(object):
             if not token:
                 break
             print(token)
-
-####################################################################################################
-# 
-# End
-# 
-####################################################################################################

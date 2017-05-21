@@ -12,5 +12,5 @@
   avr/index
   code-refactoring
   reference-manual
-  
+
 .. End

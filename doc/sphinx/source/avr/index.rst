@@ -6,7 +6,7 @@ AVR Datasheet
   :hidden:
 
   atmega-640-1280-2560.register-summary
-     
+
 This part contains a subtract of Atmel datasheets on AVR.
 
 How to Extract Data from Atmel Datasheets
@@ -26,10 +26,10 @@ SREG – AVR Status Register
 The AVR Status Register – SREG – is defined as:
 
 ============= === === === === === === === === ====
-Bit           7   6   5   4   3   2   1   0   
+Bit           7   6   5   4   3   2   1   0
 0x3F (0x5F)   I   T   H   S   V   N   Z   C   SREG
-Read/Write    R/W R/W R/W R/W R/W R/W R/W R/W 
-Initial Value 0   0   0   0   0   0   0   0   
+Read/Write    R/W R/W R/W R/W R/W R/W R/W R/W
+Initial Value 0   0   0   0   0   0   0   0
 ============= === === === === === === === === ====
 
 Bit 7 – I: Global Interrupt Enable

@@ -25,6 +25,6 @@ Indexes
   * :ref:`genindex`
   * :ref:`modindex`
   * :ref:`search`
-       
+
 .. End
 

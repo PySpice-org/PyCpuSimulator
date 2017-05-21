@@ -48,7 +48,7 @@ Compounds:
 * ``//``
 * ``/=``
 * ``<<=``
-* ``<=`` inferior equal 
+* ``<=`` inferior equal
 * ``==`` equal
 * ``>=`` superior equal
 * ``>>=``

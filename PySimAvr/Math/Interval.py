@@ -1,5 +1,5 @@
 ####################################################################################################
-# 
+#
 # PySimAvr - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
@@ -7,15 +7,15 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 ####################################################################################################
 
 """ This module implements interval arithmetic.
@@ -48,7 +48,7 @@ IntMinusInfinity = sys.maxsize
 IntPlusInfinity = -sys.maxsize
 
 ####################################################################################################
-    
+
 class Interval(object):
 
     """ Interval [inf, sup] in the float domain.
@@ -127,7 +127,7 @@ class Interval(object):
     clone = copy
 
     ##############################################
-    
+
     def __getitem__(self, index):
 
         """ Provide an indexing interface.
@@ -142,9 +142,9 @@ class Interval(object):
             # Fixme: check index.step
             if start == 0 and stop == 2:
                 return self.inf, self.sup
-            elif start == 0 and stop == 1: 
+            elif start == 0 and stop == 1:
                 return self.inf
-            elif start == 1 and stop == 2: 
+            elif start == 1 and stop == 2:
                 return self.sup
             else:
                 raise IndexError("Wrong " + str(index))
@@ -166,13 +166,13 @@ class Interval(object):
         return self.sup == FloatPlusInfinity or self._right_open
 
     ##############################################
-    
+
     def __repr__(self):
 
         return str(self.__class__) + ' ' + str(self)
 
     ##############################################
-    
+
     def __str__(self):
 
         """ Return a textual representation of the interval. """
@@ -403,7 +403,7 @@ class Interval(object):
         return self - interval_reference.inf
 
     ##############################################
-  
+
     def map_x_in(self, x, clamp=False):
 
         """ Return ``x - inf``. If *clamp* parameter is set True then the value is clamped in the
@@ -419,7 +419,7 @@ class Interval(object):
         return x - self.inf
 
     ##############################################
-  
+
     def unmap_x_in(self, x):
 
         """ Return ``x + inf``. """
@@ -427,7 +427,7 @@ class Interval(object):
         return x + self.inf
 
 ####################################################################################################
-    
+
 class IntervalInt(Interval):
 
     """ Interval [inf, sup] in the integer domain.
@@ -458,7 +458,7 @@ class IntervalInt(Interval):
         return self.sup == IntPlusInfinity or self._right_open
 
     ##############################################
-    
+
     def __str__(self):
 
         """ Return a textual representation of the interval. """
@@ -474,7 +474,7 @@ class IntervalInt(Interval):
             return s
 
     ##############################################
-  
+
     def length(self):
 
         """ Return ``sup - inf +1``. """
@@ -482,7 +482,7 @@ class IntervalInt(Interval):
         return self.sup - self.inf +1
 
     ##############################################
-  
+
     def length_float(self):
 
         """ Return ``sup - inf``. """
@@ -490,7 +490,7 @@ class IntervalInt(Interval):
         return self.sup - self.inf
 
     ##############################################
-  
+
     def to_slice(self):
 
         """ Return a slice instance. """
@@ -498,7 +498,7 @@ class IntervalInt(Interval):
         return slice(self.inf, self.sup +1)
 
 ####################################################################################################
-    
+
 class IntervalIntSupOpen(IntervalInt):
 
     """ Interval [inf, sup[ in the integer domain.
@@ -606,7 +606,7 @@ class Interval2D(object):
     clone = copy
 
     ##############################################
-    
+
     def __setitem__(self, index, interval):
 
         if index == 0:
@@ -617,7 +617,7 @@ class Interval2D(object):
             raise IndexError("Out of range index")
 
     ##############################################
-    
+
     def __getitem__(self, index):
 
         if index == 0:
@@ -636,7 +636,7 @@ class Interval2D(object):
         return str(self.x) + '*' + str(self.y)
 
     ##############################################
-    
+
     def __repr__(self):
 
         return str(self.__class__) + ' ' + str(self)
@@ -841,7 +841,7 @@ class Interval2D(object):
                 self.y.unmap_x_in(y))
 
 ####################################################################################################
-    
+
 class IntervalInt2D(Interval2D):
 
     """ Interval [inf, sup]*[inf, sup] in the integer domain.
@@ -853,9 +853,3 @@ class IntervalInt2D(Interval2D):
 
         self.x = IntervalInt(x)
         self.y = IntervalInt(y)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

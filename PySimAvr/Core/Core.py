@@ -1,5 +1,5 @@
 ####################################################################################################
-# 
+#
 # PySimAvr - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
@@ -7,15 +7,15 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -44,10 +44,10 @@ class NamedObject(object):
         return self._name
 
 ####################################################################################################
-        
+
 class Memory(NamedObject):
 
-    ##############################################    
+    ##############################################
 
     def __init__(self, name, cell_size):
 
@@ -122,7 +122,7 @@ class Register(MemoryValueMixin, Memory):
 
     __cell_size__ = None
 
-    ##############################################    
+    ##############################################
 
     def __init__(self, name, cell_size=None):
 
@@ -144,7 +144,7 @@ class Register(MemoryValueMixin, Memory):
     def __int__(self):
         # make a copy
         # TypeError: __int__ returned non-int (type numpy.uint8)
-        # return self._dtype(self._value) 
+        # return self._dtype(self._value)
         return int(self._value)
 
     ##############################################
@@ -158,7 +158,7 @@ class Register(MemoryValueMixin, Memory):
         return "{} = 0x{:X}".format(self._name, self._value)
 
 ####################################################################################################
-    
+
 class Register8(Register):
   __cell_size__ = 8
 
@@ -176,7 +176,7 @@ class Register64(Register):
 
 class MappedRegister(MemoryValueMixin, Memory):
 
-    ##############################################    
+    ##############################################
 
     def __init__(self, name, memory_cell):
 
@@ -212,7 +212,7 @@ class MappedRegister(MemoryValueMixin, Memory):
 
 class RegisterFile(NamedObject):
 
-    ##############################################    
+    ##############################################
 
     def __init__(self, name, registers):
 
@@ -300,7 +300,7 @@ class MemoryCell(MemoryValueMixin):
 
 class RomMemory(Memory):
 
-    ##############################################    
+    ##############################################
 
     def __init__(self, name, cell_size, size, data=None):
 
@@ -443,7 +443,7 @@ class Core(object):
         return value
 
     ##############################################
-    
+
     def run_ast_program(self, program):
 
         for statement in program:
@@ -479,7 +479,7 @@ class StandardCore(Core):
     """
 
     ##############################################
-        
+
     def eval_Constant(self, level, statement):
 
         # Return the constant value
@@ -487,14 +487,14 @@ class StandardCore(Core):
         return int(statement)
 
     ##############################################
-        
+
     def eval_Register(self, level, statement):
 
         # Return the register name
         return str(statement)
 
     ##############################################
-    
+
     def eval_Assignation(self, level, statement, value, cell):
 
         self._logger.debug('')
@@ -517,7 +517,7 @@ class StandardCore(Core):
         return memory.cell(address)
 
     ##############################################
-        
+
     def eval_Concatenation(self, level, statement, operand1, operand2):
 
         # operand2 must be a register
@@ -530,14 +530,14 @@ class StandardCore(Core):
         return (int(operand1) >> int(operand2)) & 0x1
 
     ##############################################
-    
+
     def eval_BitRange(self, level, statement, operand1, operand2, operand3):
 
         value2 = int(operand2)
         mask = 2**(int(operand3) - value2 +1) -1
         return (int(operand1) >> value2) & mask
 
-    ##############################################    
+    ##############################################
 
     def eval_LowerNibble(self, level, statement, operand1):
 
@@ -550,13 +550,13 @@ class StandardCore(Core):
         return (int(operand1) >> 4) & 0x0F
 
     ##############################################
-    
+
     def eval_Addition(self, level, statement, operand1, operand2):
 
         return int(operand1) + int(operand2)
 
     ##############################################
-    
+
     def eval_SaturatedAddition(self, level, statement, operand1, operand2):
 
         # operand1 must be a register
@@ -569,7 +569,7 @@ class StandardCore(Core):
         return int(operand1) - int(operand2)
 
     ##############################################
-    
+
     def eval_SaturatedSubtraction(self, level, statement, operand1, operand2):
 
         return min(int(operand1) - int(operand2), 0)
@@ -615,7 +615,7 @@ class StandardCore(Core):
     def eval_LeftShift(self, level, statement, operand1, operand2):
 
         # Fixme: -> ShiftLeft
-        
+
         return int(operand1) << int(operand2)
 
     ##############################################
@@ -673,9 +673,3 @@ class StandardCore(Core):
 
     # Signed operations
     # Arithmetic Shift Instructions
-    
-####################################################################################################
-# 
-# End
-# 
-####################################################################################################

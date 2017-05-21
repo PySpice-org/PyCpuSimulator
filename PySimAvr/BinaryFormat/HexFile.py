@@ -75,7 +75,7 @@ class HexFile(object):
                 elif line_type in (2, 3, 4 ,5):
                     raise NotImplementedError('Unsupported Intel 80x86 line type')
                 # else: end of file
-        
+
         np_chunks = []
         interval = IntervalInt(0, 0) # Fixme: right ?
         for address, data in chunks:
@@ -129,9 +129,3 @@ class HexFile(object):
 
         for i in range(0, len(self), 2):
             yield self.read_uint16(i)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

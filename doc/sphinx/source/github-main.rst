@@ -89,7 +89,7 @@ linked in your program, so it takes literally zero bytes, this is a code section
 
 A program running with these instructions and writing to the serial port will generate a file that
 will display::
-    
+
     $ ./simavr/run_avr tests/atmega88_example.axf
     AVR_MMCU_TAG_VCD_TRACE 00c6:00 - UDR0
     AVR_MMCU_TAG_VCD_TRACE 00c0:20 - UDRE0

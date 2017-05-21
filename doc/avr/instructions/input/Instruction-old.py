@@ -1,16 +1,16 @@
 ####################################################################################################
 
 # Registers and Operands
-# 
-# Rd: Destination (and source) register in the Register File 
-# Rr: Source register in the Register File 
-# R: Result after instruction is executed 
-# K: Constant data 
-# k: Constant address 
-# b: Bit in the Register File or I/O Register (3-bit) 
-# s: Bit in the Status Register (3-bit) 
-# X,Y,Z: Indirect Address Register (X=R27:R26, Y=R29:R28 and Z=R31:R30) 
-# A: I/O location address 
+#
+# Rd: Destination (and source) register in the Register File
+# Rr: Source register in the Register File
+# R: Result after instruction is executed
+# K: Constant data
+# k: Constant address
+# b: Bit in the Register File or I/O Register (3-bit)
+# s: Bit in the Status Register (3-bit)
+# X,Y,Z: Indirect Address Register (X=R27:R26, Y=R29:R28 and Z=R31:R30)
+# A: I/O location address
 # q: Displacement for direct addressing (6-bit)
 
 ####################################################################################################
@@ -29,20 +29,20 @@ class OpcodeChunk(object):
 
         self.opcode += other.opcode
         return self
-        
+
     ##############################################
 
     def __len__(self):
 
         return len(self.opcode)
-    
+
     ##############################################
 
     def compatible(self, other):
         return isinstance(other, self.__class__)
 
 ####################################################################################################
-    
+
 class OpcodeOperand(object):
 
     ##############################################
@@ -51,25 +51,25 @@ class OpcodeOperand(object):
 
         self.letter = letter
         self.count = count
-        
+
     ##############################################
 
     def __iadd__(self, opcode):
 
         self.count += opcode.count
         return self
-        
+
     ##############################################
 
     def __len__(self):
 
         return self.count
-        
+
     ##############################################
 
     def compatible(self, other):
         return isinstance(other, self.__class__) and self.letter == other.letter
-    
+
 ####################################################################################################
 
 class Instruction(object):
@@ -109,9 +109,9 @@ class Instruction(object):
         #         chuncks2.append((number, len(chunck)))
         #     else:
         #         chuncks2.append((chunck[0], len(chunck)))
-        
+
         return chuncks
-        
+
     ##############################################
 
     def _parse_opcode(self, opcode):
@@ -119,10 +119,7 @@ class Instruction(object):
         nibbles = opcode.split(' ')
         opcode_size = len(nibbles)
         opcode_string = ''.join(nibbles)
-        printopcode_string)
-
-
-        
+        print(opcode_string)
 
         # chuncks = []
         # for nibble_weight, nibble in enumerate(nibbles):
@@ -158,7 +155,7 @@ class Instruction(object):
         #         else:
         #             operand += '{}{}'.format(item, count)
         #     print(hex(value), hex(mask), operand)
-            
+
 ####################################################################################################
 
 import json
@@ -178,5 +175,3 @@ for instruction in instructions.values():
     for opcode in instruction.opcodes:
         print(opcode)
         instruction._parse_opcode(opcode)
-
-####################################################################################################

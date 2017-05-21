@@ -358,7 +358,7 @@ class Opcode(object):
                 else:
                     operand_intervals.append(interval)
         # print([str(x) for x in operand_intervals])
-        
+
         return operand_intervals
 
     ##############################################
@@ -414,7 +414,7 @@ class Opcode(object):
             else:
                 bytecode_intervals.append(interval)
         # print([str(x) for x in bytecode_intervals])
-        
+
         return bytecode_intervals
 
 ####################################################################################################
@@ -600,7 +600,7 @@ class DecisionTree(object):
         #     print(string_format.format(opcode.opcode, opcode.opcode,
         #                                opcode.mask,
         #                                opcode.instruction.mnemonic, opcode))
-        
+
         self._root = self._make_tree(opcode_set, gmask=0xFFFF)
 
     ##############################################
@@ -665,14 +665,14 @@ class DecisionTree(object):
     def _make_tree(self, opcode_set, gmask, level=0):
 
         # print('\n\nMake Tree mask level {} {:016b}'.format(level, gmask))
-        
+
         # Compute a bit mask of bits that are significant for all bit patterns
         mask = gmask
         for opcode in opcode_set:
             # print(bin(opcode.mask))
             mask &= opcode.mask
         # print('mask:', bin(mask))
-        
+
         # Possibly terminate, must be singleton
         if not mask and len(opcode_set) == 1:
             # print('Terminate for null mask and singleton')
@@ -864,9 +864,3 @@ class InstructionSet(collections.OrderedDict):
             print("\nRange distribution:")
             for interval_length in sorted(histogram):
                 print("  {:4} × {:4} bytecodes".format(histogram[interval_length], interval_length))
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

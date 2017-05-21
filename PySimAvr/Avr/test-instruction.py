@@ -154,9 +154,3 @@ if False:
                 if interval1.intersect(interval2):
                     print("{} {} {} and {} {} {} clash".format(opcode1.mnemonic, opcode1, str(interval1),
                                                                opcode2.mnemonic, opcode2, str(interval2)))
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################
