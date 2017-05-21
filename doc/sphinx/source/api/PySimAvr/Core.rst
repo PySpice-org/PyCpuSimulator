@@ -9,4 +9,8 @@
   Core/Instruction
   Core/parsetab
 
+.. automodule:: PySimAvr.Core
+   :members:
+   :show-inheritance:
+
 .. End

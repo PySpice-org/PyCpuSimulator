@@ -7,4 +7,8 @@
   Tools/Path
   Tools/RevisionVersion
 
+.. automodule:: PySimAvr.Tools
+   :members:
+   :show-inheritance:
+
 .. End

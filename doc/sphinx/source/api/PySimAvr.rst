@@ -12,4 +12,8 @@
   PySimAvr/Tools
   PySimAvr/Version
 
+.. automodule:: PySimAvr
+   :members:
+   :show-inheritance:
+
 .. End
