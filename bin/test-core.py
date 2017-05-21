@@ -104,12 +104,20 @@ else
   R2 = 4;
 Y = 23;
 '''
+
+
+rule = '\n' + '-'*100 + '\n'
+
 print(source)
+
 # micro_code_parser.test_lexer(source)
+
 ast_program = micro_code_parser.parse(source)
+
 # print()
 # print(ast_program)
-print()
+
+print(rule)
 core.run_ast_program(ast_program)
 
 print(ram[:10])

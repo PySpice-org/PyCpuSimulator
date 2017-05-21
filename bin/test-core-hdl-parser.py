@@ -20,28 +20,10 @@
 #
 ####################################################################################################
 
-# Fixme: <- is not implemented in parser ???
-#
-# Generating LALR tables
-# WARNING: 7 shift/reduce conflicts
-#
-# ================================================================================
-# 1 : C <- 0
-# 2017-05-21 14:31:19,562 - PySimAvr.Core.CoreHdlParser.Parser - CoreHdlParser.p_error - ERROR - Syntax error at '<'
-# Traceback (most recent call last):
-#   File "bin/test-core-hdl-parser.py", line 50, in <module>
-#     program = parser.parse(line)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/CoreHdlParser.py", line 417, in parse
-#     self._parser.parse(text, lexer=self._lexer)
-#   File "/opt/python-virtual-env/py35/lib/python3.5/site-packages/ply/yacc.py", line 331, in parse
-#     return self.parseopt_notrack(input, lexer, debug, tracking, tokenfunc)
-#   File "/opt/python-virtual-env/py35/lib/python3.5/site-packages/ply/yacc.py", line 1199, in parseopt_notrack
-#     tok = call_errorfunc(self.errorfunc, errtoken, self)
-#   File "/opt/python-virtual-env/py35/lib/python3.5/site-packages/ply/yacc.py", line 193, in call_errorfunc
-#     r = errorfunc(token)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/CoreHdlParser.py", line 208, in p_error
-#     raise NameError('Parser error')
-# NameError: Parser error
+"""Test the HDL parser for instruction operations.
+"""
+
+# Fixme: Some operations are supported !!!
 
 ####################################################################################################
 #
@@ -70,6 +52,9 @@ with open('data/operations.txt') as f:
             print(line_number, ':', line)
             # print()
             # parser.test_lexer(line)
-            program = parser.parse(line)
+            # try:
+            program = parser.parse(line + ';')
             print()
             print(program)
+            # except:
+            #     print("Parse error")

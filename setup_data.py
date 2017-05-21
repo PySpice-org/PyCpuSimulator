@@ -114,5 +114,7 @@ setup_dict = dict(
     requires=[
         'PyYAML'
         'numpy',
+        'ansicolor',
+        'ply',
     ],
 )

@@ -20,6 +20,9 @@
 #
 ####################################################################################################
 
+"""Test the HDL parser.
+"""
+
 ####################################################################################################
 #
 # Logging
@@ -54,9 +57,13 @@ else if (R2)
 
 '''
 
+rule = '\n' + '-'*100 + '\n'
+
 print(source)
+
+print(rule)
 micro_code_parser.test_lexer(source)
 
+print(rule)
 ast_program = micro_code_parser.parse(source)
-print()
 print(ast_program)

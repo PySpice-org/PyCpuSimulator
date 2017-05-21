@@ -20,12 +20,31 @@
 #
 ####################################################################################################
 
-# Fixme:
+"""Read a firmware in Intel HEX format and dump disassembled instructions.
+
+How to disassemble using GNU Binutils::
+
+  avr-objdump -D --prefix-addresses firmware.elf
+  avr-objdump -d -j .sec1 -m avr6 firmware.hex
+"""
+
+####################################################################################################
+
+# Fixme: End of program issue
+#
 # 0x066E: 0xCFFF
 #    RJMP 1100 kkkk kkkk kkkk
 #   {'k': 4095}
 # 0x0670: 0x000D
 #   Illegal instruction
+#
+# objdump output is:
+#
+# 66a:	f8 94       	cli
+# 66c:	ff cf       	rjmp	.-2      	;  0x66c
+# 66e:	0d 00       	.word	0x000d	; ????
+
+# Fixme: What is this word ???
 
 ####################################################################################################
 
@@ -35,7 +54,11 @@ from PySimAvr.Core.Instruction import DecodeError
 
 ####################################################################################################
 
+# Fixme: use argparse ...
 path = 'data/blink-led-mega2560-firmware.hex'
+
+####################################################################################################
+
 hex_file = HexFile(path)
 
 decision_tree = instruction_set.decision_tree
@@ -58,5 +81,3 @@ while pc < pc_stop:
             print(' ', opcode.decode(bytecode))
     except DecodeError:
         print("  Illegal instruction")
-
-# avr-objdump -D --prefix-addresses firmware.elf

@@ -204,8 +204,12 @@ class Parser(object):
     )
 
     def p_error(self, p):
-        self._logger.error("Syntax error at '%s'", p.value)
-        raise NameError('Parser error')
+        if p:
+            self._logger.error("Syntax error at '%s'", p.value)
+            raise NameError('Syntax Error')
+        else:
+            self._logger.error("Syntax Error at End Of File")
+            raise NameError("Syntax Error at End Of File" )
 
     start = 'program'
 

@@ -122,7 +122,7 @@ BRCC:
   description: Branch if Carry Cleared
   alias_of: BRBC
   alias_substitution: s = 0
- 
+
 BRCS:
   description: Branch if Carry Set
   alias_of: BRBS
@@ -325,8 +325,8 @@ CLZ:
   alias_substitution: s = 1
 
 COM:
-  description: One's Complement
-  alternate: One\u2019s Complement
+  description: One s Complement
+  alternate: One s Complement
   operations:
     -
       opcode: 1001 010d dddd 0000
@@ -679,8 +679,8 @@ MULSU:
       cycles: 2
 
 NEG:
-  description: Two's Complement
-  alternate: Two\u2019s Complement
+  description: Two s Complement
+  alternate: Two s Complement
   operations:
     -
       opcode: 1001 010d dddd 0001
@@ -789,7 +789,7 @@ ROL:
   alternate: Rotate Left Through Carry
   alias_of: ADC
   alias_substitution: Rr = Rd
-  
+
 ROR:
   description: Rotate Right through Carry
   alternate: Rotate Right Through Carry

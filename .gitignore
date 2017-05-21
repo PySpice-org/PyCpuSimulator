@@ -8,3 +8,11 @@ MANIFEST
 PySimAvr/Core/parser.out
 PySimAvr/Core/parsetab.py
 doc/sphinx/build/
+#
+data/blink-led/.build_ano/
+data/blink-led/asm/
+data/blink-led/ino-env
+data/blink-led/make-asm
+data/blink-led/make.log
+data/blink-led/sketch/
+data/blink-led/trash/

@@ -18,6 +18,9 @@
 #
 ####################################################################################################
 
+"""Test the bytecode decoder.
+"""
+
 ####################################################################################################
 
 from PySimAvr.Avr import instruction_set
@@ -136,6 +139,8 @@ if True:
 #
 # Bytecode Interval (but code is wrong)
 #
+
+# Fixme: what means (but code is wrong) ???
 
 if True:
     bytecode_interval_pool = []
