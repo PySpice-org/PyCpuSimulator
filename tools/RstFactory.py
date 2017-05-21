@@ -26,7 +26,7 @@ import os
 
 ####################################################################################################
 
-class RstFactory(object):
+class RstFactory:
 
     """ This class build recursively a Sphinx API documentation from a Python root module. """
 
@@ -104,6 +104,9 @@ class RstFactory(object):
 
         # Generate the TOC RST file
         rst = self._generate_toc(directory_module_name, sorted(module_names + sub_modules))
+        rst += '\n'
+        rst += self._generate_automodule(directory_module_python_path)
+        rst += self.end_marker
         rst_file_name = os.path.join(os.path.dirname(dst_directory), directory_module_name + '.rst')
         with open(rst_file_name, 'w') as f:
             f.write(rst)
@@ -137,6 +140,13 @@ class RstFactory(object):
     def python_path_to_path(python_path):
 
         return python_path.replace('.', os.path.sep)
+
+    ##############################################
+
+    @staticmethod
+    def join_python_path(*args):
+
+        return '.'.join(args)
 
     ##############################################
 
@@ -192,9 +202,21 @@ class RstFactory(object):
         for module_name in module_names:
             rst += ' '*2 + os.path.join(directory_module_name, module_name) + '\n'
 
-        rst += """
-.. End
+        return rst
+
+    ##############################################
+
+    def _generate_automodule(self, module_path):
+
+        template = """
+.. automodule:: %(module_path)s
+   :members:
+   :show-inheritance:
 """
+
+        rst = template.lstrip() % dict(
+            module_path=module_path,
+            )
 
         return rst
 
@@ -204,17 +226,13 @@ class RstFactory(object):
 
         template = """%(title)s
 
-.. automodule:: %(module_path)s.%(module_name)s
-   :members:
-   :show-inheritance:
-
-.. End
+%(automodule)s
 """
 
         rst = template.lstrip() % dict(
             title=self._generate_title(module_name),
-            module_name=module_name,
-            module_path=module_path,
+            automodule=self._generate_automodule(RstFactory.join_python_path(module_path, module_name))
             )
+        rst += self.end_marker
 
         return rst

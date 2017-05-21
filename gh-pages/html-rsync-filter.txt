@@ -1,6 +1,7 @@
 .buildinfo
 .git
 .gitignore
-html-rsync-filter.txt
 README.rst
-update-gh-pages
+push-to-github.sh
+html-rsync-filter.txt
+update.sh

@@ -4,13 +4,12 @@
 
 root_dir=$(dirname $(dirname $(realpath $0)))
 html_build="${root_dir}/doc/sphinx/build/html"
-doxygen_build="${root_dir}/doc/doxygen/output/html"
 source_gh_pages=${root_dir}/gh-pages
 
 echo Source Path: ${root_dir}
 echo HTML Build Path: ${html_build}
 
-origin='git@github.com:FabriceSalvaire/simavr.git'
+origin='git@github.com:FabriceSalvaire/PySimAvr.git'
 
 ####################################################################################################
 
@@ -18,8 +17,8 @@ tmp_dir=$(mktemp -d)
 if [ -e ${tmp_dir} ]; then
   pushd ${tmp_dir}
 
-  git clone ${origin} simavr-gh-pages --branch gh-pages --single-branch
-  pushd simavr-gh-pages
+  git clone ${origin} PySimAvr-gh-pages --branch gh-pages --single-branch
+  pushd PySimAvr-gh-pages
   # sync with origin if already cloned
   # git fetch origin
   git checkout gh-pages
@@ -29,17 +28,18 @@ if [ -e ${tmp_dir} ]; then
   cp ${source_gh_pages}/README.rst .
   if [ -e _images ]; then
     mv _images images
-    find . -name "*.html" -exec sed -e 's/_images/images/;' -i {} \;
+    find . -name "*.html" -exec sed -e 's/_images/images/g;' -i {} \;
   fi
   if [ -e _static ]; then
     mv _static static
-    find . -name "*.html" -exec sed -e 's/_static/static/;' -i {} \;
+    find . -name "*.html" -exec sed -e 's/_static/static/g;' -i {} \;
+  fi
+  if [ -e _downloads ]; then
+    mv _downloads downloads
+    find . -name "*.html" -exec sed -e 's/_downloads/downloads/g;' -i {} \;
   fi
   find . -name '.#*html' -exec rm {} \;
 
-  mkdir -p doxygen
-  rsync --delete -av ${doxygen_build}/ doxygen
-  
   git add --all *
   git commit -m 'update'
   git push -u origin gh-pages
