@@ -1,7 +1,9 @@
+#! /usr/bin/env python3
+
 ####################################################################################################
 #
 # PySimAvr - AVR Simulator
-# Copyright (C) 2015 Fabrice Salvaire
+# Copyright (C) 2015 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,19 +22,13 @@
 
 ####################################################################################################
 
-__all__ = ['instruction_set']
+import sys
+
+from distutils.core import setup
+# from setuptools import setup
 
 ####################################################################################################
 
-import os as _os
+exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
 
-####################################################################################################
-
-from PySimAvr.Core.Instruction import InstructionSet
-
-####################################################################################################
-
-_yaml_path = _os.path.join(_os.path.dirname(__file__), 'opcodes.yml')
-
-#: Dictionnary providing the :class:`Instruction` instances for the AVR instruction set.
-instruction_set = InstructionSet(_yaml_path)
+setup(**setup_dict)

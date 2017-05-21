@@ -1,0 +1,35 @@
+include .gitignore
+include .pyflymakerc
+include CHANGES.txt
+include GPL-V3.0.txt
+include LICENSE.txt
+include MANIFEST.in
+include README.html
+include README.rst
+include README.txt
+include TODO.rst
+include make-release.sh
+include pylintrc.ini
+include setenv.sh start.sh
+include setup_data.py
+include requirements.txt requirements-dev.txt
+include .travis.yml
+include bower/bower.json
+recursive-include avr-datasheet-extractor *
+recursive-include bin *
+recursive-include PySimAvr *.py *.yml *.h *.py.in
+recursive-include doc *
+recursive-include doc/sphinx/source/_static *
+recursive-include doc/sphinx/source/_templates *
+recursive-include examples *
+recursive-include gh-pages *
+recursive-include spec *.spec *.desktop
+recursive-include tools *
+recursive-include unit-test *.py
+global-exclude *~
+global-exclude *__pycache__*
+global-exclude *.pyc
+prune build
+prune doc/sphinx/build
+prune doc/sphinx/source/bower
+prune doc/sphinx/source/_static/MathJax
