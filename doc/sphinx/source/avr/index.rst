@@ -12,10 +12,10 @@ This part contains a subtract of Atmel datasheets on AVR.
 How to Extract Data from Atmel Datasheets
 =========================================
 
-There is two possibilities to extract data from datasheet, the first one is to copy text using a PDF
-viewer, and the second one is to dump the PDF text content using a tool like *pdftotext*.  And then
-use a mixture of scripts and a powerful editor to cleanup and reformat the text, a spreadsheet like
-Libre Office can help to deal with tables using a CSV file.
+There is two possibilities to extract data from a datasheet, the first one is to copy manually the
+text using a PDF viewer, and the second one is to dump the PDF text content using a tool like
+*pdftotext*.  And then use a mixture of scripts and a powerful editor to cleanup and reformat the
+text, a spreadsheet like Libre Office can help to deal with tables using a CSV file.
 
 AVR Registers
 =============
@@ -70,8 +70,9 @@ General Purpose Register File
 -----------------------------
 
 The AVR has 32 8-bit general purpose registers which are mapped at the beginning of the SRAM memory
-space. The last registers (R26-R31) can be grouped by two to form three 16-bit registers called X, Y
-and Z.
+space.
+
+The last registers (R26-R31) can be grouped by two to form three 16-bit registers called X, Y and Z.
 
 ==== ===== ====================
 Name Addr.
@@ -184,10 +185,11 @@ Register Summary
 Instructions
 ============
 
-.. toctree::
+..
+  .. toctree::
 
-  instructions
-  instruction-decision-tree
+    instructions
+    instruction-decision-tree
 
 32-bit Instructions:
 
