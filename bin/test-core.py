@@ -69,15 +69,19 @@ micro_code_parser = Parser()
 
 ram = RamMemory('RAM', cell_size=8, size=8*1024)
 
+# Define some general purpose registers
 general_purpose_registers = [Register8('R' + str(i)) for i in range(4)]
+
 registers = [
-    Register16('PC'),
-    Register16('STACK'),
-    Register8('SREG'),
+    Register16('PC'), # Pointer Counter
+    Register16('STACK'), # Stack Pointer
+    Register8('SREG'), # AVR Status Register
     Register16('X'),
-    MappedRegister('Y', ram.cell(0)),
+    MappedRegister('Y', ram.cell(0)), # Y is mapped to ram[0]
 ]
 registers.extend(general_purpose_registers)
+
+# Fixme: X = R27:R26
 
 register_file = RegisterFile('REGISTER', registers)
 
@@ -105,7 +109,6 @@ else
 Y = 23;
 '''
 
-
 rule = '\n' + '-'*100 + '\n'
 
 print(source)
@@ -120,4 +123,5 @@ ast_program = micro_code_parser.parse(source)
 print(rule)
 core.run_ast_program(ast_program)
 
-print(ram[:10])
+print(rule)
+print('RAM:', ram[:10])

@@ -31,7 +31,9 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class NamedObject(object):
+class NamedObjectMixin:
+
+    """Mixin for object having a name attribute"""
 
     def __init__(self, name):
         self._name = name
@@ -45,14 +47,23 @@ class NamedObject(object):
 
 ####################################################################################################
 
-class Memory(NamedObject):
+class Memory(NamedObjectMixin):
 
     ##############################################
 
     def __init__(self, name, cell_size):
 
+        """cell_size is given in bits
+        """
+
         super(Memory, self).__init__(name)
         self._cell_size = cell_size
+
+    ##############################################
+
+    def __repr__(self):
+
+        return "Memory {.name} {.cell_size}-bit".format(self)
 
     ##############################################
 
@@ -75,6 +86,7 @@ class Memory(NamedObject):
     ##############################################
 
     def check_value(self, value):
+        """Check the value is in the cell range."""
         if value < self.inf or value > self.sup:
             raise ValueError("Value is out of range")
 
@@ -89,7 +101,7 @@ class Memory(NamedObject):
 
     def two_complement(self, value):
         self.check_value(value)
-        return self.sup - value # +1 ?
+        return self.sup - value # Fixme: +1 ???
 
     ##############################################
 
@@ -109,12 +121,12 @@ class Memory(NamedObject):
 
 ####################################################################################################
 
-class MemoryValueMixin(object):
+class MemoryValueMixin:
 
     ##############################################
 
     def two_complement(self):
-        return self.sup - int(self) # +1?
+        return self.sup - int(self) # Fixme: +1 ???
 
 ####################################################################################################
 
@@ -171,7 +183,6 @@ class Register32(Register):
 class Register64(Register):
   __cell_size__ = 64
 
-
 ####################################################################################################
 
 class MappedRegister(MemoryValueMixin, Memory):
@@ -210,7 +221,7 @@ class MappedRegister(MemoryValueMixin, Memory):
 
 ####################################################################################################
 
-class RegisterFile(NamedObject):
+class RegisterFile(NamedObjectMixin):
 
     ##############################################
 
@@ -236,12 +247,12 @@ class RegisterFile(NamedObject):
     ##############################################
 
     def __getitem__(self, register):
-        return self._registers[register]
+        return cell(register)
 
     ##############################################
 
     def __setitem__(self, register, value):
-        self._registers[register].set(value)
+        self.cell(register).set(value)
 
     ##############################################
 
@@ -289,7 +300,7 @@ class MemoryCell(MemoryValueMixin):
     ##############################################
 
     def __str__(self):
-        return "{}[0x{:x}]".format(self._memory.name, int(self._address))
+        return "{}[0x{:x}]".format(self._memory.name, self._address)
 
     ##############################################
 
@@ -319,7 +330,7 @@ class RomMemory(Memory):
     ##############################################
 
     def cell(self, address):
-        return MemoryCell(self, address)
+        return MemoryCell(self, int(address))
 
     ##############################################
 
@@ -345,7 +356,7 @@ class RamMemory(RomMemory):
 
 ####################################################################################################
 
-class Core(object):
+class Core:
 
     _logger = _module_logger.getChild('Core')
 
@@ -362,7 +373,7 @@ class Core(object):
 
     @property
     def memory(self):
-        return self._memories # Fixme:
+        return self._memories # Fixme: m...y vs ies
 
     ##############################################
 
@@ -427,8 +438,8 @@ class Core(object):
         evaluator = getattr(self, 'eval_' + statement_class)
         if hasattr(statement, 'iter_on_operands'):
             # Compute the operand values: traverse recursively the AST
-            args=  [self.eval_statement(level+1, operand)
-                    for operand in statement.iter_on_operands()]
+            args = [self.eval_statement(level+1, operand)
+                   for operand in statement.iter_on_operands()]
             value = evaluator(level, statement, *args)
         else:
             value = evaluator(level, statement)
@@ -671,5 +682,6 @@ class StandardCore(Core):
 
     ##############################################
 
-    # Signed operations
-    # Arithmetic Shift Instructions
+    # Fixme:
+    #   Signed operations
+    #   Arithmetic Shift Instructions
