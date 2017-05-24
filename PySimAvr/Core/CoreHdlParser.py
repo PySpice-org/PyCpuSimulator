@@ -18,6 +18,9 @@
 #
 ####################################################################################################
 
+"""High Definition Language Parser
+"""
+
 ####################################################################################################
 
 import logging
@@ -45,7 +48,7 @@ def ensure_statement_list(x):
 
 ####################################################################################################
 
-class Parser(object):
+class Parser:
 
     _logger = _module_logger.getChild('Parser')
 
@@ -309,7 +312,7 @@ class Parser(object):
                        | register_bit_range
                        | addressing
         '''
-        # | NAME LEFT_BRACKET NAME COMMA NAME RIGHT_BRACKET
+        # Fixme: | NAME LEFT_BRACKET NAME COMMA NAME RIGHT_BRACKET
         p[0] = p[1]
 
     def p_number(self, p):

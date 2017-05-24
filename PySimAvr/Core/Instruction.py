@@ -51,7 +51,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class Chunk(object):
+class Chunk:
 
     ##############################################
 
@@ -163,7 +163,7 @@ class OperandChunk(Chunk):
 
 ####################################################################################################
 
-class Opcode(object):
+class Opcode:
 
     """ This class implements an AVR opcode. """
 
@@ -419,7 +419,7 @@ class Opcode(object):
 
 ####################################################################################################
 
-class InstructionBase(object):
+class InstructionBase:
 
     ##############################################
 
@@ -519,7 +519,7 @@ class DecodeError(NameError):
 
 ####################################################################################################
 
-class DecisionTreeNode(object):
+class DecisionTreeNode:
 
     ##############################################
 
@@ -573,12 +573,33 @@ class DecisionTreeNode(object):
 
 ####################################################################################################
 
-class DecisionTree(object):
+class DecisionTree:
 
     """This class implements a decision tree to decode opcodes of an instruction set.
 
-    The algorithm is described in the paper Generating Decision Trees for Decoding Binaries, Henrik
-    Theiling.
+    The algorithm is described in the paper Generating Decision Trees for Decoding Binaries, Henrik Theiling, 2001.
+
+        @inproceedings{Theiling:2001:GDT:384198.384213,
+         author = {Theiling, Henrik},
+         title = {Generating Decision Trees for Decoding Binaries},
+         booktitle = {Proceedings of the 2001 ACM SIGPLAN Workshop on Optimization of Middleware and Distributed Systems},
+         series = {OM '01},
+         year = {2001},
+         isbn = {1-58113-426-6},
+         location = {Snow Bird, Utah, USA},
+         pages = {112--120},
+         numpages = {9},
+         url = {http://doi.acm.org/10.1145/384198.384213},
+         doi = {10.1145/384198.384213},
+         acmid = {384213},
+         publisher = {ACM},
+         address = {New York, NY, USA},
+        }
+
+        http://dl.acm.org/citation.cfm?id=384198.384213
+
+    Note: to look further see cited by references.
+
 
     .. warning:: Default node was not tested.
 

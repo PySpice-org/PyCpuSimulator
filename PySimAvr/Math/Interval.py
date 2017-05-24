@@ -51,7 +51,7 @@ IntPlusInfinity = -sys.maxsize
 
 ####################################################################################################
 
-class Interval(object):
+class Interval:
 
     """ Interval [inf, sup] in the float domain.
 
@@ -581,7 +581,7 @@ class IntervalIntSupOpen(IntervalInt):
 
 #################################################################################
 
-class Interval2D(object):
+class Interval2D:
 
     """ Interval [inf, sup]*[inf, sup] in the float domain.
 

@@ -18,6 +18,9 @@
 #
 ####################################################################################################
 
+"""Abstract Syntactic Tree for the High Definition Language
+"""
+
 ####################################################################################################
 
 import logging
@@ -28,7 +31,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class StatementList(object):
+class StatementList:
 
     ##############################################
 
@@ -67,7 +70,7 @@ class Program(StatementList):
 
 ####################################################################################################
 
-class Operand(object):
+class Operand:
     def __init__(self, name):
         self._name = name
 
@@ -81,7 +84,7 @@ class ConstantOperand(Operand):
 
 ####################################################################################################
 
-class Register(object):
+class Register:
     def __init__(self, name):
         self._name = name
 
@@ -90,7 +93,7 @@ class Register(object):
 
 ####################################################################################################
 
-class Constant(object):
+class Constant:
     def __init__(self, value):
         self._value = value
 
@@ -102,7 +105,7 @@ class Constant(object):
 
 ####################################################################################################
 
-class If(object):
+class If:
 
     ##############################################
 
@@ -156,7 +159,7 @@ class If(object):
 
 ####################################################################################################
 
-class Expression(object):
+class Expression:
 
     __number_of_operands__ = None
 
