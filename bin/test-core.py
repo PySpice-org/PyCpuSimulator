@@ -20,33 +20,6 @@
 #
 ####################################################################################################
 
-# Fixme:
-# Assignation RAM[REGISTER[X]] <- REGISTER[R2]
-#   Addressing REGISTER[R2]
-#     Register R2
-#       = R2
-#     = R2
-#   Addressing RAM[REGISTER[X]]
-#     Addressing REGISTER[X]
-#       Register X
-#         = X
-#       = X
-#     = RAM[0x3]
-# Traceback (most recent call last):
-#   File "bin/test-core.py", line 86, in <module>
-#     core.run_ast_program(ast_program)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/Core.py", line 451, in run_ast_program
-#     self.eval_statement(0, statement)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/Core.py", line 432, in eval_statement
-#     value = evaluator(level, statement, *args)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/Core.py", line 504, in eval_Assignation
-#     cell.set(value)
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/Core.py", line 287, in set
-#     self._memory[self._address] = value
-#   File "/home/fabrice/home/developpement/PySimAvr/PySimAvr/Core/Core.py", line 344, in __setitem__
-#     self._memory[address_slice] = value
-# IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
-
 ####################################################################################################
 #
 # Logging
@@ -114,11 +87,10 @@ rule = '\n' + '-'*100 + '\n'
 print(source)
 
 # micro_code_parser.test_lexer(source)
-
 ast_program = micro_code_parser.parse(source)
 
-# print()
-# print(ast_program)
+print(rule)
+print(ast_program)
 
 print(rule)
 core.run_ast_program(ast_program)
