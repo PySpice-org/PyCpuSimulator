@@ -20,6 +20,7 @@
 
 """Read Intel HEX file format
 
+See Hexadecimal Object File Format Specification.
 See https://en.wikipedia.org/wiki/Intel_HEX
 """
 
@@ -39,14 +40,68 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+class Chunk:
+
+    ##############################################
+
+    def __init__(self, address, data):
+
+        self._address = address
+        self._data = data
+
+    ##############################################
+
+    @property
+    def address(self):
+        return self._address
+
+    @property
+    def interval(self):
+        return IntervalInt(self._address, self._address + len(self._data) // 2)
+
+    @property
+    def data(self):
+        return self._data
+
+    @property
+    def byte_array(self):
+        byte_array = [int(self._data[i:i+2], 16) for i in range(0, len(self._data), 2)]
+        return np.array(byte_array, dtype=np.uint8)
+
+    ##############################################
+
+    def append(self, data):
+
+        self._data += data
+
+####################################################################################################
+
+class Chunks(list):
+
+    ##############################################
+
+    @property
+    def interval(self):
+
+        # Compute address range
+
+        interval = None
+        if self:
+            interval = self[0].interval
+            for chunk in self[1:]:
+                interval |= chunk.interval
+        return interval
+
+####################################################################################################
+
 class HexFile:
 
     _logger = _module_logger.getChild('Hex')
 
-    __start_code_size__ = 1 # 0
-    __byte_count_size__ = 2 # 1-2
-    __address_size___ = 4 # 3-6
-    __record_type_size__ = 2 # 7-8
+    # __start_code_size__ = 1 # 0
+    # __byte_count_size__ = 2 # 1-2
+    # __address_size___ = 4 # 3-6
+    # __record_type_size__ = 2 # 7-8
 
     ##############################################
 
@@ -54,9 +109,34 @@ class HexFile:
 
         self._path = path
 
-        chunks = []
+        # Read HEX file
+        chunks = Chunks()
         next_address = None
-        with open(path) as f:
+        for line_type, address, data_size, data in self._read_hex():
+            if line_type == 0:
+                if next_address is None or address != next_address:
+                    chunks.append(Chunk(address, data))
+                else: # contiguous addressing, append data to the last chunk
+                    chunks[-1].append(data)
+                next_address = address + data_size
+            elif line_type >= 2:
+                raise NotImplementedError('Unsupported Intel 80x86 line type')
+            # else: 1 is end of file
+
+        interval = chunks.interval
+        self._logger.info("Hex file {} requires {:1} kB", path, interval.sup / 1024)
+
+        # Copy chunks to a flat memory
+        self._data = np.zeros(interval.sup, dtype=np.uint8)
+        for chunk in chunks:
+            data = chunk.byte_array
+            self._data[chunk.address:data.shape[0]] = data
+
+    ##############################################
+
+    def _read_hex(self):
+
+        with open(self._path) as f:
             for line in f:
                 line = line.strip()
                 if not line.startswith(':'):
@@ -68,32 +148,9 @@ class HexFile:
                 address = int(line[3:7], 16)
                 line_type = int(line[7:9], 16)
                 data = line[9:-2]
-                if line_type == 0:
-                    if len(data) != 2 * data_size:
-                        raise NameError("Bad line size")
-                    if next_address is None or address != next_address:
-                        chunk = [address, data]
-                        chunks.append(chunk)
-                    else:
-                        chunk[1] += data
-                    next_address = address + data_size
-                elif line_type in (2, 3, 4 ,5):
-                    raise NotImplementedError('Unsupported Intel 80x86 line type')
-                # else: end of file
-
-        np_chunks = []
-        interval = IntervalInt(0, 0) # Fixme: right ?
-        for address, data in chunks:
-            # print("0x{:x} {}".format(address, data))
-            interval |= IntervalInt(address, address + len(data) // 2)
-            byte_array = [int(data[i:i+2], 16) for i in range(0, len(data), 2)]
-            np_byte_array = np.array(byte_array, dtype=np.uint8)
-            np_chunks.append((address, np_byte_array))
-        self._logger.info("Hex file {} requires {:1} kB", path, interval.sup / 1024)
-
-        self._data = np.zeros(interval.sup, dtype=np.uint8)
-        for address, data in np_chunks:
-           self._data[address:data.shape[0]] = data
+                if len(data) != 2 * data_size:
+                    raise NameError("Bad line size")
+                yield line_type, address, data_size, data
 
     ##############################################
 

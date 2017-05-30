@@ -47,7 +47,10 @@ class NamedObjectMixin:
 
 ####################################################################################################
 
-class Memory(NamedObjectMixin):
+class MemoryMixin(NamedObjectMixin):
+
+    """Mixin to define the properties of a memory.
+    """
 
     ##############################################
 
@@ -56,14 +59,8 @@ class Memory(NamedObjectMixin):
         """cell_size is given in bits
         """
 
-        super(Memory, self).__init__(name)
+        super(MemoryMixin, self).__init__(name)
         self._cell_size = cell_size
-
-    ##############################################
-
-    def __repr__(self):
-
-        return "Memory {.name} {.cell_size}-bit".format(self)
 
     ##############################################
 
@@ -130,7 +127,10 @@ class MemoryValueMixin:
 
 ####################################################################################################
 
-class Register(MemoryValueMixin, Memory):
+class Register(MemoryValueMixin, MemoryMixin):
+
+    """This class implements a register.
+    """
 
     __cell_size__ = None
 
@@ -141,7 +141,7 @@ class Register(MemoryValueMixin, Memory):
         if cell_size is None:
             cell_size = self.__cell_size__
 
-        Memory.__init__(self, name, cell_size)
+        MemoryMixin.__init__(self, name, cell_size)
 
         self._dtype = self.np_dtype
         self._value = self._dtype(0)
@@ -185,13 +185,16 @@ class Register64(Register):
 
 ####################################################################################################
 
-class MappedRegister(MemoryValueMixin, Memory):
+class MappedRegister(MemoryValueMixin, MemoryMixin):
+
+    """This class implements a mapped register in memory.
+    """
 
     ##############################################
 
     def __init__(self, name, memory_cell):
 
-        Memory.__init__(self, name, memory_cell.cell_size)
+        MemoryMixin.__init__(self, name, memory_cell.cell_size)
         self._memory_cell = memory_cell
 
     ##############################################
@@ -223,6 +226,9 @@ class MappedRegister(MemoryValueMixin, Memory):
 
 class RegisterFile(NamedObjectMixin):
 
+    """This class implements a register file.
+    """
+
     ##############################################
 
     def __init__(self, name, registers):
@@ -242,6 +248,7 @@ class RegisterFile(NamedObjectMixin):
     ##############################################
 
     def cell(self, register):
+        # Fixme: name ???
         return self._registers[register]
 
     ##############################################
@@ -265,6 +272,9 @@ class RegisterFile(NamedObjectMixin):
 ####################################################################################################
 
 class MemoryCell(MemoryValueMixin):
+
+    """This class implements a wrapper on a memory cell.
+    """
 
     ##############################################
 
@@ -309,7 +319,10 @@ class MemoryCell(MemoryValueMixin):
 
 ####################################################################################################
 
-class RomMemory(Memory):
+class RomMemory(MemoryMixin):
+
+    """This class implements a ROM memory.
+    """
 
     ##############################################
 
@@ -341,6 +354,9 @@ class RomMemory(Memory):
 ####################################################################################################
 
 class RamMemory(RomMemory):
+
+    """This class implements a RAM memory.
+    """
 
     ##############################################
 
@@ -418,6 +434,8 @@ class Core:
     ##############################################
 
     def check_for_register_operand(self, *operands):
+
+        # Unused
 
         registers, constants = self.split_operand_by_type(operands)
         if not registers:

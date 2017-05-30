@@ -30,27 +30,7 @@ How to disassemble using GNU Binutils::
 
 ####################################################################################################
 
-# Fixme: End of program issue
-#
-# 0x066E: 0xCFFF
-#    RJMP 1100 kkkk kkkk kkkk
-#   {'k': 4095}
-# 0x0670: 0x000D
-#   Illegal instruction
-#
-# objdump output is:
-#
-# 66a:	f8 94       	cli
-# 66c:	ff cf       	rjmp	.-2      	;  0x66c
-# 66e:	0d 00       	.word	0x000d	; ????
-
-# Fixme: What is this word ???
-
-####################################################################################################
-
-from PySimAvr.Avr import instruction_set
-from PySimAvr.BinaryFormat.HexFile import HexFile
-from PySimAvr.Core.Instruction import DecodeError
+from PySimAvr.Avr.HexFile import HexFile, HexOpcode
 
 ####################################################################################################
 
@@ -61,23 +41,14 @@ path = 'data/blink-led-mega2560-firmware.hex'
 
 hex_file = HexFile(path)
 
-decision_tree = instruction_set.decision_tree
-
-bytecode_iterator = hex_file.iter_on_uint16()
-pc = 0
-pc_stop = len(hex_file)
-while pc < pc_stop:
-    bytecode = next(bytecode_iterator)
-    pc += 2
-    print('0x{:04X}: 0x{:04X}'.format(pc, bytecode))
-    try:
-        opcode = decision_tree.decode(bytecode)
-        print('  ', opcode.mnemonic, opcode)
-        if opcode.opcode_size == 32:
-            operand_bytecode = next(bytecode_iterator)
-            print('0x{:04X}: 0x{:04X}'.format(pc +2, operand_bytecode))
-            pc += 2
+for hex_opcode in hex_file.read_opcodes():
+    if isinstance(hex_opcode, HexOpcode):
+        template = '0x{0.address:04X}: 0x{0.bytecode:04X}\n  {0.opcode.mnemonic} {0.opcode}'
+        print(template.format(hex_opcode))
+        if hex_opcode.opcode_size == 32:
+            print('0x{:04X}: 0x{:04X}'.format(hex_opcode.address +2, hex_opcode.operand_bytecode))
         else:
-            print(' ', opcode.decode(bytecode))
-    except DecodeError:
-        print("  Illegal instruction")
+            print(' ', hex_opcode.decode())
+    else:
+        template = '0x{0.address:04X}: 0x{0.bytecode:04X}\n  word ???'
+        print(template.format(hex_opcode))
