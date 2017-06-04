@@ -2,19 +2,20 @@
 Todo
 ====
 
+
 Missing HEX Features
 --------------------
 
 * Automatic check against binutils disassembled hex [partially done: check mnemonic but not operands]
-* Set a ROM and an instruction's map
+* Set a ROM and an instruction's map <P1>
 * Handle data section (.word ???)
 
 Missing Core Features
 ---------------------
 
-* Implement bit mapped registers (cf. SREG)
-  Attention to register clash: Z versus SREG[Z], HDL as register[bit]
-* Implement concatenated 16-bit registers (cf. SPH/SPL, X/Y/Z etc.)
+* Implement bit mapped registers (cf. SREG) <P1>
+  Attention to register name's clash: Z versus SREG[Z] versus Sz, HDL as register[bit]
+* Implement concatenated 16-bit registers (cf. SPH/SPL, X/Y/Z etc.) ??? <P2>
 
 Implement a basic CPU
 ---------------------
@@ -29,7 +30,7 @@ How to implement the simulator
 * Read an HEX to set the ROM: data and instructions
 * ROM is indexed by PC
 * for each opcode : execute the corresponding AST program, we need a mechanism to substitute the operands
-  An AST program is thus a routine with arguments
+  An AST program is thus a routine with arguments [partially done]
 
 How to complete the AVR support
 -------------------------------

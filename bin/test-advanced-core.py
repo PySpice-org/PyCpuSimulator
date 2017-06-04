@@ -85,6 +85,7 @@ core.run_ast_program(ast_program)
 
 print(rule)
 print('Registers:')
+# print(register_file.dump())
 for register in registers:
     print('  {0.name:10} | {1:16} | 0x{1:04x} | 0b{1:016b}'.format(register, int(register)))
 # print('RAM:', ram[:10])

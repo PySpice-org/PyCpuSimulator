@@ -439,7 +439,7 @@ class Core:
 
     def split_operand_by_type(self, operands):
 
-        # Unused
+        # Unused: purpose ???
 
         registers = []
         constants = []
@@ -455,7 +455,7 @@ class Core:
 
     def check_for_register_operand(self, *operands):
 
-        # Unused
+        # Unused: purpose ??? Old code cf. history ???
 
         registers, constants = self.split_operand_by_type(operands)
         if not registers:
