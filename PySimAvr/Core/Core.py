@@ -167,7 +167,7 @@ class Register(MemoryValueMixin, MemoryMixin):
     ##############################################
 
     def str_value(self):
-        return "{} = 0x{:X}".format(self._name, self._value)
+        return "{0} = {1} — 0x{1:x} — 0b{1:b}".format(self._name, self._value)
 
 ####################################################################################################
 
@@ -226,7 +226,9 @@ class MappedRegister(MemoryValueMixin, MemoryMixin):
 
 class RegisterFile(NamedObjectMixin):
 
-    """This class implements a register file.
+    """This class implements a register's file.
+
+    Register are indexed by name.
     """
 
     ##############################################
@@ -380,7 +382,11 @@ class Core:
 
     def __init__(self, memories):
 
+        # HDL parser know to memory space: REGISTER and RAM
         self._memories = {memory.name:memory for memory in memories}
+
+        # Operands act as local variables
+        self._operands = {}
 
         self._cycles = 0 # could be a register
         self._modified_registers = set()
@@ -390,6 +396,18 @@ class Core:
     @property
     def memory(self):
         return self._memories # Fixme: m...y vs ies
+
+    ##############################################
+
+    @property
+    def operands(self):
+        return self._operands
+
+    def clear_operands(self):
+        self._operands.clear()
+
+    def set_operands(self, **kwargs):
+        self._operands = kwargs
 
     ##############################################
 
@@ -420,6 +438,8 @@ class Core:
     ##############################################
 
     def split_operand_by_type(self, operands):
+
+        # Unused
 
         registers = []
         constants = []
@@ -524,6 +544,18 @@ class StandardCore(Core):
 
     ##############################################
 
+    def eval_RegisterOperand(self, level, statement):
+
+        return self.operands[statement.name]
+
+    ##############################################
+
+    def eval_ConstantOperand(self, level, statement):
+
+        return self.operands[statement.name]
+
+    ##############################################
+
     def eval_Assignation(self, level, statement, value, cell):
 
         self._logger.debug('')
@@ -532,7 +564,7 @@ class StandardCore(Core):
         # int_value = cell.truncate(int_value)
         cell.set(value)
         self._modified_registers.add(cell)
-        print('  '*(level+1) + '{} <- 0x{:x}'.format(cell, int_value))
+        print('  '*(level+1) + '{0} <- {1} — 0x{1:x} — 0b{1:b}'.format(cell, int_value))
 
     ##############################################
 
@@ -541,6 +573,7 @@ class StandardCore(Core):
         self._logger.debug('')
 
         # Return a register instance, use int(register) to retrieve the value
+        # HDL parser know to memory space: REGISTER and RAM
         memory = self.memory[statement.memory]
         # return memory[address]
         return memory.cell(address)

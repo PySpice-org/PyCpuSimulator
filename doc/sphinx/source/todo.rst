@@ -2,12 +2,46 @@
 Todo
 ====
 
-* implement PC
+Missing HEX Features
+--------------------
+
+* Automatic check against binutils disassembled hex [partially done: check mnemonic but not operands]
+* Set a ROM and an instruction's map
+* Handle data section (.word ???)
+
+Missing Core Features
+---------------------
+
+* Implement bit mapped registers (cf. SREG)
+  Attention to register clash: Z versus SREG[Z], HDL as register[bit]
+* Implement concatenated 16-bit registers (cf. SPH/SPL, X/Y/Z etc.)
+
+Implement a basic CPU
+---------------------
+
+* Design an basic instruction set to test each feature
+* Could use an AVR subset
+
+How to implement the simulator
+------------------------------
+
+* Initialise an AST program (routine) for each opcodes (opcode indexed)
+* Read an HEX to set the ROM: data and instructions
+* ROM is indexed by PC
+* for each opcode : execute the corresponding AST program, we need a mechanism to substitute the operands
+  An AST program is thus a routine with arguments
+
+How to complete the AVR support
+-------------------------------
+
+* Check the AVR instruction set YAML files and translate operations in valid HDL (micro-code)
+* MULS 16 <= d : do it in HDL ?
+* IO registers (see extractor code)
+* Much more challenging : simulate peripherals
+
+----
+
+* Implement PC
   PC corresponds to instruction index, not to micro-code
-* MULS 16 <= d, do it in micro-code ?
-* automatic check against binutils disassembled hex
-* check the AVR instruction set yaml files
-** translate operation in valid HDL
 * plug instruction operation in core
-* run an hex
-* IO register
+* Run an hex

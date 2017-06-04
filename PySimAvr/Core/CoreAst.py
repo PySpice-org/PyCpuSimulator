@@ -74,6 +74,11 @@ class Operand:
     def __init__(self, name):
         self._name = name
 
+    @property
+    def name(self):
+        return self._name
+
+
 class RegisterOperand(Operand):
     def __str__(self):
         return '@' + self._name
