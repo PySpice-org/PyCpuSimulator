@@ -1,0 +1,69 @@
+#! /usr/bin/env python3
+
+####################################################################################################
+#
+# PySimAvr - AVR Simulator
+# Copyright (C) 2017 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+"""Compare disassembled firmware with objdump output.
+"""
+
+####################################################################################################
+
+from PySimAvr.Avr.HexFile import HexFile, HexOpcode
+from PySimAvr.BinaryFormat.ObjDump import ObjDump
+
+####################################################################################################
+
+# Fixme: use argparse ...
+path = 'data/blink-led-mega2560-firmware.hex'
+
+####################################################################################################
+
+hex_file = HexFile(path)
+objdump = ObjDump(path)
+
+mismatches = []
+
+for hex_opcode in hex_file.read_opcodes():
+    print()
+    if isinstance(hex_opcode, HexOpcode):
+        template = '0x{0.address:04X}: 0x{0.bytecode:04X}\n  {0.opcode.mnemonic} {0.opcode}'
+        print(template.format(hex_opcode))
+        if hex_opcode.opcode_size == 32: # Fixme:
+            print('0x{:04X}: 0x{:04X}'.format(hex_opcode.address +2, hex_opcode.operand_bytecode))
+        else:
+            print(' ', hex_opcode.decode())
+        objdump_line = objdump[hex_opcode.address]
+        print(objdump_line)
+        mnemonic = hex_opcode.opcode.mnemonic
+        if mnemonic != 'NOP':
+            if mnemonic != objdump_line.mnemonic:
+                # raise NameError("Wrong mnemonic {} {}".format(mnemonic, objdump_line.mnemonic))
+                print(">>> Wrong mnemonic {} {}".format(mnemonic, objdump_line.mnemonic))
+                mismatches.append((hex_opcode, objdump_line))
+        else:
+            if objdump_line is not None and objdump_line.mnemonic != 'NOP':
+                raise NameError("Wrong NOP mnemonic {} {}".format(mnemonic, objdump_line.mnemonic))
+    else:
+        template = '0x{0.address:04X}: 0x{0.bytecode:04X}\n  word ???'
+        print(template.format(hex_opcode))
+
+print('\n'*5)
+for hex_opcode, objdump_line in sorted(mismatches, key=lambda x: x[1].mnemonic):
+    print(">>> Wrong mnemonic {1.mnemonic} {0.opcode.mnemonic} @{1.address:X}".format(hex_opcode, objdump_line))
