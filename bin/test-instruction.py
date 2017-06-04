@@ -2,7 +2,7 @@
 
 ####################################################################################################
 #
-# PySimAvr - AVR Simulator
+# PyCpuSimulator - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,9 +25,9 @@
 
 ####################################################################################################
 
-from PySimAvr.Avr import instruction_set
+from PyCpuSimulator.Avr import instruction_set
 
-from PySimAvr.Tools.BinaryNumber import sup_for_nbits, format_as_nibble
+from PyCpuSimulator.Tools.BinaryNumber import sup_for_nbits, format_as_nibble
 
 ####################################################################################################
 #

@@ -2,7 +2,7 @@
 
 ####################################################################################################
 #
-# PySimAvr - AVR Simulator
+# PyCpuSimulator - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,14 +25,14 @@
 # Logging
 #
 
-import PySimAvr.Logging.Logging as Logging
+import PyCpuSimulator.Logging.Logging as Logging
 
 logger = Logging.setup_logging('pysimavr')
 
 ####################################################################################################
 
-from PySimAvr.Core.CoreHdlParser import Parser
-from PySimAvr.Core.Core import (StandardCore,
+from PyCpuSimulator.Core.CoreHdlParser import Parser
+from PyCpuSimulator.Core.Core import (StandardCore,
                                 RegisterFile, RamMemory,
                                 MappedRegister, Register8, Register16)
 

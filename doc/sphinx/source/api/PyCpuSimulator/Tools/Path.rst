@@ -1,0 +1,10 @@
+*************
+ :mod:`Path`
+*************
+
+.. automodule:: PyCpuSimulator.Tools.Path
+   :members:
+   :show-inheritance:
+
+
+.. End

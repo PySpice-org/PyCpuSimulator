@@ -1,0 +1,12 @@
+************
+ :mod:`Avr`
+************
+
+.. toctree::
+  Avr/HexFile
+
+.. automodule:: PyCpuSimulator.Avr
+   :members:
+   :show-inheritance:
+
+.. End

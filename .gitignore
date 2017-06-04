@@ -6,8 +6,8 @@ build/
 dist/
 MANIFEST
 #
-PySimAvr/Core/parser.out
-PySimAvr/Core/parsetab.py
+PyCpuSimulator/Core/parser.out
+PyCpuSimulator/Core/parsetab.py
 doc/sphinx/build/
 #
 data/blink-led/.build_ano/

@@ -1,0 +1,10 @@
+**********************
+ :mod:`ConfigInstall`
+**********************
+
+.. automodule:: PyCpuSimulator.Config.ConfigInstall
+   :members:
+   :show-inheritance:
+
+
+.. End

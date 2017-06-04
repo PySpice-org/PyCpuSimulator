@@ -1,0 +1,10 @@
+*************
+ :mod:`Core`
+*************
+
+.. automodule:: PyCpuSimulator.Core.Core
+   :members:
+   :show-inheritance:
+
+
+.. End

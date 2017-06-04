@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PySimAvr - AVR Simulator
+# PyCpuSimulator - AVR Simulator
 # Copyright (C) 2015 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
@@ -73,33 +73,33 @@ long_description = read('README.txt')
 
 ####################################################################################################
 
-PySimAvr_path = os.path.join(site_packages_path, 'PySpice')
+PyCpuSimulator_path = os.path.join(site_packages_path, 'PySpice')
 
 setup_dict = dict(
-    name='PySimAvr',
+    name='PyCpuSimulator',
     version='0.1.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
-    description='PySimAvr is a AVR simulator',
+    description='PyCpuSimulator is a AVR simulator',
     license="GPLv3",
     keywords="avr, simulator",
-    url='https://github.com/FabriceSalvaire/PySimAvr',
+    url='https://github.com/FabriceSalvaire/PyCpuSimulator',
     scripts=glob.glob('bin/*'),
-    packages=['PySimAvr', # Fixme:
-              'PySimAvr.Avr',
-              'PySimAvr.BinaryFormat',
-              'PySimAvr.Config',
-              'PySimAvr.Core',
-              'PySimAvr.Logging',
-              'PySimAvr.Math',
-              'PySimAvr.Tools',
+    packages=['PyCpuSimulator', # Fixme:
+              'PyCpuSimulator.Avr',
+              'PyCpuSimulator.BinaryFormat',
+              'PyCpuSimulator.Config',
+              'PyCpuSimulator.Core',
+              'PyCpuSimulator.Logging',
+              'PyCpuSimulator.Math',
+              'PyCpuSimulator.Tools',
           ],
-    # package_dir = {'PySimAvr': 'PySpice'},
+    # package_dir = {'PyCpuSimulator': 'PySpice'},
     data_files=[
-        (os.path.join(PySimAvr_path, 'Config'),
-         [os.path.join('PySimAvr', 'Config', 'logging.yml')]),
-        (os.path.join(PySimAvr_path, 'Avr'),
-         [os.path.join('PySimAvr', 'Avr', 'opcodes.yml')]),
+        (os.path.join(PyCpuSimulator_path, 'Config'),
+         [os.path.join('PyCpuSimulator', 'Config', 'logging.yml')]),
+        (os.path.join(PyCpuSimulator_path, 'Avr'),
+         [os.path.join('PyCpuSimulator', 'Avr', 'opcodes.yml')]),
     ],
     long_description=long_description,
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers

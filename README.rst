@@ -3,13 +3,13 @@
 .. -*- Mode: rst -*-
 
 ..
-   |PySimAvrUrl|
-   |PySimAvrHomePage|_
-   |PySimAvrDoc|_
-   |PySimAvr@github|_
-   |PySimAvr@readthedocs|_
-   |PySimAvr@readthedocs-badge|
-   |PySimAvr@pypi|_
+   |PyCpuSimulatorUrl|
+   |PyCpuSimulatorHomePage|_
+   |PyCpuSimulatorDoc|_
+   |PyCpuSimulator@github|_
+   |PyCpuSimulator@readthedocs|_
+   |PyCpuSimulator@readthedocs-badge|
+   |PyCpuSimulator@pypi|_
 
 .. |ohloh| image:: https://www.openhub.net/accounts/230426/widgets/account_tiny.gif
    :target: https://www.openhub.net/accounts/fabricesalvaire
@@ -17,49 +17,49 @@
    :height: 15px
    :width:  80px
 
-.. |PySimAvrUrl| replace:: http://fabricesalvaire.github.io/PySimAvr
+.. |PyCpuSimulatorUrl| replace:: http://fabricesalvaire.github.io/PyCpuSimulator
 
-.. |PySimAvrHomePage| replace:: PySimAvr Home Page
-.. _PySimAvrHomePage: http://fabricesalvaire.github.io/PySimAvr
+.. |PyCpuSimulatorHomePage| replace:: PyCpuSimulator Home Page
+.. _PyCpuSimulatorHomePage: http://fabricesalvaire.github.io/PyCpuSimulator
 
-.. |PySimAvrDoc| replace:: PySimAvr Documentation
-.. _PySimAvrDoc: http://pyspice.readthedocs.org/en/latest
+.. |PyCpuSimulatorDoc| replace:: PyCpuSimulator Documentation
+.. _PyCpuSimulatorDoc: http://pyspice.readthedocs.org/en/latest
 
-.. |PySimAvr@readthedocs-badge| image:: https://readthedocs.org/projects/pyspice/badge/?version=latest
+.. |PyCpuSimulator@readthedocs-badge| image:: https://readthedocs.org/projects/pyspice/badge/?version=latest
    :target: http://pyspice.readthedocs.org/en/latest
 
-.. |PySimAvr@github| replace:: https://github.com/FabriceSalvaire/PySimAvr
-.. .. _PySimAvr@github: https://github.com/FabriceSalvaire/PySimAvr
+.. |PyCpuSimulator@github| replace:: https://github.com/FabriceSalvaire/PyCpuSimulator
+.. .. _PyCpuSimulator@github: https://github.com/FabriceSalvaire/PyCpuSimulator
 
-.. |PySimAvr@readthedocs| replace:: http://pyspice.readthedocs.org
-.. .. _PySimAvr@readthedocs: http://pyspice.readthedocs.org
+.. |PyCpuSimulator@readthedocs| replace:: http://pyspice.readthedocs.org
+.. .. _PyCpuSimulator@readthedocs: http://pyspice.readthedocs.org
 
-.. |PySimAvr@pypi| replace:: https://pypi.python.org/pypi/PySimAvr
-.. .. _PySimAvr@pypi: https://pypi.python.org/pypi/PySimAvr
+.. |PyCpuSimulator@pypi| replace:: https://pypi.python.org/pypi/PyCpuSimulator
+.. .. _PyCpuSimulator@pypi: https://pypi.python.org/pypi/PyCpuSimulator
 
-.. |Build Status| image:: https://travis-ci.org/FabriceSalvaire/PySimAvr.svg?branch=master
-   :target: https://travis-ci.org/FabriceSalvaire/PySimAvr
-   :alt: PySimAvr build status @travis-ci.org
+.. |Build Status| image:: https://travis-ci.org/FabriceSalvaire/PyCpuSimulator.svg?branch=master
+   :target: https://travis-ci.org/FabriceSalvaire/PyCpuSimulator
+   :alt: PyCpuSimulator build status @travis-ci.org
 
-.. |Pypi Download| image:: https://img.shields.io/pypi/dm/PySimAvr.svg
-   :target: https://pypi.python.org/pypi/PySimAvr
-   :alt: PySimAvr Download per month
+.. |Pypi Download| image:: https://img.shields.io/pypi/dm/PyCpuSimulator.svg
+   :target: https://pypi.python.org/pypi/PyCpuSimulator
+   :alt: PyCpuSimulator Download per month
 
-.. |Pypi Version| image:: https://img.shields.io/pypi/v/PySimAvr.svg
-   :target: https://pypi.python.org/pypi/PySimAvr
-   :alt: PySimAvr last version
+.. |Pypi Version| image:: https://img.shields.io/pypi/v/PyCpuSimulator.svg
+   :target: https://pypi.python.org/pypi/PyCpuSimulator
+   :alt: PyCpuSimulator last version
 
-.. |Pypi License| image:: https://img.shields.io/pypi/l/PySimAvr.svg
-   :target: https://pypi.python.org/pypi/PySimAvr
-   :alt: PySimAvr license
+.. |Pypi License| image:: https://img.shields.io/pypi/l/PyCpuSimulator.svg
+   :target: https://pypi.python.org/pypi/PyCpuSimulator
+   :alt: PyCpuSimulator license
 
-.. |Pypi Format| image:: https://img.shields.io/pypi/format/PySimAvr.svg
-   :target: https://pypi.python.org/pypi/PySimAvr
-   :alt: PySimAvr format
+.. |Pypi Format| image:: https://img.shields.io/pypi/format/PyCpuSimulator.svg
+   :target: https://pypi.python.org/pypi/PyCpuSimulator
+   :alt: PyCpuSimulator format
 
-.. |Pypi Python Version| image:: https://img.shields.io/pypi/pyversions/PySimAvr.svg
-   :target: https://pypi.python.org/pypi/PySimAvr
-   :alt: PySimAvr python version
+.. |Pypi Python Version| image:: https://img.shields.io/pypi/pyversions/PyCpuSimulator.svg
+   :target: https://pypi.python.org/pypi/PyCpuSimulator
+   :alt: PyCpuSimulator python version
 
 ..  coverage test
 ..  https://img.shields.io/pypi/status/Django.svg
@@ -89,12 +89,12 @@
 .. End
 
 =========
- PySimAvr
+ PyCpuSimulator
 =========
 
-The official PySimAvr Home Page is located at |PySimAvrUrl|
+The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
 
-The latest documentation build from the git repository is available at readthedocs.org |PySimAvr@readthedocs-badge|
+The latest documentation build from the git repository is available at readthedocs.org |PyCpuSimulator@readthedocs-badge|
 
 Written by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_.
 
@@ -130,7 +130,7 @@ Written by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_.
 Dependencies
 ------------
 
-PySimAvr requires the following dependencies:
+PyCpuSimulator requires the following dependencies:
 
  * |Python|_ 3
 
@@ -141,26 +141,26 @@ For development, you will need in addition:
 Installation from PyPi Repository
 ---------------------------------
 
-PySimAvr is made available on the |Pypi|_ repository at |PySimAvr@pypi|
+PyCpuSimulator is made available on the |Pypi|_ repository at |PyCpuSimulator@pypi|
 
 Run this command to install the last release:
 
 .. code-block:: sh
 
-  pip install PySimAvr
+  pip install PyCpuSimulator
 
 Installation from Source
 ------------------------
 
-The PySimAvr source code is hosted at |PySimAvr@github|
+The PyCpuSimulator source code is hosted at |PyCpuSimulator@github|
 
 To clone the Git repository, run this command in a terminal:
 
 .. code-block:: sh
 
-  git clone git@github.com:FabriceSalvaire/PySimAvr.git
+  git clone git@github.com:FabriceSalvaire/PyCpuSimulator.git
 
-Then to build and install PySimAvr run these commands:
+Then to build and install PyCpuSimulator run these commands:
 
 .. code-block:: sh
 

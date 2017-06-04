@@ -16,7 +16,7 @@ include requirements.txt requirements-dev.txt
 include setenv.sh start.sh
 include setup_data.py
 recursive-include avr-datasheet-extractor *
-recursive-include PySimAvr *.py *.yml *.h *.py.in
+recursive-include PyCpuSimulator *.py *.yml *.h *.py.in
 recursive-include bin *
 recursive-include data *
 recursive-include doc *

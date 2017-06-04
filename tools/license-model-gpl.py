@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PySimAvr - AVR Simulator
+# PyCpuSimulator - AVR Simulator
 # Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify

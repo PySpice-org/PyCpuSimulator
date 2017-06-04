@@ -4,12 +4,12 @@
 .. include:: abbreviation.txt
 
 =========
- PySimAvr
+ PyCpuSimulator
 =========
 
-The official PySimAvr Home Page is located at |PySimAvrUrl|
+The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
 
-The latest documentation build from the git repository is available at readthedocs.org |PySimAvr@readthedocs-badge|
+The latest documentation build from the git repository is available at readthedocs.org |PyCpuSimulator@readthedocs-badge|
 
 Written by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_.
 

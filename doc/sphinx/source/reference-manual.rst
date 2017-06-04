@@ -6,7 +6,7 @@
  API Documentation
 ===================
 
-This is the auto-generated API documentation for the PySimAvr library.
+This is the auto-generated API documentation for the PyCpuSimulator library.
 
 .. warning:: The API documentation is automatically generated from the docstrings in the source
   using the |Sphinx| tool.  This way to produce the documentation is know to be perfectible
@@ -17,7 +17,7 @@ Contents:
 .. toctree::
   :maxdepth: 2
 
-  api/PySimAvr
+  api/PyCpuSimulator
 
 Indexes
 -------
