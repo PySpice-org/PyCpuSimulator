@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>6.1.6.2. Interval &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="6.1.6. Math" href="../Math.html"/>
+        <link rel="next" title="6.1.7. Tools" href="../Tools.html"/>
+        <link rel="prev" title="6.1.6.1. Functions" href="Functions.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../reference-manual.html">6. API Documentation</a> &raquo;</li>
+      
+          <li><a href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a> &raquo;</li>
+      
+          <li><a href="../Math.html">6.1.6. Math</a> &raquo;</li>
+      
+    <li>6.1.6.2. Interval</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../../_sources/api/PyCpuSimulator/Math/Interval.rst.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-PyCpuSimulator.Math.Interval">
+<span id="interval"></span><h1>6.1.6.2. Interval<a class="headerlink" href="#module-PyCpuSimulator.Math.Interval" title="Permalink to this headline">¶</a></h1>
+<p>This module implements interval arithmetic.</p>
+<dl class="class">
+<dt id="PyCpuSimulator.Math.Interval.Interval">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">Interval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Interval [inf, sup] in the float domain.</p>
+<p>An interval can be constructed using a couple (inf, sup) or an object that support the
+<code class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></code> interface:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Interval</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">)</span>
+<span class="n">Interval</span><span class="p">((</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
+<span class="n">Interval</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+<span class="n">Interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To get the interval boundaries, use the <code class="xref py py-attr docutils literal"><span class="pre">inf</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">sup</span></code> attribute.</p>
+<p>An empty interval is defined with <em>inf</em> and <em>sup</em> set to <code class="xref py py-obj docutils literal"><span class="pre">None</span></code>.</p>
+<p>To compute the union of two intervals use:</p>
+<blockquote>
+<div>i3 = i1 | i2
+i1 <a href="#id1"><span class="problematic" id="id2">|</span></a>= i2</div></blockquote>
+<p>To compute the intersection of two intervals use:</p>
+<blockquote>
+<div>i3 = i1 &amp; i2
+i1 &amp;= i2</div></blockquote>
+<p>It returns an empty interval if the intersection is null.</p>
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval._check_arguments">
+<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._check_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="PyCpuSimulator.Math.Interval.Interval._intersection">
+<em class="property">static </em><code class="descname">_intersection</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the intersection of <em>i1</em> and <em>i2</em>.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PyCpuSimulator.Math.Interval.Interval._union">
+<em class="property">static </em><code class="descname">_union</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the union of <em>i1</em> and <em>i2</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#PyCpuSimulator.Math.Interval.Interval.copy" title="PyCpuSimulator.Math.Interval.Interval.copy"><code class="xref py py-meth docutils literal"><span class="pre">copy()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a clone of the interval.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.enlarge">
+<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enlarge the interval of <em>dx</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the interval intersects with i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the interval is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.is_included_in">
+<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.is_included_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the interval is included in i1?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.is_outside_of">
+<code class="descname">is_outside_of</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.is_outside_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.is_outside_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the interval is outside of i2?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Math.Interval.Interval.left_open">
+<code class="descname">left_open</code><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.left_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.length">
+<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.map_in">
+<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.map_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new interval shifted of <em>interval_reference.inf</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.map_x_in">
+<code class="descname">map_x_in</code><span class="sig-paren">(</span><em>x</em>, <em>clamp=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.map_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.map_x_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">inf</span></code>. If <em>clamp</em> parameter is set True then the value is clamped in the
+interval.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.middle">
+<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.middle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the interval’s middle.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Math.Interval.Interval.right_open">
+<code class="descname">right_open</code><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.right_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.unmap_x_in">
+<code class="descname">unmap_x_in</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.unmap_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.unmap_x_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">inf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval.zero_length">
+<code class="descname">zero_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval.zero_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.zero_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">==</span> <span class="pre">inf</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">Interval2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Interval [inf, sup]*[inf, sup] in the float domain.</p>
+<p>The components can be accessed using the <code class="xref py py-attr docutils literal"><span class="pre">x</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">y</span></code> attribute, or using an index
+interface where the index 0 maps to <em>x</em> and 1 to <em>y</em>, respectively.</p>
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.area">
+<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the area.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.bounding_box">
+<code class="descname">bounding_box</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the corresponding bounding box <code class="docutils literal"><span class="pre">(x.inf,</span> <span class="pre">y.inf,</span> <span class="pre">x.sup,</span> <span class="pre">y.sup)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#PyCpuSimulator.Math.Interval.Interval2D.copy" title="PyCpuSimulator.Math.Interval.Interval2D.copy"><code class="xref py py-meth docutils literal"><span class="pre">copy()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a clone of the interval.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.diagonal">
+<code class="descname">diagonal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.diagonal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.diagonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the diagonal’s length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.enlarge">
+<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enlarge the interval of dx.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the interval intersects with i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the interval is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.is_included_in">
+<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.is_included_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the interval is included in i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.map_in">
+<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.map_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new interval shifted of <em>interval_reference.inf</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.map_xy_in">
+<code class="descname">map_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>clamp=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.map_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.map_xy_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">(x</span> <span class="pre">-</span> <span class="pre">y.inf,</span> <span class="pre">y</span> <span class="pre">-</span> <span class="pre">y.inf)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.middle">
+<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.middle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the interval’s middle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.shift">
+<code class="descname">shift</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift the interval of (dx, dy).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.size">
+<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the horizontal and vertical length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.Interval2D.unmap_xy_in">
+<code class="descname">unmap_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D.unmap_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D.unmap_xy_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">(x</span> <span class="pre">+</span> <span class="pre">y.inf,</span> <span class="pre">y</span> <span class="pre">+</span> <span class="pre">y.inf)</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">IntervalInt</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalInt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Math.Interval.Interval" title="PyCpuSimulator.Math.Interval.Interval"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Math.Interval.Interval</span></code></a></p>
+<p>Interval [inf, sup] in the integer domain.</p>
+<dl class="attribute">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt.left_open">
+<code class="descname">left_open</code><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt.left_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt.length">
+<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalInt.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span> <span class="pre">+1</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt.length_float">
+<code class="descname">length_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalInt.length_float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt.length_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt.right_open">
+<code class="descname">right_open</code><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt.right_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt.to_slice">
+<code class="descname">to_slice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalInt.to_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt.to_slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a slice instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Math.Interval.IntervalInt2D">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">IntervalInt2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalInt2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalInt2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Math.Interval.Interval2D" title="PyCpuSimulator.Math.Interval.Interval2D"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Math.Interval.Interval2D</span></code></a></p>
+<p>Interval [inf, sup]*[inf, sup] in the integer domain.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Math.Interval.IntervalIntSupOpen">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">IntervalIntSupOpen</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Math.Interval.IntervalInt" title="PyCpuSimulator.Math.Interval.IntervalInt"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Math.Interval.IntervalInt</span></code></a></p>
+<p>Interval [inf, sup[ in the integer domain.</p>
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalIntSupOpen.exclude">
+<code class="descname">exclude</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen.exclude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.exclude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the subset intervals of <em>i1</em> given an exclusion interval <em>i2</em>.</p>
+<p>It returns <code class="xref py py-obj docutils literal"><span class="pre">None</span></code> if the intervals don’t intersect or <em>i1</em> is included in <em>i2</em>.  Else
+it returns a list of couples (interval, excluded_flag) where <em>interval</em> is a subset of the
+interval <em>i1</em> and <em>excluded_flag</em> indicated if the subset is excluded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalIntSupOpen.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the interval intersect with <em>i2</em>?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Math.Interval.IntervalIntSupOpen.minus">
+<code class="descname">minus</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen.minus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.minus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of intervals corresponding to i1 - intersection of i1 and i2. If i2 is
+included in i1 then two intervals can be returned. If the compution is not defined then
+<code class="xref py py-obj docutils literal"><span class="pre">None</span></code> is returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Tools.html" class="btn btn-neutral float-right" title="6.1.7. Tools">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Functions.html" class="btn btn-neutral" title="6.1.6.1. Functions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

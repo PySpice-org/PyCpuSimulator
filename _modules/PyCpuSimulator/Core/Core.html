@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyCpuSimulator.Core.Core &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>PyCpuSimulator.Core.Core</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for PyCpuSimulator.Core.Core</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># PyCpuSimulator - AVR Simulator</span>
+<span class="c1"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="NamedObjectMixin"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.NamedObjectMixin">[docs]</a><span class="k">class</span> <span class="nc">NamedObjectMixin</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Mixin for object having a name attribute&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="MemoryMixin"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryMixin">[docs]</a><span class="k">class</span> <span class="nc">MemoryMixin</span><span class="p">(</span><span class="n">NamedObjectMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Mixin to define the properties of a memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cell_size</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;cell_size is given in bits</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">MemoryMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">=</span> <span class="n">cell_size</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cell_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryMixin.check_value"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryMixin.check_value">[docs]</a>    <span class="k">def</span> <span class="nf">check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check the value is in the cell range.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Value is out of range&quot;</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryMixin.truncate"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryMixin.truncate">[docs]</a>    <span class="k">def</span> <span class="nf">truncate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># Numpy array performs this action natively</span>
+        <span class="c1"># return value &amp;_self.sup</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryMixin.two_complement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryMixin.two_complement">[docs]</a>    <span class="k">def</span> <span class="nf">two_complement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="n">value</span> <span class="c1"># Fixme: +1 ???</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">np_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">==</span> <span class="mi">32</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_size</span> <span class="o">==</span> <span class="mi">64</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong data size&quot;</span><span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="MemoryValueMixin"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryValueMixin">[docs]</a><span class="k">class</span> <span class="nc">MemoryValueMixin</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryValueMixin.two_complement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryValueMixin.two_complement">[docs]</a>    <span class="k">def</span> <span class="nf">two_complement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># Fixme: +1 ???</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Register"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register">[docs]</a><span class="k">class</span> <span class="nc">Register</span><span class="p">(</span><span class="n">MemoryValueMixin</span><span class="p">,</span> <span class="n">MemoryMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a register.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__cell_size__</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cell_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">cell_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cell_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cell_size__</span>
+
+        <span class="n">MemoryMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cell_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">np_dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Register.reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># make a copy</span>
+        <span class="c1"># TypeError: __int__ returned non-int (type numpy.uint8)</span>
+        <span class="c1"># return self._dtype(self._value)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Register.set"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Register.str_value"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register.str_value">[docs]</a>    <span class="k">def</span> <span class="nf">str_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> = </span><span class="si">{1}</span><span class="s2"> — 0x</span><span class="si">{1:x}</span><span class="s2"> — 0b</span><span class="si">{1:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Register8"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register8">[docs]</a><span class="k">class</span> <span class="nc">Register8</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+  <span class="n">__cell_size__</span> <span class="o">=</span> <span class="mi">8</span></div>
+
+<div class="viewcode-block" id="Register16"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register16">[docs]</a><span class="k">class</span> <span class="nc">Register16</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+  <span class="n">__cell_size__</span> <span class="o">=</span> <span class="mi">16</span></div>
+
+<div class="viewcode-block" id="Register32"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register32">[docs]</a><span class="k">class</span> <span class="nc">Register32</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+  <span class="n">__cell_size__</span> <span class="o">=</span> <span class="mi">32</span></div>
+
+<div class="viewcode-block" id="Register64"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Register64">[docs]</a><span class="k">class</span> <span class="nc">Register64</span><span class="p">(</span><span class="n">Register</span><span class="p">):</span>
+  <span class="n">__cell_size__</span> <span class="o">=</span> <span class="mi">64</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="MappedRegister"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MappedRegister">[docs]</a><span class="k">class</span> <span class="nc">MappedRegister</span><span class="p">(</span><span class="n">MemoryValueMixin</span><span class="p">,</span> <span class="n">MemoryMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a mapped register in memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">memory_cell</span><span class="p">):</span>
+
+        <span class="n">MemoryMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">memory_cell</span><span class="o">.</span><span class="n">cell_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span> <span class="o">=</span> <span class="n">memory_cell</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MappedRegister.reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MappedRegister.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MappedRegister.set"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MappedRegister.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MappedRegister.str_value"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MappedRegister.str_value">[docs]</a>    <span class="k">def</span> <span class="nf">str_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory_cell</span><span class="o">.</span><span class="n">str_value</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="RegisterFile"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RegisterFile">[docs]</a><span class="k">class</span> <span class="nc">RegisterFile</span><span class="p">(</span><span class="n">NamedObjectMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a register&#39;s file.</span>
+
+<span class="sd">    Register are indexed by name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">registers</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">RegisterFile</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_registers</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="n">register</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+                                       <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="n">registers</span><span class="p">])</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="RegisterFile.reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RegisterFile.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">register</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="RegisterFile.cell"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RegisterFile.cell">[docs]</a>    <span class="k">def</span> <span class="nf">cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+        <span class="c1"># Fixme: name ???</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registers</span><span class="p">[</span><span class="n">register</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cell</span><span class="p">(</span><span class="n">register</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">register</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="RegisterFile.dump"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RegisterFile.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># for register in self._registers.values():</span>
+        <span class="c1">#     print(register)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; | &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">register</span><span class="o">.</span><span class="n">str_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registers</span><span class="o">.</span><span class="n">values</span><span class="p">()]))</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="MemoryCell"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryCell">[docs]</a><span class="k">class</span> <span class="nc">MemoryCell</span><span class="p">(</span><span class="n">MemoryValueMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a wrapper on a memory cell.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span> <span class="o">=</span> <span class="n">memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_address</span> <span class="o">=</span> <span class="n">address</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_address</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cell_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">cell_size</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="p">])</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryCell.set"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryCell.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">[0x</span><span class="si">{:x}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="MemoryCell.str_value"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.MemoryCell.str_value">[docs]</a>    <span class="k">def</span> <span class="nf">str_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; = 0x</span><span class="si">{:X}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="RomMemory"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RomMemory">[docs]</a><span class="k">class</span> <span class="nc">RomMemory</span><span class="p">(</span><span class="n">MemoryMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a ROM memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cell_size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">RomMemory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cell_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">np_dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="RomMemory.cell"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RomMemory.cell">[docs]</a>    <span class="k">def</span> <span class="nf">cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">MemoryCell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">address</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address_slice</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="n">address_slice</span><span class="p">]</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="RamMemory"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RamMemory">[docs]</a><span class="k">class</span> <span class="nc">RamMemory</span><span class="p">(</span><span class="n">RomMemory</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a RAM memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="RamMemory.reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.RamMemory.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address_slice</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="p">[</span><span class="n">address_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Core"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core">[docs]</a><span class="k">class</span> <span class="nc">Core</span><span class="p">:</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Core&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memories</span><span class="p">):</span>
+
+        <span class="c1"># HDL parser know to memory space: REGISTER and RAM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memories</span> <span class="o">=</span> <span class="p">{</span><span class="n">memory</span><span class="o">.</span><span class="n">name</span><span class="p">:</span><span class="n">memory</span> <span class="k">for</span> <span class="n">memory</span> <span class="ow">in</span> <span class="n">memories</span><span class="p">}</span>
+
+        <span class="c1"># Operands act as local variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operands</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># could be a register</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modified_registers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memories</span> <span class="c1"># Fixme: m...y vs ies</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operands</span>
+
+<div class="viewcode-block" id="Core.clear_operands"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.clear_operands">[docs]</a>    <span class="k">def</span> <span class="nf">clear_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operands</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Core.set_operands"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.set_operands">[docs]</a>    <span class="k">def</span> <span class="nf">set_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operands</span> <span class="o">=</span> <span class="n">kwargs</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cycles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.reset_trackers"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.reset_trackers">[docs]</a>    <span class="k">def</span> <span class="nf">reset_trackers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modified_registers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.increment_cycle"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.increment_cycle">[docs]</a>    <span class="k">def</span> <span class="nf">increment_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cycles</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">+=</span> <span class="n">cycles</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">memory</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memories</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="s1">&#39;reset&#39;</span><span class="p">):</span>
+                <span class="n">memory</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.split_operand_by_type"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.split_operand_by_type">[docs]</a>    <span class="k">def</span> <span class="nf">split_operand_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operands</span><span class="p">):</span>
+
+        <span class="c1"># Unused: purpose ???</span>
+
+        <span class="n">registers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">operand</span> <span class="ow">in</span> <span class="n">operands</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">operand</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># Register or MemoryCell</span>
+                <span class="n">registers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">operand</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">registers</span><span class="p">,</span> <span class="n">constants</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.check_for_register_operand"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.check_for_register_operand">[docs]</a>    <span class="k">def</span> <span class="nf">check_for_register_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">operands</span><span class="p">):</span>
+
+        <span class="c1"># Unused: purpose ??? Old code cf. history ???</span>
+
+        <span class="n">registers</span><span class="p">,</span> <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_operand_by_type</span><span class="p">(</span><span class="n">operands</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">registers</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Forbidden operation, at least one register operand is required&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">registers</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.eval_statement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.eval_statement">[docs]</a>    <span class="k">def</span> <span class="nf">eval_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">statement_class</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="o">*</span><span class="n">level</span> <span class="o">+</span> <span class="n">statement_class</span><span class="p">,</span> <span class="n">statement</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">statement_class</span> <span class="o">==</span> <span class="s1">&#39;Function&#39;</span><span class="p">:</span>
+            <span class="n">statement_class</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">evaluator</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;eval_&#39;</span> <span class="o">+</span> <span class="n">statement_class</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="s1">&#39;iter_on_operands&#39;</span><span class="p">):</span>
+            <span class="c1"># Compute the operand values: traverse recursively the AST</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_statement</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">operand</span> <span class="ow">in</span> <span class="n">statement</span><span class="o">.</span><span class="n">iter_on_operands</span><span class="p">()]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">evaluator</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">evaluator</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">value_string</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="o">*</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value_string</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">value</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.run_ast_program"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.run_ast_program">[docs]</a>    <span class="k">def</span> <span class="nf">run_ast_program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">program</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">statement</span> <span class="ow">in</span> <span class="n">program</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_statement</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">statement</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; | &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">register</span><span class="o">.</span><span class="n">str_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modified_registers</span><span class="p">]))</span>
+            <span class="c1"># self.memory[&#39;REGISTER&#39;].dump()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_trackers</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Core.eval_If"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.Core.eval_If">[docs]</a>    <span class="k">def</span> <span class="nf">eval_If</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_statement</span><span class="p">(</span><span class="n">level</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">statement</span><span class="o">.</span><span class="n">condition</span><span class="p">):</span>
+            <span class="n">branch</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">then_expression</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">branch</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">else_expression</span>
+        <span class="k">if</span> <span class="n">branch</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">statement</span> <span class="ow">in</span> <span class="n">branch</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eval_statement</span><span class="p">(</span><span class="n">level</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">statement</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="StandardCore"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore">[docs]</a><span class="k">class</span> <span class="nc">StandardCore</span><span class="p">(</span><span class="n">Core</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a standard core with a very felxible ALU. For example we can add directly</span>
+<span class="sd">    two constants.</span>
+
+<span class="sd">    ALU operations are performed using Python integer. The value is truncated to the data type in</span>
+<span class="sd">    the Numpy cell.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Constant"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Constant">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="c1"># Return the constant value</span>
+        <span class="c1"># Fixme: wrap constant in a class ?</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Register"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Register">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="c1"># Return the register name</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_RegisterOperand"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_RegisterOperand">[docs]</a>    <span class="k">def</span> <span class="nf">eval_RegisterOperand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="n">statement</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_ConstantOperand"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_ConstantOperand">[docs]</a>    <span class="k">def</span> <span class="nf">eval_ConstantOperand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="n">statement</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Assignation"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Assignation">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Assignation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">int_value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="c1"># int_value = cell.truncate(int_value)</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modified_registers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="o">*</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> &lt;- </span><span class="si">{1}</span><span class="s1"> — 0x</span><span class="si">{1:x}</span><span class="s1"> — 0b</span><span class="si">{1:b}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">int_value</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Addressing"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Addressing">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Addressing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Return a register instance, use int(register) to retrieve the value</span>
+        <span class="c1"># HDL parser know to memory space: REGISTER and RAM</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">statement</span><span class="o">.</span><span class="n">memory</span><span class="p">]</span>
+        <span class="c1"># return memory[address]</span>
+        <span class="k">return</span> <span class="n">memory</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Concatenation"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Concatenation">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Concatenation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="c1"># operand2 must be a register</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">operand2</span><span class="o">.</span><span class="n">cell_size</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Bit"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Bit">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Bit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x1</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_BitRange"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_BitRange">[docs]</a>    <span class="k">def</span> <span class="nf">eval_BitRange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">,</span> <span class="n">operand3</span><span class="p">):</span>
+
+        <span class="n">value2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand3</span><span class="p">)</span> <span class="o">-</span> <span class="n">value2</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">value2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mask</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_LowerNibble"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_LowerNibble">[docs]</a>    <span class="k">def</span> <span class="nf">eval_LowerNibble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_UpperNibble"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_UpperNibble">[docs]</a>    <span class="k">def</span> <span class="nf">eval_UpperNibble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Addition"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Addition">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Addition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_SaturatedAddition"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_SaturatedAddition">[docs]</a>    <span class="k">def</span> <span class="nf">eval_SaturatedAddition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="c1"># operand1 must be a register</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">),</span> <span class="n">operand1</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Subtraction"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Subtraction">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Subtraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_SaturatedSubtraction"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_SaturatedSubtraction">[docs]</a>    <span class="k">def</span> <span class="nf">eval_SaturatedSubtraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Multiplication"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Multiplication">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Multiplication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Division"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Division">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Division</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_TwoComplement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_TwoComplement">[docs]</a>    <span class="k">def</span> <span class="nf">eval_TwoComplement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">operand1</span><span class="o">.</span><span class="n">two_complement</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_And"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_And">[docs]</a>    <span class="k">def</span> <span class="nf">eval_And</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Or"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Or">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Or</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Xor"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Xor">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Xor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_LeftShift"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_LeftShift">[docs]</a>    <span class="k">def</span> <span class="nf">eval_LeftShift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: -&gt; ShiftLeft</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_RightShift"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_RightShift">[docs]</a>    <span class="k">def</span> <span class="nf">eval_RightShift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_RotateRight"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_RotateRight">[docs]</a>    <span class="k">def</span> <span class="nf">eval_RotateRight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="n">cell_size</span> <span class="o">=</span> <span class="n">operand1</span><span class="o">.</span><span class="n">cell_size</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span> <span class="o">%</span> <span class="n">cell_size</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="n">rotation</span> <span class="o">|</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">cell_size</span> <span class="o">-</span> <span class="n">rotation</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Equal"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Equal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_NotEqual"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_NotEqual">[docs]</a>    <span class="k">def</span> <span class="nf">eval_NotEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Less"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Less">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Less</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_Greater"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_Greater">[docs]</a>    <span class="k">def</span> <span class="nf">eval_Greater</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_LessEqual"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_LessEqual">[docs]</a>    <span class="k">def</span> <span class="nf">eval_LessEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="StandardCore.eval_GreaterEqual"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Core.html#PyCpuSimulator.Core.Core.StandardCore.eval_GreaterEqual">[docs]</a>    <span class="k">def</span> <span class="nf">eval_GreaterEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operand2</span><span class="p">)</span></div></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># Fixme:</span>
+    <span class="c1">#   Signed operations</span>
+    <span class="c1">#   Arithmetic Shift Instructions</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

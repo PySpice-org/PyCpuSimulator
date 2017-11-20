@@ -1,0 +1,13 @@
+******
+Core
+******
+
+.. toctree::
+  Core/Core
+  Core/CoreAst
+  Core/CoreHdlParser
+  Core/Instruction
+
+.. automodule:: PyCpuSimulator.Core
+   :members:
+   :show-inheritance:

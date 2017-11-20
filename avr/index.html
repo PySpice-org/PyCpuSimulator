@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. AVR Datasheet &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../index.html"/>
+        <link rel="next" title="2.1. ATmega640/1280/1281/2560/2561 Register Summary" href="atmega-640-1280-2560.register-summary.html"/>
+        <link rel="prev" title="1. Installation" href="../installation.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>2. AVR Datasheet</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/avr/index.rst.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="avr-datasheet">
+<h1>2. AVR Datasheet<a class="headerlink" href="#avr-datasheet" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>This part contains a subtract of Atmel datasheets on AVR.</p>
+<div class="section" id="how-to-extract-data-from-atmel-datasheets">
+<h2>2.2. How to Extract Data from Atmel Datasheets<a class="headerlink" href="#how-to-extract-data-from-atmel-datasheets" title="Permalink to this headline">¶</a></h2>
+<p>There is two possibilities to extract data from a datasheet, the first one is to copy manually the
+text using a PDF viewer, and the second one is to dump the PDF text content using a tool like
+<em>pdftotext</em>.  And then use a mixture of scripts and a powerful editor to cleanup and reformat the
+text, a spreadsheet like Libre Office can help to deal with tables using a CSV file.</p>
+</div>
+<div class="section" id="avr-registers">
+<h2>2.3. AVR Registers<a class="headerlink" href="#avr-registers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sreg-avr-status-register">
+<h3>2.3.1. SREG – AVR Status Register<a class="headerlink" href="#sreg-avr-status-register" title="Permalink to this headline">¶</a></h3>
+<p>The AVR Status Register – SREG – is defined as:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>0x3F (0x5F)</td>
+<td>I</td>
+<td>T</td>
+<td>H</td>
+<td>S</td>
+<td>V</td>
+<td>N</td>
+<td>Z</td>
+<td>C</td>
+<td>SREG</td>
+</tr>
+<tr class="row-odd"><td>Read/Write</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Initial Value</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Bit 7 – I: Global Interrupt Enable</dt>
+<dd>The Global Interrupt Enable bit must be set for the interrupts to be enabled. The individual
+interrupt enable control is then performed in separate control registers. If the Global Interrupt
+Enable Register is cleared, none of the inter- rupts are enabled independent of the individual
+interrupt enable settings. The I-bit is cleared by hardware after an interrupt has occurred, and
+is set by the RETI instruction to enable subsequent interrupts. The I-bit can also be set and
+cleared by the application with the SEI and CLI instructions.</dd>
+<dt>Bit 6 – T: Bit Copy Storage</dt>
+<dd>The Bit Copy instructions BLD (Bit LoaD) and BST (Bit STore) use the T-bit as source or
+destination for the oper- ated bit. A bit from a register in the Register File can be copied into
+T by the BST instruction, and a bit in T can be copied into a bit in a register in the Register
+File by the BLD instruction.</dd>
+<dt>Bit 5 – H: Half Carry Flag</dt>
+<dd>The Half Carry Flag H indicates a Half Carry in some arithmetic operations. Half Carry Is useful
+in BCD arithmetic.</dd>
+<dt>Bit 4 – S: Sign Bit, S = N ⊕ V</dt>
+<dd>The S-bit is always an exclusive or between the Negative Flag N and the Two’s Complement Overflow
+Flag V.</dd>
+<dt>Bit 3 – V: Two’s Complement Overflow Flag</dt>
+<dd>The Two’s Complement Overflow Flag V supports two’s complement arithmetics.</dd>
+<dt>Bit 2 – N: Negative Flag</dt>
+<dd>The Negative Flag N indicates a negative result in an arithmetic or logic operation.</dd>
+<dt>Bit 1 – Z: Zero Flag</dt>
+<dd>The Zero Flag Z indicates a zero result in an arithmetic or logic operation.</dd>
+<dt>Bit 0 – C: Carry Flag</dt>
+<dd>The Carry Flag C indicates a carry in an arithmetic or logic operation.</dd>
+</dl>
+</div>
+<div class="section" id="general-purpose-register-file">
+<h3>2.3.2. General Purpose Register File<a class="headerlink" href="#general-purpose-register-file" title="Permalink to this headline">¶</a></h3>
+<p>The AVR has 32 8-bit general purpose registers which are mapped at the beginning of the SRAM memory
+space.</p>
+<p>The last registers (R26-R31) can be grouped by two to form three 16-bit registers called X, Y and Z.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="17%" />
+<col width="69%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Name</td>
+<td>Addr.</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R0</td>
+<td>0x00</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>R1</td>
+<td>0x01</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R2</td>
+<td>0x02</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>…</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R13</td>
+<td>0x0D</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>R14</td>
+<td>0x0E</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R15</td>
+<td>0x0F</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>R16</td>
+<td>0x10</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R17</td>
+<td>0x11</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>…</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>R26</td>
+<td>0x1A</td>
+<td>X-register Low Byte</td>
+</tr>
+<tr class="row-odd"><td>R27</td>
+<td>0x1B</td>
+<td>X-register High Byte</td>
+</tr>
+<tr class="row-even"><td>R28</td>
+<td>0x1C</td>
+<td>Y-register Low Byte</td>
+</tr>
+<tr class="row-odd"><td>R29</td>
+<td>0x1D</td>
+<td>Y-register High Byte</td>
+</tr>
+<tr class="row-even"><td>R30</td>
+<td>0x1E</td>
+<td>Z-register Low Byte</td>
+</tr>
+<tr class="row-odd"><td>R31</td>
+<td>0x1F</td>
+<td>Z-register High Byte</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="stack-pointer">
+<h3>2.3.3. Stack Pointer<a class="headerlink" href="#stack-pointer" title="Permalink to this headline">¶</a></h3>
+<p>The AVR Stack Pointer is implemented as two 8-bit registers in the I/O space. The number of bits actually used is
+implementation dependent. Note that the data space in some implementations of the AVR architecture is so small
+that only SPL is needed. In this case, the SPH Register will not be present.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="6%" />
+<col width="9%" />
+<col width="6%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>15</td>
+<td>14</td>
+<td>13</td>
+<td>12</td>
+<td>11</td>
+<td>10</td>
+<td>9</td>
+<td>8</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>0x3E (0x5E)</td>
+<td>SP15</td>
+<td>SP14</td>
+<td>SP13</td>
+<td>SP12</td>
+<td>SP11</td>
+<td>SP10</td>
+<td>SP9</td>
+<td>SP8</td>
+<td>SPH</td>
+</tr>
+<tr class="row-odd"><td>0x3D (0x5D)</td>
+<td>SP7</td>
+<td>SP6</td>
+<td>SP5</td>
+<td>SP4</td>
+<td>SP3</td>
+<td>SP2</td>
+<td>SP1</td>
+<td>SP0</td>
+<td>SPL</td>
+</tr>
+<tr class="row-even"><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Read/Write</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>…</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Initial Value</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>…</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="rampz-extended-z-pointer-register-for-elpm-spm">
+<h3>2.3.4. RAMPZ – Extended Z-pointer Register for ELPM/SPM<a class="headerlink" href="#rampz-extended-z-pointer-register-for-elpm-spm" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>0x3B (0x5B)</td>
+<td>RAMPZ7</td>
+<td>RAMPZ6</td>
+<td>RAMPZ5</td>
+<td>RAMPZ4</td>
+<td>RAMPZ3</td>
+<td>RAMPZ2</td>
+<td>RAMPZ1</td>
+<td>RAMPZ0</td>
+<td>RAMPZ</td>
+</tr>
+<tr class="row-odd"><td>Read/Write</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Initial Value</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>For ELPM/SPM instructions, the Z-pointer is a concatenation of RAMPZ, ZH, and ZL. Note that LPM is
+not affected by the RAMPZ setting.</p>
+<p>The Z-pointer used by ELPM and SPM:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="18%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>7-0</td>
+<td>7-0</td>
+<td>7-0</td>
+</tr>
+<tr class="row-even"><td>(Individually)</td>
+<td>RAMPZ</td>
+<td>ZH</td>
+<td>ZL</td>
+</tr>
+<tr class="row-odd"><td>Bit (Z-pointer)</td>
+<td>23-16</td>
+<td>15-8</td>
+<td>7-0</td>
+</tr>
+</tbody>
+</table>
+<p>The actual number of bits is implementation dependent. Unused bits in an implementation will always
+read as zero.  For compatibility with future devices, be sure to write these bits to zero.</p>
+</div>
+<div class="section" id="eind-extended-indirect-register">
+<h3>2.3.5. EIND – Extended Indirect Register<a class="headerlink" href="#eind-extended-indirect-register" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="7%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>0x3C (0x5C)</td>
+<td>EIND7</td>
+<td>EIND6</td>
+<td>EIND5</td>
+<td>EIND4</td>
+<td>EIND3</td>
+<td>EIND2</td>
+<td>EIND1</td>
+<td>EIND0</td>
+<td>EIND</td>
+</tr>
+<tr class="row-odd"><td>Read/Write</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>R/W</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Initial Value</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>For EICALL/EIJMP instructions, the Indirect-pointer to the subroutine/routine is a concatenation of
+EIND, ZH, and ZL. Note that ICALL and IJMP are not affected by the EIND setting.</p>
+<p>The Indirect-pointer used by EICALL and EIJMP:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="65%" />
+<col width="15%" />
+<col width="12%" />
+<col width="9%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Bit</td>
+<td>7-0</td>
+<td>7-0</td>
+<td>7-0</td>
+</tr>
+<tr class="row-even"><td>(Individually)</td>
+<td>EIND</td>
+<td>ZH</td>
+<td>ZL</td>
+</tr>
+<tr class="row-odd"><td>Bit (Indirect-pointer)</td>
+<td>23-16</td>
+<td>15-8</td>
+<td>7-0</td>
+</tr>
+</tbody>
+</table>
+<p>The actual number of bits is implementation dependent. Unused bits in an implementation will always
+read as zero.  For compatibility with future devices, be sure to write these bits to zero.</p>
+</div>
+</div>
+<div class="section" id="avr-memories">
+<h2>2.4. AVR Memories<a class="headerlink" href="#avr-memories" title="Permalink to this headline">¶</a></h2>
+<p>The program is stored in the Flash memory and the volatile data in the SRAM.</p>
+<p>The structure of the SRAM memory space for devices having a large numbers of peripheral units like
+the ATmega640/1280/1281/2560/2561 is the following:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="6%" />
+<col width="19%" />
+<col width="68%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Addr.</td>
+<td>&#160;</td>
+<td>Name</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>0x00</td>
+<td>0x1F</td>
+<td>Register File</td>
+<td>32 General Purpose Registers</td>
+</tr>
+<tr class="row-odd"><td>0x20</td>
+<td>0x5F</td>
+<td>I/O Memory</td>
+<td>64 I/O accessible the using IN and OUT instructions</td>
+</tr>
+<tr class="row-even"><td>0x60</td>
+<td>0x1FF</td>
+<td>Extended I/O Memory</td>
+<td>416 I/O accessible using the ST/STS/STD and LD/LDS/LDD instructions</td>
+</tr>
+<tr class="row-odd"><td>0x200</td>
+<td>0x21FF</td>
+<td>Internal SRAM</td>
+<td>8192 x 8-bit located after the 512 reserved bytes</td>
+</tr>
+<tr class="row-even"><td>0x2200</td>
+<td>0xFFFF</td>
+<td>External SRAM</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="register-summary">
+<h2>2.5. Register Summary<a class="headerlink" href="#register-summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="atmega-640-1280-2560.register-summary.html#atmega-640-1280-2560-register-summary"><span class="std std-ref">ATmega640/1280/1281/2560/2561 Register Summary</span></a></li>
+</ul>
+</div>
+<div class="section" id="instructions">
+<h2>2.6. Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h2>
+<p>32-bit Instructions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="38%" />
+<col width="38%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Name</td>
+<td>Opcode</td>
+<td>Mask</td>
+</tr>
+<tr class="row-even"><td>CALL</td>
+<td>0x940e</td>
+<td>0xfe0e</td>
+</tr>
+<tr class="row-odd"><td>JMP</td>
+<td>0x940c</td>
+<td>0xfe0e</td>
+</tr>
+<tr class="row-even"><td>LDS</td>
+<td>0x9000</td>
+<td>0xfe0f</td>
+</tr>
+<tr class="row-odd"><td>STS</td>
+<td>0x9200</td>
+<td>0xfe0f</td>
+</tr>
+</tbody>
+</table>
+<p>Instructions without operand:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>BREAK</td>
+<td>0x9598</td>
+</tr>
+<tr class="row-even"><td>CLC</td>
+<td>0x9488</td>
+</tr>
+<tr class="row-odd"><td>CLH</td>
+<td>0x94d8</td>
+</tr>
+<tr class="row-even"><td>CLI</td>
+<td>0x94f8</td>
+</tr>
+<tr class="row-odd"><td>CLN</td>
+<td>0x94a8</td>
+</tr>
+<tr class="row-even"><td>CLS</td>
+<td>0x94c8</td>
+</tr>
+<tr class="row-odd"><td>CLT</td>
+<td>0x94e8</td>
+</tr>
+<tr class="row-even"><td>CLV</td>
+<td>0x94b8</td>
+</tr>
+<tr class="row-odd"><td>CLZ</td>
+<td>0x9498</td>
+</tr>
+<tr class="row-even"><td>EICALL</td>
+<td>0x9519</td>
+</tr>
+<tr class="row-odd"><td>EIJMP</td>
+<td>0x9419</td>
+</tr>
+<tr class="row-even"><td>ELPM</td>
+<td>0x95d8</td>
+</tr>
+<tr class="row-odd"><td>ICALL</td>
+<td>0x9509</td>
+</tr>
+<tr class="row-even"><td>IJMP</td>
+<td>0x9409</td>
+</tr>
+<tr class="row-odd"><td>LPM</td>
+<td>0x95c8</td>
+</tr>
+<tr class="row-even"><td>NOP</td>
+<td>0x0000</td>
+</tr>
+<tr class="row-odd"><td>RET</td>
+<td>0x9508</td>
+</tr>
+<tr class="row-even"><td>RETI</td>
+<td>0x9518</td>
+</tr>
+<tr class="row-odd"><td>SEC</td>
+<td>0x9408</td>
+</tr>
+<tr class="row-even"><td>SEH</td>
+<td>0x9458</td>
+</tr>
+<tr class="row-odd"><td>SEI</td>
+<td>0x9478</td>
+</tr>
+<tr class="row-even"><td>SEN</td>
+<td>0x9428</td>
+</tr>
+<tr class="row-odd"><td>SES</td>
+<td>0x9448</td>
+</tr>
+<tr class="row-even"><td>SET</td>
+<td>0x9468</td>
+</tr>
+<tr class="row-odd"><td>SEV</td>
+<td>0x9438</td>
+</tr>
+<tr class="row-even"><td>SEZ</td>
+<td>0x9418</td>
+</tr>
+<tr class="row-odd"><td>SEZ</td>
+<td>0x9588</td>
+</tr>
+<tr class="row-even"><td>SLEEP</td>
+<td>0x9588</td>
+</tr>
+<tr class="row-odd"><td>SPM</td>
+<td>0x95e8</td>
+</tr>
+<tr class="row-even"><td>SPM</td>
+<td>0x95f8</td>
+</tr>
+<tr class="row-odd"><td>WDR</td>
+<td>0x95a8</td>
+</tr>
+</tbody>
+</table>
+<p>Operand patterns:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="76%" />
+<col width="24%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Pattern</td>
+<td>Count</td>
+</tr>
+<tr class="row-even"><td>_2q1_1q2_1d5_1q3</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>_2q1_1q2_1r5_1q3</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_4K4d4K4</td>
+<td>7</td>
+</tr>
+<tr class="row-odd"><td>_4k12</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_5A2d5A4</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>_5A2r5A4</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>_5k3d4k4</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>_6d10</td>
+<td>4</td>
+</tr>
+<tr class="row-even"><td>_6k7_3</td>
+<td>18</td>
+</tr>
+<tr class="row-odd"><td>_6k7s3</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_6r1d5r4</td>
+<td>12</td>
+</tr>
+<tr class="row-odd"><td>_7d5_1b3</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_7d5_4</td>
+<td>25</td>
+</tr>
+<tr class="row-odd"><td>_7k5_3k1</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_7r5_1b3</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>_7r5_4</td>
+<td>13</td>
+</tr>
+<tr class="row-even"><td>_8A5b3</td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>_8K2d2K4</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>_8K4_4</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>_8d4_4</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>_8d4r4</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>_9d3_1r3</td>
+<td>4</td>
+</tr>
+<tr class="row-even"><td>_9s3_4</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="atmega-640-1280-2560.register-summary.html" class="btn btn-neutral float-right" title="2.1. ATmega640/1280/1281/2560/2561 Register Summary">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../installation.html" class="btn btn-neutral" title="1. Installation"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../static/jquery.js"></script>
+      <script type="text/javascript" src="../static/underscore.js"></script>
+      <script type="text/javascript" src="../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,2972 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1. ATmega640/1280/1281/2560/2561 Register Summary &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="2. AVR Datasheet" href="index.html"/>
+        <link rel="next" title="3. Micro Code Language" href="../grammar.html"/>
+        <link rel="prev" title="2. AVR Datasheet" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. AVR Datasheet</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">2. AVR Datasheet</a> &raquo;</li>
+      
+    <li>2.1. ATmega640/1280/1281/2560/2561 Register Summary</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/avr/atmega-640-1280-2560.register-summary.rst.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="atmega640-1280-1281-2560-2561-register-summary">
+<span id="atmega-640-1280-2560-register-summary"></span><h1>2.1. ATmega640/1280/1281/2560/2561 Register Summary<a class="headerlink" href="#atmega640-1280-1281-2560-2561-register-summary" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>Baud:</dt>
+<dd>Baud Rate</dd>
+<dt>Comp:</dt>
+<dd>Compare</dd>
+<dt>H:</dt>
+<dd>High</dd>
+<dt>In:</dt>
+<dd>Input</dd>
+<dt>L:</dt>
+<dd>Low</dd>
+<dt>Out:</dt>
+<dd>Output</dd>
+<dt>Serial:</dt>
+<dd>Serial Interface</dd>
+<dt>T/C:</dt>
+<dd>Timer/Counter</dd>
+</dl>
+<div style="font-size: 85%"><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Ad.</th>
+<th class="head">Name</th>
+<th class="head">Bit 7</th>
+<th class="head">Bit 6</th>
+<th class="head">Bit 5</th>
+<th class="head">Bit 4</th>
+<th class="head">Bit 3</th>
+<th class="head">Bit 2</th>
+<th class="head">Bit 1</th>
+<th class="head">Bit 0</th>
+<th class="head">Page</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1FF</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>…</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>137</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>136</td>
+<td>UDR3</td>
+<td>USART3 I/O Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p218</td>
+</tr>
+<tr class="row-even"><td>135</td>
+<td>UBRR3H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>USART3 Baud H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-odd"><td>134</td>
+<td>UBRR3L</td>
+<td>USART3 Baud L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-even"><td>133</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>132</td>
+<td>UCSR3C</td>
+<td>UMSEL31</td>
+<td>UMSEL30</td>
+<td>UPM31</td>
+<td>UPM30</td>
+<td>USBS3</td>
+<td>UCSZ31</td>
+<td>UCSZ30</td>
+<td>UCPOL3</td>
+<td>p235</td>
+</tr>
+<tr class="row-even"><td>131</td>
+<td>UCSR3B</td>
+<td>RXCIE3</td>
+<td>TXCIE3</td>
+<td>UDRIE3</td>
+<td>RXEN3</td>
+<td>TXEN3</td>
+<td>UCSZ32</td>
+<td>RXB83</td>
+<td>TXB83</td>
+<td>p234</td>
+</tr>
+<tr class="row-odd"><td>130</td>
+<td>UCSR3A</td>
+<td>RXC3</td>
+<td>TXC3</td>
+<td>UDRE3</td>
+<td>FE3</td>
+<td>DOR3</td>
+<td>UPE3</td>
+<td>U2X3</td>
+<td>MPCM3</td>
+<td>p233</td>
+</tr>
+<tr class="row-even"><td>12F</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>12E</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>12D</td>
+<td>OCR5CH</td>
+<td>T/C5 - Out Comp C H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>12C</td>
+<td>OCR5CL</td>
+<td>T/C5 - Out Comp C L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>12B</td>
+<td>OCR5BH</td>
+<td>T/C5 - Out Comp B H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>12A</td>
+<td>OCR5BL</td>
+<td>T/C5 - Out Comp B L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>129</td>
+<td>OCR5AH</td>
+<td>T/C5 - Out Comp A H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>128</td>
+<td>OCR5AL</td>
+<td>T/C5 - Out Comp A L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>127</td>
+<td>ICR5H</td>
+<td>T/C5 - In Capture H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-odd"><td>126</td>
+<td>ICR5L</td>
+<td>T/C5 - In Capture L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-even"><td>125</td>
+<td>TCNT5H</td>
+<td>T/C5 - Counter H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-odd"><td>124</td>
+<td>TCNT5L</td>
+<td>T/C5 - Counter L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-even"><td>123</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>122</td>
+<td>TCCR5C</td>
+<td>FOC5A</td>
+<td>FOC5B</td>
+<td>FOC5C</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p157</td>
+</tr>
+<tr class="row-even"><td>121</td>
+<td>TCCR5B</td>
+<td>ICNC5</td>
+<td>ICES5</td>
+<td>&#160;</td>
+<td>WGM53</td>
+<td>WGM52</td>
+<td>CS52</td>
+<td>CS51</td>
+<td>CS50</td>
+<td>p156</td>
+</tr>
+<tr class="row-odd"><td>120</td>
+<td>TCCR5A</td>
+<td>COM5A1</td>
+<td>COM5A0</td>
+<td>COM5B1</td>
+<td>COM5B0</td>
+<td>COM5C1</td>
+<td>COM5C0</td>
+<td>WGM51</td>
+<td>WGM50</td>
+<td>p154</td>
+</tr>
+<tr class="row-even"><td>11F</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>…</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>10C</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>10B</td>
+<td>PORTL</td>
+<td>PORTL7</td>
+<td>PORTL6</td>
+<td>PORTL5</td>
+<td>PORTL4</td>
+<td>PORTL3</td>
+<td>PORTL2</td>
+<td>PORTL1</td>
+<td>PORTL0</td>
+<td>p100</td>
+</tr>
+<tr class="row-even"><td>10A</td>
+<td>DDRL</td>
+<td>DDL7</td>
+<td>DDL6</td>
+<td>DDL5</td>
+<td>DDL4</td>
+<td>DDL3</td>
+<td>DDL2</td>
+<td>DDL1</td>
+<td>DDL0</td>
+<td>p100</td>
+</tr>
+<tr class="row-odd"><td>109</td>
+<td>PINL</td>
+<td>PINL7</td>
+<td>PINL6</td>
+<td>PINL5</td>
+<td>PINL4</td>
+<td>PINL3</td>
+<td>PINL2</td>
+<td>PINL1</td>
+<td>PINL0</td>
+<td>p100</td>
+</tr>
+<tr class="row-even"><td>108</td>
+<td>PORTK</td>
+<td>PORTK7</td>
+<td>PORTK6</td>
+<td>PORTK5</td>
+<td>PORTK4</td>
+<td>PORTK3</td>
+<td>PORTK2</td>
+<td>PORTK1</td>
+<td>PORTK0</td>
+<td>p99</td>
+</tr>
+<tr class="row-odd"><td>107</td>
+<td>DDRK</td>
+<td>DDK7</td>
+<td>DDK6</td>
+<td>DDK5</td>
+<td>DDK4</td>
+<td>DDK3</td>
+<td>DDK2</td>
+<td>DDK1</td>
+<td>DDK0</td>
+<td>p99</td>
+</tr>
+<tr class="row-even"><td>106</td>
+<td>PINK</td>
+<td>PINK7</td>
+<td>PINK6</td>
+<td>PINK5</td>
+<td>PINK4</td>
+<td>PINK3</td>
+<td>PINK2</td>
+<td>PINK1</td>
+<td>PINK0</td>
+<td>p99</td>
+</tr>
+<tr class="row-odd"><td>105</td>
+<td>PORTJ</td>
+<td>PORTJ7</td>
+<td>PORTJ6</td>
+<td>PORTJ5</td>
+<td>PORTJ4</td>
+<td>PORTJ3</td>
+<td>PORTJ2</td>
+<td>PORTJ1</td>
+<td>PORTJ0</td>
+<td>p99</td>
+</tr>
+<tr class="row-even"><td>104</td>
+<td>DDRJ</td>
+<td>DDJ7</td>
+<td>DDJ6</td>
+<td>DDJ5</td>
+<td>DDJ4</td>
+<td>DDJ3</td>
+<td>DDJ2</td>
+<td>DDJ1</td>
+<td>DDJ0</td>
+<td>p99</td>
+</tr>
+<tr class="row-odd"><td>103</td>
+<td>PINJ</td>
+<td>PINJ7</td>
+<td>PINJ6</td>
+<td>PINJ5</td>
+<td>PINJ4</td>
+<td>PINJ3</td>
+<td>PINJ2</td>
+<td>PINJ1</td>
+<td>PINJ0</td>
+<td>p99</td>
+</tr>
+<tr class="row-even"><td>102</td>
+<td>PORTH</td>
+<td>PORTH7</td>
+<td>PORTH6</td>
+<td>PORTH5</td>
+<td>PORTH4</td>
+<td>PORTH3</td>
+<td>PORTH2</td>
+<td>PORTH1</td>
+<td>PORTH0</td>
+<td>p98</td>
+</tr>
+<tr class="row-odd"><td>101</td>
+<td>DDRH</td>
+<td>DDH7</td>
+<td>DDH6</td>
+<td>DDH5</td>
+<td>DDH4</td>
+<td>DDH3</td>
+<td>DDH2</td>
+<td>DDH1</td>
+<td>DDH0</td>
+<td>p99</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>PINH</td>
+<td>PINH7</td>
+<td>PINH6</td>
+<td>PINH5</td>
+<td>PINH4</td>
+<td>PINH3</td>
+<td>PINH2</td>
+<td>PINH1</td>
+<td>PINH0</td>
+<td>p99</td>
+</tr>
+<tr class="row-odd"><td>FF</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>…</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>D7</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>D6</td>
+<td>UDR2</td>
+<td>USART2 I/O Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p218</td>
+</tr>
+<tr class="row-odd"><td>D5</td>
+<td>UBRR2H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>USART2 Baud H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-even"><td>D4</td>
+<td>UBRR2L</td>
+<td>USART2 Baud L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-odd"><td>D3</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>D2</td>
+<td>UCSR2C</td>
+<td>UMSEL21</td>
+<td>UMSEL20</td>
+<td>UPM21</td>
+<td>UPM20</td>
+<td>USBS2</td>
+<td>UCSZ21</td>
+<td>UCSZ20</td>
+<td>UCPOL2</td>
+<td>p235</td>
+</tr>
+<tr class="row-odd"><td>D1</td>
+<td>UCSR2B</td>
+<td>RXCIE2</td>
+<td>TXCIE2</td>
+<td>UDRIE2</td>
+<td>RXEN2</td>
+<td>TXEN2</td>
+<td>UCSZ22</td>
+<td>RXB82</td>
+<td>TXB82</td>
+<td>p234</td>
+</tr>
+<tr class="row-even"><td>D0</td>
+<td>UCSR2A</td>
+<td>RXC2</td>
+<td>TXC2</td>
+<td>UDRE2</td>
+<td>FE2</td>
+<td>DOR2</td>
+<td>UPE2</td>
+<td>U2X2</td>
+<td>MPCM2</td>
+<td>p233</td>
+</tr>
+<tr class="row-odd"><td>CF</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>CE</td>
+<td>UDR1</td>
+<td>USART1 I/O Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p218</td>
+</tr>
+<tr class="row-odd"><td>CD</td>
+<td>UBRR1H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>USART1 Baud H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-even"><td>CC</td>
+<td>UBRR1L</td>
+<td>USART1 Baud L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-odd"><td>CB</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>CA</td>
+<td>UCSR1C</td>
+<td>UMSEL11</td>
+<td>UMSEL10</td>
+<td>UPM11</td>
+<td>UPM10</td>
+<td>USBS1</td>
+<td>UCSZ11</td>
+<td>UCSZ10</td>
+<td>UCPOL1</td>
+<td>p235</td>
+</tr>
+<tr class="row-odd"><td>C9</td>
+<td>UCSR1B</td>
+<td>RXCIE1</td>
+<td>TXCIE1</td>
+<td>UDRIE1</td>
+<td>RXEN1</td>
+<td>TXEN1</td>
+<td>UCSZ12</td>
+<td>RXB81</td>
+<td>TXB81</td>
+<td>p234</td>
+</tr>
+<tr class="row-even"><td>C8</td>
+<td>UCSR1A</td>
+<td>RXC1</td>
+<td>TXC1</td>
+<td>UDRE1</td>
+<td>FE1</td>
+<td>DOR1</td>
+<td>UPE1</td>
+<td>U2X1</td>
+<td>MPCM1</td>
+<td>p233</td>
+</tr>
+<tr class="row-odd"><td>C7</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>C6</td>
+<td>UDR0</td>
+<td>USART0 I/O Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p218</td>
+</tr>
+<tr class="row-odd"><td>C5</td>
+<td>UBRR0H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>USART0 Baud H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-even"><td>C4</td>
+<td>UBRR0L</td>
+<td>USART0 Baud L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p222</td>
+</tr>
+<tr class="row-odd"><td>C3</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>C2</td>
+<td>UCSR0C</td>
+<td>UMSEL01</td>
+<td>UMSEL00</td>
+<td>UPM01</td>
+<td>UPM00</td>
+<td>USBS0</td>
+<td>UCSZ01</td>
+<td>UCSZ00</td>
+<td>UCPOL0</td>
+<td>p235</td>
+</tr>
+<tr class="row-odd"><td>C1</td>
+<td>UCSR0B</td>
+<td>RXCIE0</td>
+<td>TXCIE0</td>
+<td>UDRIE0</td>
+<td>RXEN0</td>
+<td>TXEN0</td>
+<td>UCSZ02</td>
+<td>RXB80</td>
+<td>TXB80</td>
+<td>p234</td>
+</tr>
+<tr class="row-even"><td>C0</td>
+<td>UCSR0A</td>
+<td>RXC0</td>
+<td>TXC0</td>
+<td>UDRE0</td>
+<td>FE0</td>
+<td>DOR0</td>
+<td>UPE0</td>
+<td>U2X0</td>
+<td>MPCM0</td>
+<td>p234</td>
+</tr>
+<tr class="row-odd"><td>BF</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BE</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BD</td>
+<td>TWAMR</td>
+<td>TWAM6</td>
+<td>TWAM5</td>
+<td>TWAM4</td>
+<td>TWAM3</td>
+<td>TWAM2</td>
+<td>TWAM1</td>
+<td>TWAM0</td>
+<td>&#160;</td>
+<td>p264</td>
+</tr>
+<tr class="row-even"><td>BC</td>
+<td>TWCR</td>
+<td>TWINT</td>
+<td>TWEA</td>
+<td>TWSTA</td>
+<td>TWSTO</td>
+<td>TWWC</td>
+<td>TWEN</td>
+<td>&#160;</td>
+<td>TWIE</td>
+<td>p261</td>
+</tr>
+<tr class="row-odd"><td>BB</td>
+<td>TWDR</td>
+<td>2-wire Serial Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p263</td>
+</tr>
+<tr class="row-even"><td>BA</td>
+<td>TWAR</td>
+<td>TWA6</td>
+<td>TWA5</td>
+<td>TWA4</td>
+<td>TWA3</td>
+<td>TWA2</td>
+<td>TWA1</td>
+<td>TWA0</td>
+<td>TWGCE</td>
+<td>p263</td>
+</tr>
+<tr class="row-odd"><td>B9</td>
+<td>TWSR</td>
+<td>TWS7</td>
+<td>TWS6</td>
+<td>TWS5</td>
+<td>TWS4</td>
+<td>TWS3</td>
+<td>&#160;</td>
+<td>TWPS1</td>
+<td>TWPS0</td>
+<td>p262</td>
+</tr>
+<tr class="row-even"><td>B8</td>
+<td>TWBR</td>
+<td>2-wire Serial Bit Rate</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p261</td>
+</tr>
+<tr class="row-odd"><td>B7</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>B6</td>
+<td>ASSR</td>
+<td>&#160;</td>
+<td>EXCLK</td>
+<td>AS2</td>
+<td>TCN2UB</td>
+<td>OCR2AUB</td>
+<td>OCR2BUB</td>
+<td>TCR2AUB</td>
+<td>TCR2BUB</td>
+<td>p179</td>
+</tr>
+<tr class="row-odd"><td>B5</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>B4</td>
+<td>OCR2B</td>
+<td>T/C2 Out Comp B</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p186</td>
+</tr>
+<tr class="row-odd"><td>B3</td>
+<td>OCR2A</td>
+<td>T/C2 Out Comp A</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p186</td>
+</tr>
+<tr class="row-even"><td>B2</td>
+<td>TCNT2</td>
+<td>T/C2 (8 Bit</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p186</td>
+</tr>
+<tr class="row-odd"><td>B1</td>
+<td>TCCR2B</td>
+<td>FOC2A</td>
+<td>FOC2B</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>WGM22</td>
+<td>CS22</td>
+<td>CS21</td>
+<td>CS20</td>
+<td>p185</td>
+</tr>
+<tr class="row-even"><td>B0</td>
+<td>TCCR2A</td>
+<td>COM2A1</td>
+<td>COM2A0</td>
+<td>COM2B1</td>
+<td>COM2B0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>WGM21</td>
+<td>WGM20</td>
+<td>p186</td>
+</tr>
+<tr class="row-odd"><td>AF</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>AE</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AD</td>
+<td>OCR4CH</td>
+<td>T/C4 - Out Comp C H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>AC</td>
+<td>OCR4CL</td>
+<td>T/C4 - Out Comp C L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>AB</td>
+<td>OCR4BH</td>
+<td>T/C4 - Out Comp B H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>AA</td>
+<td>OCR4BL</td>
+<td>T/C4 - Out Comp B L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>A9</td>
+<td>OCR4AH</td>
+<td>T/C4 - Out Comp A H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>A8</td>
+<td>OCR4AL</td>
+<td>T/C4 - Out Comp A L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>A7</td>
+<td>ICR4H</td>
+<td>T/C4 - In Capture H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-even"><td>A6</td>
+<td>ICR4L</td>
+<td>T/C4 - In Capture L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-odd"><td>A5</td>
+<td>TCNT4H</td>
+<td>T/C4 - Counter H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-even"><td>A4</td>
+<td>TCNT4L</td>
+<td>T/C4 - Counter L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-odd"><td>A3</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>A2</td>
+<td>TCCR4C</td>
+<td>FOC4A</td>
+<td>FOC4B</td>
+<td>FOC4C</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p157</td>
+</tr>
+<tr class="row-odd"><td>A1</td>
+<td>TCCR4B</td>
+<td>ICNC4</td>
+<td>ICES4</td>
+<td>&#160;</td>
+<td>WGM43</td>
+<td>WGM42</td>
+<td>CS42</td>
+<td>CS41</td>
+<td>CS40</td>
+<td>p156</td>
+</tr>
+<tr class="row-even"><td>A0</td>
+<td>TCCR4A</td>
+<td>COM4A1</td>
+<td>COM4A0</td>
+<td>COM4B1</td>
+<td>COM4B0</td>
+<td>COM4C1</td>
+<td>COM4C0</td>
+<td>WGM41</td>
+<td>WGM40</td>
+<td>p154</td>
+</tr>
+<tr class="row-odd"><td>9F</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>9E</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>9D</td>
+<td>OCR3CH</td>
+<td>T/C3 - Out Comp C H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>9C</td>
+<td>OCR3CL</td>
+<td>T/C3 - Out Comp C L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>9B</td>
+<td>OCR3BH</td>
+<td>T/C3 - Out Comp B H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>9A</td>
+<td>OCR3BL</td>
+<td>T/C3 - Out Comp B L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>99</td>
+<td>OCR3AH</td>
+<td>T/C3 - Out Comp A H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>98</td>
+<td>OCR3AL</td>
+<td>T/C3 - Out Comp A L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>97</td>
+<td>ICR3H</td>
+<td>T/C3 - In Capture H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-even"><td>96</td>
+<td>ICR3L</td>
+<td>T/C3 - In Capture L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p161</td>
+</tr>
+<tr class="row-odd"><td>95</td>
+<td>TCNT3H</td>
+<td>T/C3 - Counter H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-even"><td>94</td>
+<td>TCNT3L</td>
+<td>T/C3 - Counter L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-odd"><td>93</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>92</td>
+<td>TCCR3C</td>
+<td>FOC3A</td>
+<td>FOC3B</td>
+<td>FOC3C</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p157</td>
+</tr>
+<tr class="row-odd"><td>91</td>
+<td>TCCR3B</td>
+<td>ICNC3</td>
+<td>ICES3</td>
+<td>&#160;</td>
+<td>WGM33</td>
+<td>WGM32</td>
+<td>CS32</td>
+<td>CS31</td>
+<td>CS30</td>
+<td>p156</td>
+</tr>
+<tr class="row-even"><td>90</td>
+<td>TCCR3A</td>
+<td>COM3A1</td>
+<td>COM3A0</td>
+<td>COM3B1</td>
+<td>COM3B0</td>
+<td>COM3C1</td>
+<td>COM3C0</td>
+<td>WGM31</td>
+<td>WGM30</td>
+<td>p154</td>
+</tr>
+<tr class="row-odd"><td>8F</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>8E</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>8D</td>
+<td>OCR1CH</td>
+<td>T/C1 - Out Comp C H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>8C</td>
+<td>OCR1CL</td>
+<td>T/C1 - Out Comp C L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>8B</td>
+<td>OCR1BH</td>
+<td>T/C1 - Out Comp B H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>8A</td>
+<td>OCR1BL</td>
+<td>T/C1 - Out Comp B L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>89</td>
+<td>OCR1AH</td>
+<td>T/C1 - Out Comp A H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-even"><td>88</td>
+<td>OCR1AL</td>
+<td>T/C1 - Out Comp A L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p159</td>
+</tr>
+<tr class="row-odd"><td>87</td>
+<td>ICR1H</td>
+<td>T/C1 - In Capture H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-even"><td>86</td>
+<td>ICR1L</td>
+<td>T/C1 - In Capture L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p160</td>
+</tr>
+<tr class="row-odd"><td>85</td>
+<td>TCNT1H</td>
+<td>T/C1 - Counter H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-even"><td>84</td>
+<td>TCNT1L</td>
+<td>T/C1 - Counter L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p158</td>
+</tr>
+<tr class="row-odd"><td>83</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>82</td>
+<td>TCCR1C</td>
+<td>FOC1A</td>
+<td>FOC1B</td>
+<td>FOC1C</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p157</td>
+</tr>
+<tr class="row-odd"><td>81</td>
+<td>TCCR1B</td>
+<td>ICNC1</td>
+<td>ICES1</td>
+<td>&#160;</td>
+<td>WGM13</td>
+<td>WGM12</td>
+<td>CS12</td>
+<td>CS11</td>
+<td>CS10</td>
+<td>p156</td>
+</tr>
+<tr class="row-even"><td>80</td>
+<td>TCCR1A</td>
+<td>COM1A1</td>
+<td>COM1A0</td>
+<td>COM1B1</td>
+<td>COM1B0</td>
+<td>COM1C1</td>
+<td>COM1C0</td>
+<td>WGM11</td>
+<td>WGM10</td>
+<td>p154</td>
+</tr>
+<tr class="row-odd"><td>7F</td>
+<td>DIDR1</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>AIN1D</td>
+<td>AIN0D</td>
+<td>p267</td>
+</tr>
+<tr class="row-even"><td>7E</td>
+<td>DIDR0</td>
+<td>ADC7D</td>
+<td>ADC6D</td>
+<td>ADC5D</td>
+<td>ADC4D</td>
+<td>ADC3D</td>
+<td>ADC2D</td>
+<td>ADC1D</td>
+<td>ADC0D</td>
+<td>p287</td>
+</tr>
+<tr class="row-odd"><td>7D</td>
+<td>DIDR2</td>
+<td>ADC15D</td>
+<td>ADC14D</td>
+<td>ADC13D</td>
+<td>ADC12D</td>
+<td>ADC11D</td>
+<td>ADC10D</td>
+<td>ADC9D</td>
+<td>ADC8D</td>
+<td>p288</td>
+</tr>
+<tr class="row-even"><td>7C</td>
+<td>ADMUX</td>
+<td>REFS1</td>
+<td>REFS0</td>
+<td>ADLAR</td>
+<td>MUX4</td>
+<td>MUX3</td>
+<td>MUX2</td>
+<td>MUX1</td>
+<td>MUX0</td>
+<td>p281</td>
+</tr>
+<tr class="row-odd"><td>7B</td>
+<td>ADCSRB</td>
+<td>&#160;</td>
+<td>ACME</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>MUX5</td>
+<td>ADTS2</td>
+<td>ADTS1</td>
+<td>ADTS0</td>
+<td>p266,  282,  287</td>
+</tr>
+<tr class="row-even"><td>7A</td>
+<td>ADCSRA</td>
+<td>ADEN</td>
+<td>ADSC</td>
+<td>ADATE</td>
+<td>ADIF</td>
+<td>ADIE</td>
+<td>ADPS2</td>
+<td>ADPS1</td>
+<td>ADPS0</td>
+<td>p285</td>
+</tr>
+<tr class="row-odd"><td>79</td>
+<td>ADCH</td>
+<td>ADC Data H byte</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p286</td>
+</tr>
+<tr class="row-even"><td>78</td>
+<td>ADCL</td>
+<td>ADC Data L byte</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p286</td>
+</tr>
+<tr class="row-odd"><td>77</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>76</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>75</td>
+<td>XMCRB</td>
+<td>XMBK</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>XMM2</td>
+<td>XMM1</td>
+<td>XMM0</td>
+<td>p38</td>
+</tr>
+<tr class="row-even"><td>74</td>
+<td>XMCRA</td>
+<td>SRE</td>
+<td>SRL2</td>
+<td>SRL1</td>
+<td>SRL0</td>
+<td>SRW11</td>
+<td>SRW10</td>
+<td>SRW01</td>
+<td>SRW00</td>
+<td>p36</td>
+</tr>
+<tr class="row-odd"><td>73</td>
+<td>TIMSK5</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICIE5</td>
+<td>&#160;</td>
+<td>OCIE5C</td>
+<td>OCIE5B</td>
+<td>OCIE5A</td>
+<td>TOIE5</td>
+<td>p162</td>
+</tr>
+<tr class="row-even"><td>72</td>
+<td>TIMSK4</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICIE4</td>
+<td>&#160;</td>
+<td>OCIE4C</td>
+<td>OCIE4B</td>
+<td>OCIE4A</td>
+<td>TOIE4</td>
+<td>p161</td>
+</tr>
+<tr class="row-odd"><td>71</td>
+<td>TIMSK3</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICIE3</td>
+<td>&#160;</td>
+<td>OCIE3C</td>
+<td>OCIE3B</td>
+<td>OCIE3A</td>
+<td>TOIE3</td>
+<td>p161</td>
+</tr>
+<tr class="row-even"><td>70</td>
+<td>TIMSK2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>OCIE2B</td>
+<td>OCIE2A</td>
+<td>TOIE2</td>
+<td>p188</td>
+</tr>
+<tr class="row-odd"><td>6F</td>
+<td>TIMSK1</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICIE1</td>
+<td>&#160;</td>
+<td>OCIE1C</td>
+<td>OCIE1B</td>
+<td>OCIE1A</td>
+<td>TOIE1</td>
+<td>p161</td>
+</tr>
+<tr class="row-even"><td>6E</td>
+<td>TIMSK0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>OCIE0B</td>
+<td>OCIE0A</td>
+<td>TOIE0</td>
+<td>p131</td>
+</tr>
+<tr class="row-odd"><td>6D</td>
+<td>PCMSK2</td>
+<td>PCINT23</td>
+<td>PCINT22</td>
+<td>PCINT21</td>
+<td>PCINT20</td>
+<td>PCINT19</td>
+<td>PCINT18</td>
+<td>PCINT17</td>
+<td>PCINT16</td>
+<td>p113</td>
+</tr>
+<tr class="row-even"><td>6C</td>
+<td>PCMSK1</td>
+<td>PCINT15</td>
+<td>PCINT14</td>
+<td>PCINT13</td>
+<td>PCINT12</td>
+<td>PCINT11</td>
+<td>PCINT10</td>
+<td>PCINT9</td>
+<td>PCINT8</td>
+<td>p113</td>
+</tr>
+<tr class="row-odd"><td>6B</td>
+<td>PCMSK0</td>
+<td>PCINT7</td>
+<td>PCINT6</td>
+<td>PCINT5</td>
+<td>PCINT4</td>
+<td>PCINT3</td>
+<td>PCINT2</td>
+<td>PCINT1</td>
+<td>PCINT0</td>
+<td>p114</td>
+</tr>
+<tr class="row-even"><td>6A</td>
+<td>EICRB</td>
+<td>ISC71</td>
+<td>ISC70</td>
+<td>ISC61</td>
+<td>ISC60</td>
+<td>ISC51</td>
+<td>ISC50</td>
+<td>ISC41</td>
+<td>ISC40</td>
+<td>p110</td>
+</tr>
+<tr class="row-odd"><td>69</td>
+<td>EICRA</td>
+<td>ISC31</td>
+<td>ISC30</td>
+<td>ISC21</td>
+<td>ISC20</td>
+<td>ISC11</td>
+<td>ISC10</td>
+<td>ISC01</td>
+<td>ISC00</td>
+<td>p110</td>
+</tr>
+<tr class="row-even"><td>68</td>
+<td>PCICR</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PCIE2</td>
+<td>PCIE1</td>
+<td>PCIE0</td>
+<td>p112</td>
+</tr>
+<tr class="row-odd"><td>67</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>66</td>
+<td>OSCCAL</td>
+<td>Oscillator Calibration</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p48</td>
+</tr>
+<tr class="row-odd"><td>65</td>
+<td>PRR1</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PRTIM5</td>
+<td>PRTIM4</td>
+<td>PRTIM3</td>
+<td>PRUSART3</td>
+<td>PRUSART2</td>
+<td>PRUSART1</td>
+<td>p56</td>
+</tr>
+<tr class="row-even"><td>64</td>
+<td>PRR0</td>
+<td>PRTWI</td>
+<td>PRTIM2</td>
+<td>PRTIM0</td>
+<td>&#160;</td>
+<td>PRTIM1</td>
+<td>PRSPI</td>
+<td>PRUSART0</td>
+<td>PRADC</td>
+<td>p55</td>
+</tr>
+<tr class="row-odd"><td>63</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>62</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>61</td>
+<td>CLKPR</td>
+<td>CLKPCE</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>CLKPS3</td>
+<td>CLKPS2</td>
+<td>CLKPS1</td>
+<td>CLKPS0</td>
+<td>p48</td>
+</tr>
+<tr class="row-even"><td>60</td>
+<td>WDTCSR</td>
+<td>WDIF</td>
+<td>WDIE</td>
+<td>WDP3</td>
+<td>WDCE</td>
+<td>WDE</td>
+<td>WDP2</td>
+<td>WDP1</td>
+<td>WDP0</td>
+<td>p65</td>
+</tr>
+<tr class="row-odd"><td>5F</td>
+<td>SREG</td>
+<td>I</td>
+<td>T</td>
+<td>H</td>
+<td>S</td>
+<td>V</td>
+<td>N</td>
+<td>Z</td>
+<td>C</td>
+<td>p13</td>
+</tr>
+<tr class="row-even"><td>5E</td>
+<td>SPH</td>
+<td>SP15</td>
+<td>SP14</td>
+<td>SP13</td>
+<td>SP12</td>
+<td>SP11</td>
+<td>SP10</td>
+<td>SP9</td>
+<td>SP8</td>
+<td>p15</td>
+</tr>
+<tr class="row-odd"><td>5D</td>
+<td>SPL</td>
+<td>SP7</td>
+<td>SP6</td>
+<td>SP5</td>
+<td>SP4</td>
+<td>SP3</td>
+<td>SP2</td>
+<td>SP1</td>
+<td>SP0</td>
+<td>p15</td>
+</tr>
+<tr class="row-even"><td>5C</td>
+<td>EIND</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>EIND0</td>
+<td>p16</td>
+</tr>
+<tr class="row-odd"><td>5B</td>
+<td>RAMPZ</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>RAMPZ1</td>
+<td>RAMPZ0</td>
+<td>p16</td>
+</tr>
+<tr class="row-even"><td>5A</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>59</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>58</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>57</td>
+<td>SPMCSR</td>
+<td>SPMIE</td>
+<td>RWWSB</td>
+<td>SIGRD</td>
+<td>RWWSRE</td>
+<td>BLBSET</td>
+<td>PGWRT</td>
+<td>PGERS</td>
+<td>SPMEN</td>
+<td>p323</td>
+</tr>
+<tr class="row-even"><td>56</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>55</td>
+<td>MCUCR</td>
+<td>JTD</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PUD</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>IVSEL</td>
+<td>IVCE</td>
+<td>p64,  108,  96,  301</td>
+</tr>
+<tr class="row-even"><td>54</td>
+<td>MCUSR</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>JTRF</td>
+<td>WDRF</td>
+<td>BORF</td>
+<td>EXTRF</td>
+<td>PORF</td>
+<td>p301</td>
+</tr>
+<tr class="row-odd"><td>53</td>
+<td>SMCR</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>SM2</td>
+<td>SM1</td>
+<td>SM0</td>
+<td>SE</td>
+<td>p50</td>
+</tr>
+<tr class="row-even"><td>52</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>51</td>
+<td>OCDR</td>
+<td>OCDR7</td>
+<td>OCDR6</td>
+<td>OCDR5</td>
+<td>OCDR4</td>
+<td>OCDR3</td>
+<td>OCDR2</td>
+<td>OCDR1</td>
+<td>OCDR0</td>
+<td>p294</td>
+</tr>
+<tr class="row-even"><td>50</td>
+<td>ACSR</td>
+<td>ACD</td>
+<td>ACBG</td>
+<td>ACO</td>
+<td>ACI</td>
+<td>ACIE</td>
+<td>ACIC</td>
+<td>ACIS1</td>
+<td>ACIS0</td>
+<td>p266</td>
+</tr>
+<tr class="row-odd"><td>4F</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>4E</td>
+<td>SPDR</td>
+<td>SPI Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p199</td>
+</tr>
+<tr class="row-odd"><td>4D</td>
+<td>SPSR</td>
+<td>SPIF</td>
+<td>WCOL</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>SPI2X</td>
+<td>p198</td>
+</tr>
+<tr class="row-even"><td>4C</td>
+<td>SPCR</td>
+<td>SPIE</td>
+<td>SPE</td>
+<td>DORD</td>
+<td>MSTR</td>
+<td>CPOL</td>
+<td>CPHA</td>
+<td>SPR1</td>
+<td>SPR0</td>
+<td>p197</td>
+</tr>
+<tr class="row-odd"><td>4B</td>
+<td>GPIOR2</td>
+<td>General Purpose I/O 2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p36</td>
+</tr>
+<tr class="row-even"><td>4A</td>
+<td>GPIOR1</td>
+<td>General Purpose I/O 1</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p36</td>
+</tr>
+<tr class="row-odd"><td>49</td>
+<td>Reserved</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>48</td>
+<td>OCR0B</td>
+<td>T/C0 Out Comp B</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p130</td>
+</tr>
+<tr class="row-odd"><td>47</td>
+<td>OCR0A</td>
+<td>T/C0 Out Comp A</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p130</td>
+</tr>
+<tr class="row-even"><td>46</td>
+<td>TCNT0</td>
+<td>T/C0 (8 Bit</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p130</td>
+</tr>
+<tr class="row-odd"><td>45</td>
+<td>TCCR0B</td>
+<td>FOC0A</td>
+<td>FOC0B</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>WGM02</td>
+<td>CS02</td>
+<td>CS01</td>
+<td>CS00</td>
+<td>p129</td>
+</tr>
+<tr class="row-even"><td>44</td>
+<td>TCCR0A</td>
+<td>COM0A1</td>
+<td>COM0A0</td>
+<td>COM0B1</td>
+<td>COM0B0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>WGM01</td>
+<td>WGM00</td>
+<td>p126</td>
+</tr>
+<tr class="row-odd"><td>43</td>
+<td>GTCCR</td>
+<td>TSM</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PSRASY</td>
+<td>PSRSYNC</td>
+<td>p166,  189</td>
+</tr>
+<tr class="row-even"><td>42</td>
+<td>EEARH</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>EEPROM Address H</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p34</td>
+</tr>
+<tr class="row-odd"><td>41</td>
+<td>EEARL</td>
+<td>EEPROM Address L</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p34</td>
+</tr>
+<tr class="row-even"><td>40</td>
+<td>EEDR</td>
+<td>EEPROM Data</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p34</td>
+</tr>
+<tr class="row-odd"><td>3F</td>
+<td>EECR</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>EEPM1</td>
+<td>EEPM0</td>
+<td>EERIE</td>
+<td>EEMPE</td>
+<td>EEPE</td>
+<td>EERE</td>
+<td>p34</td>
+</tr>
+<tr class="row-even"><td>3E</td>
+<td>GPIOR0</td>
+<td>General Purpose I/O 0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>p36</td>
+</tr>
+<tr class="row-odd"><td>3D</td>
+<td>EIMSK</td>
+<td>INT7</td>
+<td>INT6</td>
+<td>INT5</td>
+<td>INT4</td>
+<td>INT3</td>
+<td>INT2</td>
+<td>INT1</td>
+<td>INT0</td>
+<td>p111</td>
+</tr>
+<tr class="row-even"><td>3C</td>
+<td>EIFR</td>
+<td>INTF7</td>
+<td>INTF6</td>
+<td>INTF5</td>
+<td>INTF4</td>
+<td>INTF3</td>
+<td>INTF2</td>
+<td>INTF1</td>
+<td>INTF0</td>
+<td>p112</td>
+</tr>
+<tr class="row-odd"><td>3B</td>
+<td>PCIFR</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PCIF2</td>
+<td>PCIF1</td>
+<td>PCIF0</td>
+<td>p113</td>
+</tr>
+<tr class="row-even"><td>3A</td>
+<td>TIFR5</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICF5</td>
+<td>&#160;</td>
+<td>OCF5C</td>
+<td>OCF5B</td>
+<td>OCF5A</td>
+<td>TOV5</td>
+<td>p162</td>
+</tr>
+<tr class="row-odd"><td>39</td>
+<td>TIFR4</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICF4</td>
+<td>&#160;</td>
+<td>OCF4C</td>
+<td>OCF4B</td>
+<td>OCF4A</td>
+<td>TOV4</td>
+<td>p162</td>
+</tr>
+<tr class="row-even"><td>38</td>
+<td>TIFR3</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICF3</td>
+<td>&#160;</td>
+<td>OCF3C</td>
+<td>OCF3B</td>
+<td>OCF3A</td>
+<td>TOV3</td>
+<td>p162</td>
+</tr>
+<tr class="row-odd"><td>37</td>
+<td>TIFR2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>OCF2B</td>
+<td>OCF2A</td>
+<td>TOV2</td>
+<td>p188</td>
+</tr>
+<tr class="row-even"><td>36</td>
+<td>TIFR1</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ICF1</td>
+<td>&#160;</td>
+<td>OCF1C</td>
+<td>OCF1B</td>
+<td>OCF1A</td>
+<td>TOV1</td>
+<td>p162</td>
+</tr>
+<tr class="row-odd"><td>35</td>
+<td>TIFR0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>OCF0B</td>
+<td>OCF0A</td>
+<td>TOV0</td>
+<td>p131</td>
+</tr>
+<tr class="row-even"><td>34</td>
+<td>PORTG</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PORTG5</td>
+<td>PORTG4</td>
+<td>PORTG3</td>
+<td>PORTG2</td>
+<td>PORTG1</td>
+<td>PORTG0</td>
+<td>p98</td>
+</tr>
+<tr class="row-odd"><td>33</td>
+<td>DDRG</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>DDG5</td>
+<td>DDG4</td>
+<td>DDG3</td>
+<td>DDG2</td>
+<td>DDG1</td>
+<td>DDG0</td>
+<td>p98</td>
+</tr>
+<tr class="row-even"><td>32</td>
+<td>PING</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PING5</td>
+<td>PING4</td>
+<td>PING3</td>
+<td>PING2</td>
+<td>PING1</td>
+<td>PING0</td>
+<td>p98</td>
+</tr>
+<tr class="row-odd"><td>31</td>
+<td>PORTF</td>
+<td>PORTF7</td>
+<td>PORTF6</td>
+<td>PORTF5</td>
+<td>PORTF4</td>
+<td>PORTF3</td>
+<td>PORTF2</td>
+<td>PORTF1</td>
+<td>PORTF0</td>
+<td>p97</td>
+</tr>
+<tr class="row-even"><td>30</td>
+<td>DDRF</td>
+<td>DDF7</td>
+<td>DDF6</td>
+<td>DDF5</td>
+<td>DDF4</td>
+<td>DDF3</td>
+<td>DDF2</td>
+<td>DDF1</td>
+<td>DDF0</td>
+<td>p98</td>
+</tr>
+<tr class="row-odd"><td>2F</td>
+<td>PINF</td>
+<td>PINF7</td>
+<td>PINF6</td>
+<td>PINF5</td>
+<td>PINF4</td>
+<td>PINF3</td>
+<td>PINF2</td>
+<td>PINF1</td>
+<td>PINF0</td>
+<td>p98</td>
+</tr>
+<tr class="row-even"><td>2E</td>
+<td>PORTE</td>
+<td>PORTE7</td>
+<td>PORTE6</td>
+<td>PORTE5</td>
+<td>PORTE4</td>
+<td>PORTE3</td>
+<td>PORTE2</td>
+<td>PORTE1</td>
+<td>PORTE0</td>
+<td>p97</td>
+</tr>
+<tr class="row-odd"><td>2D</td>
+<td>DDRE</td>
+<td>DDE7</td>
+<td>DDE6</td>
+<td>DDE5</td>
+<td>DDE4</td>
+<td>DDE3</td>
+<td>DDE2</td>
+<td>DDE1</td>
+<td>DDE0</td>
+<td>p97</td>
+</tr>
+<tr class="row-even"><td>2C</td>
+<td>PINE</td>
+<td>PINE7</td>
+<td>PINE6</td>
+<td>PINE5</td>
+<td>PINE4</td>
+<td>PINE3</td>
+<td>PINE2</td>
+<td>PINE1</td>
+<td>PINE0</td>
+<td>p98</td>
+</tr>
+<tr class="row-odd"><td>2B</td>
+<td>PORTD</td>
+<td>PORTD7</td>
+<td>PORTD6</td>
+<td>PORTD5</td>
+<td>PORTD4</td>
+<td>PORTD3</td>
+<td>PORTD2</td>
+<td>PORTD1</td>
+<td>PORTD0</td>
+<td>p97</td>
+</tr>
+<tr class="row-even"><td>2A</td>
+<td>DDRD</td>
+<td>DDD7</td>
+<td>DDD6</td>
+<td>DDD5</td>
+<td>DDD4</td>
+<td>DDD3</td>
+<td>DDD2</td>
+<td>DDD1</td>
+<td>DDD0</td>
+<td>p97</td>
+</tr>
+<tr class="row-odd"><td>29</td>
+<td>PIND</td>
+<td>PIND7</td>
+<td>PIND6</td>
+<td>PIND5</td>
+<td>PIND4</td>
+<td>PIND3</td>
+<td>PIND2</td>
+<td>PIND1</td>
+<td>PIND0</td>
+<td>p97</td>
+</tr>
+<tr class="row-even"><td>28</td>
+<td>PORTC</td>
+<td>PORTC7</td>
+<td>PORTC6</td>
+<td>PORTC5</td>
+<td>PORTC4</td>
+<td>PORTC3</td>
+<td>PORTC2</td>
+<td>PORTC1</td>
+<td>PORTC0</td>
+<td>p97</td>
+</tr>
+<tr class="row-odd"><td>27</td>
+<td>DDRC</td>
+<td>DDC7</td>
+<td>DDC6</td>
+<td>DDC5</td>
+<td>DDC4</td>
+<td>DDC3</td>
+<td>DDC2</td>
+<td>DDC1</td>
+<td>DDC0</td>
+<td>p97</td>
+</tr>
+<tr class="row-even"><td>26</td>
+<td>PINC</td>
+<td>PINC7</td>
+<td>PINC6</td>
+<td>PINC5</td>
+<td>PINC4</td>
+<td>PINC3</td>
+<td>PINC2</td>
+<td>PINC1</td>
+<td>PINC0</td>
+<td>p97</td>
+</tr>
+<tr class="row-odd"><td>25</td>
+<td>PORTB</td>
+<td>PORTB7</td>
+<td>PORTB6</td>
+<td>PORTB5</td>
+<td>PORTB4</td>
+<td>PORTB3</td>
+<td>PORTB2</td>
+<td>PORTB1</td>
+<td>PORTB0</td>
+<td>p96</td>
+</tr>
+<tr class="row-even"><td>24</td>
+<td>DDRB</td>
+<td>DDB7</td>
+<td>DDB6</td>
+<td>DDB5</td>
+<td>DDB4</td>
+<td>DDB3</td>
+<td>DDB2</td>
+<td>DDB1</td>
+<td>DDB0</td>
+<td>p96</td>
+</tr>
+<tr class="row-odd"><td>23</td>
+<td>PINB</td>
+<td>PINB7</td>
+<td>PINB6</td>
+<td>PINB5</td>
+<td>PINB4</td>
+<td>PINB3</td>
+<td>PINB2</td>
+<td>PINB1</td>
+<td>PINB0</td>
+<td>p96</td>
+</tr>
+<tr class="row-even"><td>22</td>
+<td>PORTA</td>
+<td>PORTA7</td>
+<td>PORTA6</td>
+<td>PORTA5</td>
+<td>PORTA4</td>
+<td>PORTA3</td>
+<td>PORTA2</td>
+<td>PORTA1</td>
+<td>PORTA0</td>
+<td>p96</td>
+</tr>
+<tr class="row-odd"><td>21</td>
+<td>DDRA</td>
+<td>DDA7</td>
+<td>DDA6</td>
+<td>DDA5</td>
+<td>DDA4</td>
+<td>DDA3</td>
+<td>DDA2</td>
+<td>DDA1</td>
+<td>DDA0</td>
+<td>p96</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../grammar.html" class="btn btn-neutral float-right" title="3. Micro Code Language">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="2. AVR Datasheet"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../static/jquery.js"></script>
+      <script type="text/javascript" src="../static/underscore.js"></script>
+      <script type="text/javascript" src="../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

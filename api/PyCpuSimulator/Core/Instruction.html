@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>6.1.4.4. Instruction &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="6.1.4. Core" href="../Core.html"/>
+        <link rel="next" title="6.1.5. Logging" href="../Logging.html"/>
+        <link rel="prev" title="6.1.4.3. CoreHdlParser" href="CoreHdlParser.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../reference-manual.html">6. API Documentation</a> &raquo;</li>
+      
+          <li><a href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a> &raquo;</li>
+      
+          <li><a href="../Core.html">6.1.4. Core</a> &raquo;</li>
+      
+    <li>6.1.4.4. Instruction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../../_sources/api/PyCpuSimulator/Core/Instruction.rst.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-PyCpuSimulator.Core.Instruction">
+<span id="instruction"></span><h1>6.1.4.4. Instruction<a class="headerlink" href="#module-PyCpuSimulator.Core.Instruction" title="Permalink to this headline">¶</a></h1>
+<p>This modules implements an assembler and disassembler for instruction set.</p>
+<p>The instructions are stored in the dictionnary <em>instructions</em>.</p>
+<p>This snippet shows how to generate and decode a bytecode for a particular instruction:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ldd</span> <span class="o">=</span> <span class="n">instructions</span><span class="p">[</span><span class="s1">&#39;LDD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first_opcode</span>
+<span class="n">bytecode</span> <span class="o">=</span> <span class="n">ldd</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mh">0xA</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mh">0x2A</span><span class="p">)</span>
+<span class="n">operands</span> <span class="o">=</span> <span class="n">ldd</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.Chunk">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">Chunk</code><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Chunk.mask">
+<code class="descname">mask</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Chunk.mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a mask of 1 for the chunk length.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">DecisionTree</code><span class="sig-paren">(</span><em>instruction_set</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class implements a decision tree to decode opcodes of an instruction set.</p>
+<p>The algorithm is described in the paper Generating Decision Trees for Decoding Binaries, Henrik Theiling, 2001.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#64;inproceedings{Theiling:2001:GDT:384198.384213,</dt>
+<dd>author = {Theiling, Henrik},
+title = {Generating Decision Trees for Decoding Binaries},
+booktitle = {Proceedings of the 2001 ACM SIGPLAN Workshop on Optimization of Middleware and Distributed Systems},
+series = {OM ‘01},
+year = {2001},
+isbn = {1-58113-426-6},
+location = {Snow Bird, Utah, USA},
+pages = {112–120},
+numpages = {9},
+url = {<a class="reference external" href="http://doi.acm.org/10.1145/384198.384213">http://doi.acm.org/10.1145/384198.384213</a>},
+doi = {10.1145/384198.384213},
+acmid = {384213},
+publisher = {ACM},
+address = {New York, NY, USA},</dd>
+</dl>
+<p>}</p>
+<p><a class="reference external" href="http://dl.acm.org/citation.cfm?id=384198.384213">http://dl.acm.org/citation.cfm?id=384198.384213</a></p>
+</div></blockquote>
+<p>Note: to look further see cited by references.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Default node was not tested.</p>
+</div>
+<dl class="staticmethod">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree._get_default">
+<em class="property">static </em><code class="descname">_get_default</code><span class="sig-paren">(</span><em>opcode_set</em>, <em>gmask</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree._get_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree._get_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger PyCpuSimulator.Core.Instruction.DecisionTree (NOTSET)&gt;</em><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree._make_tree">
+<code class="descname">_make_tree</code><span class="sig-paren">(</span><em>opcode_set</em>, <em>gmask</em>, <em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree._make_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree._make_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree._partitions">
+<code class="descname">_partitions</code><span class="sig-paren">(</span><em>opcode_set</em>, <em>mask</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree._partitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree._partitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group opcodes having the same bit values for the significant bits defined by mask.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree.brut_force_check">
+<code class="descname">brut_force_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree.brut_force_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree.brut_force_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to decode all the bytecodes and check the result.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>bytecode</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree.decode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTree.print">
+<code class="descname">print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTree.print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTree.print" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTreeNode">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">DecisionTreeNode</code><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTreeNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTreeNode.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>bytecode</em>, <em>default_node=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTreeNode.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTreeNode.decode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.DecisionTreeNode.print">
+<code class="descname">print</code><span class="sig-paren">(</span><em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecisionTreeNode.print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecisionTreeNode.print" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="PyCpuSimulator.Core.Instruction.DecodeError">
+<em class="property">exception </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">DecodeError</code><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#DecodeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.DecodeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">NameError</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">Instruction</code><span class="sig-paren">(</span><em>mnemonic</em>, <em>description</em>, <em>opcodes</em>, <em>alternate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Instruction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Core.Instruction.InstructionBase" title="PyCpuSimulator.Core.Instruction.InstructionBase"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Core.Instruction.InstructionBase</span></code></a></p>
+<p>This class implements an AVR instruction.</p>
+<p>An instruction can have one or several associated opcodes.</p>
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction.alternate">
+<code class="descname">alternate</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction.alternate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction.first_opcode">
+<code class="descname">first_opcode</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction.first_opcode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction.no_operand">
+<code class="descname">no_operand</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction.no_operand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction.opcodes">
+<code class="descname">opcodes</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction.opcodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Instruction.single_opcode">
+<code class="descname">single_opcode</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Instruction.single_opcode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionAlias">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">InstructionAlias</code><span class="sig-paren">(</span><em>mnemonic</em>, <em>description</em>, <em>alias_of</em>, <em>alias_substitution</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionAlias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionAlias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Core.Instruction.InstructionBase" title="PyCpuSimulator.Core.Instruction.InstructionBase"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Core.Instruction.InstructionBase</span></code></a></p>
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionAlias.opcodes">
+<code class="descname">opcodes</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionAlias.opcodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionBase">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">InstructionBase</code><span class="sig-paren">(</span><em>mnemonic</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionBase.description">
+<code class="descname">description</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionBase.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionBase.mnemonic">
+<code class="descname">mnemonic</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionBase.mnemonic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">InstructionSet</code><span class="sig-paren">(</span><em>yaml_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">collections.OrderedDict</span></code></p>
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet._load_yaml">
+<code class="descname">_load_yaml</code><span class="sig-paren">(</span><em>yaml_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet._load_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet._load_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet.check_for_clash">
+<code class="descname">check_for_clash</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet.check_for_clash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet.check_for_clash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet.decision_tree">
+<code class="descname">decision_tree</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet.decision_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet.iter_on_instructions">
+<code class="descname">iter_on_instructions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet.iter_on_instructions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet.iter_on_instructions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet.opcode_set">
+<code class="descname">opcode_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet.opcode_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet.opcode_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.InstructionSet.yield_bytecode">
+<code class="descname">yield_bytecode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#InstructionSet.yield_bytecode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.InstructionSet.yield_bytecode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">Opcode</code><span class="sig-paren">(</span><em>instruction</em>, <em>opcode</em>, <em>operands=None</em>, <em>operation=None</em>, <em>flags=None</em>, <em>cycles=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class implements an AVR opcode.</p>
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode._merge_operands">
+<code class="descname">_merge_operands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode._merge_operands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode._merge_operands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge contiguous operand bits</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode._parse_opcode">
+<code class="descname">_parse_opcode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode._parse_opcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode._parse_opcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the opcode bit pattern.</p>
+<p>Opcode bits are represented by {0, 1} and operand bits by a letter.</p>
+<p>Group the bit so as to make chuncks corresponding to the opcode and the operands.  Then
+generate an opcode mask, an opcode value and an operand bit pattern.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.cycles">
+<code class="descname">cycles</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.cycles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>bytecode</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode the bytecode corresponding to this opcode.</p>
+<p>Return an operand dictionnary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.encode">
+<code class="descname">encode</code><span class="sig-paren">(</span><em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the bytecode for this opcode.</p>
+<p>The operands must be passed as key-value pairs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.instruction">
+<code class="descname">instruction</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.instruction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.iter_on_bytecodes">
+<code class="descname">iter_on_bytecodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode.iter_on_bytecodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.iter_on_bytecodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.mask">
+<code class="descname">mask</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.mnemonic">
+<code class="descname">mnemonic</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.mnemonic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.no_operand">
+<code class="descname">no_operand</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.no_operand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.opcode">
+<code class="descname">opcode</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.opcode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.opcode_intervals">
+<code class="descname">opcode_intervals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#Opcode.opcode_intervals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.opcode_intervals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.opcode_operands">
+<code class="descname">opcode_operands</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.opcode_operands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.opcode_size">
+<code class="descname">opcode_size</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.opcode_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.opcode_string">
+<code class="descname">opcode_string</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.opcode_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.operand_pattern">
+<code class="descname">operand_pattern</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.operand_pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="PyCpuSimulator.Core.Instruction.Opcode.operation">
+<code class="descname">operation</code><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.Opcode.operation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.OpcodeChunk">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">OpcodeChunk</code><span class="sig-paren">(</span><em>opcode</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OpcodeChunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OpcodeChunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Core.Instruction.Chunk" title="PyCpuSimulator.Core.Instruction.Chunk"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Core.Instruction.Chunk</span></code></a></p>
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.OpcodeChunk.is_compatible">
+<code class="descname">is_compatible</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OpcodeChunk.is_compatible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OpcodeChunk.is_compatible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyCpuSimulator.Core.Instruction.OperandChunk">
+<em class="property">class </em><code class="descclassname">PyCpuSimulator.Core.Instruction.</code><code class="descname">OperandChunk</code><span class="sig-paren">(</span><em>letter</em>, <em>count=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OperandChunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OperandChunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyCpuSimulator.Core.Instruction.Chunk" title="PyCpuSimulator.Core.Instruction.Chunk"><code class="xref py py-class docutils literal"><span class="pre">PyCpuSimulator.Core.Instruction.Chunk</span></code></a></p>
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.OperandChunk.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>bytecode</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OperandChunk.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OperandChunk.decode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.OperandChunk.encode">
+<code class="descname">encode</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OperandChunk.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OperandChunk.encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PyCpuSimulator.Core.Instruction.OperandChunk.is_compatible">
+<code class="descname">is_compatible</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Core/Instruction.html#OperandChunk.is_compatible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Core.Instruction.OperandChunk.is_compatible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Logging.html" class="btn btn-neutral float-right" title="6.1.5. Logging">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="CoreHdlParser.html" class="btn btn-neutral" title="6.1.4.3. CoreHdlParser"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

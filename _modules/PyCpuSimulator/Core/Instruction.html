@@ -1,0 +1,1083 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyCpuSimulator.Core.Instruction &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>PyCpuSimulator.Core.Instruction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for PyCpuSimulator.Core.Instruction</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># PyCpuSimulator - AVR Simulator</span>
+<span class="c1"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;This modules implements an assembler and disassembler for instruction set.</span>
+
+<span class="sd">The instructions are stored in the dictionnary *instructions*.</span>
+
+<span class="sd">This snippet shows how to generate and decode a bytecode for a particular instruction::</span>
+
+<span class="sd">  ldd = instructions[&#39;LDD&#39;].first_opcode</span>
+<span class="sd">  bytecode = ldd.encode(d=0xA, q=0x2A)</span>
+<span class="sd">  operands = ldd.decode(bytecode)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">PyCpuSimulator.Math.Interval</span> <span class="k">import</span> <span class="n">IntervalInt</span>
+<span class="kn">from</span> <span class="nn">PyCpuSimulator.Tools.BinaryNumber</span> <span class="k">import</span> <span class="n">sup_for_nbits</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Chunk"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Chunk">[docs]</a><span class="k">class</span> <span class="nc">Chunk</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1">#! Shift in the opcode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_shift</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return a mask of 1 for the chunk length. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sup_for_nbits</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="OpcodeChunk"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OpcodeChunk">[docs]</a><span class="k">class</span> <span class="nc">OpcodeChunk</span><span class="p">(</span><span class="n">Chunk</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">OpcodeChunk</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span> <span class="o">=</span> <span class="n">opcode</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_opcode</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="OpcodeChunk.is_compatible"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OpcodeChunk.is_compatible">[docs]</a>    <span class="k">def</span> <span class="nf">is_compatible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="OperandChunk"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OperandChunk">[docs]</a><span class="k">class</span> <span class="nc">OperandChunk</span><span class="p">(</span><span class="n">Chunk</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">letter</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">OperandChunk</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1">#! Shift in the operand</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operand_shift</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_letter</span> <span class="o">=</span> <span class="n">letter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="n">count</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_letter</span> <span class="o">+</span> <span class="s2">&quot; #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="n">opcode</span><span class="o">.</span><span class="n">_count</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="OperandChunk.is_compatible"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OperandChunk.is_compatible">[docs]</a>    <span class="k">def</span> <span class="nf">is_compatible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_letter</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_letter</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="OperandChunk.encode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OperandChunk.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operand_shift</span><span class="p">)</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_shift</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="OperandChunk.decode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.OperandChunk.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">bytecode</span> <span class="o">&gt;&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_shift</span><span class="p">)</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operand_shift</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Opcode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode">[docs]</a><span class="k">class</span> <span class="nc">Opcode</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements an AVR opcode. &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instruction</span><span class="p">,</span> <span class="n">opcode</span><span class="p">,</span>
+                 <span class="n">operands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cycles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instruction</span> <span class="o">=</span> <span class="n">instruction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_string</span> <span class="o">=</span> <span class="n">opcode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operands</span> <span class="o">=</span> <span class="n">operands</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operation</span> <span class="o">=</span> <span class="n">operation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flags</span> <span class="o">=</span> <span class="n">flags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">=</span> <span class="n">cycles</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_opcode</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">instruction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instruction</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mnemonic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instruction</span><span class="o">.</span><span class="n">mnemonic</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcode_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_string</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cycles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcode_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operand_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operand_pattern</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcode_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">no_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span> <span class="o">==</span> <span class="mh">0xFFFF</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_string</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode._parse_opcode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode._parse_opcode">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Parse the opcode bit pattern.</span>
+
+<span class="sd">        Opcode bits are represented by {0, 1} and operand bits by a letter.</span>
+
+<span class="sd">        Group the bit so as to make chuncks corresponding to the opcode and the operands.  Then</span>
+<span class="sd">        generate an opcode mask, an opcode value and an operand bit pattern.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">opcode</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcode_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_size</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">opcode</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span> <span class="o">=</span> <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">opcode</span><span class="p">[:</span><span class="mi">16</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">):</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">OpcodeChunk</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">OperandChunk</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">chunks</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">is_compatible</span><span class="p">(</span><span class="n">chunk</span><span class="p">):</span>
+                <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">chunk</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_size</span> <span class="o">==</span> <span class="mi">32</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operand_32</span> <span class="o">=</span> <span class="n">opcode</span><span class="p">[</span><span class="mi">16</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operand_32</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1">#! Opcode value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">#! Opcode mask</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_pattern</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1">#! Run length encoding of the operand pattern where opcode bit are represented by &#39;_&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operand_pattern</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">operand_size</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+            <span class="n">shift</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+            <span class="n">chunk</span><span class="o">.</span><span class="n">_opcode_shift</span> <span class="o">=</span> <span class="n">shift</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">OpcodeChunk</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">shift</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">mask</span> <span class="o">&lt;&lt;</span> <span class="n">shift</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_pattern</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">_opcode</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operand_pattern</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">chunk_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span> <span class="ow">in</span> <span class="n">operand_size</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                    <span class="n">operand_size</span><span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span><span class="p">]</span> <span class="o">+=</span> <span class="n">chunk_length</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">chunk</span><span class="p">]</span>
+                    <span class="n">operand_size</span><span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk_length</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_pattern</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chunk_length</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operand_pattern</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">_letter</span><span class="p">,</span> <span class="n">chunk_length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="c1"># print(self._chunks, self._operand_32)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operand_pattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_operand_bits</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">operand_size</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">operand</span><span class="p">,</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                <span class="n">operand_size</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="n">chunk</span><span class="o">.</span><span class="n">_operand_shift</span> <span class="o">=</span> <span class="n">operand_size</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode.encode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Generate the bytecode for this opcode.</span>
+
+<span class="sd">        The operands must be passed as key-value pairs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">bytecode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span>
+        <span class="k">for</span> <span class="n">operand</span><span class="p">,</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                <span class="n">bytecode</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">operand</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">bytecode</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode.decode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Decode the bytecode corresponding to this opcode.</span>
+
+<span class="sd">        Return an operand dictionnary.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">operands</span> <span class="o">=</span> <span class="p">{</span><span class="n">operand</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">operand</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">operand</span><span class="p">,</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                <span class="n">operands</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">operands</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode._merge_operands"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode._merge_operands">[docs]</a>    <span class="k">def</span> <span class="nf">_merge_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Merge contiguous operand bits &quot;&quot;&quot;</span>
+
+        <span class="n">operand_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">OperandChunk</span><span class="p">):</span>
+                <span class="n">inf</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">_opcode_shift</span>
+                <span class="n">interval</span> <span class="o">=</span> <span class="n">IntervalInt</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">inf</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># print(chunk, chunk._opcode_shift, len(chunk), interval)</span>
+                <span class="k">if</span> <span class="n">operand_intervals</span> <span class="ow">and</span> <span class="n">interval</span><span class="o">.</span><span class="n">inf</span> <span class="o">==</span> <span class="n">operand_intervals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sup</span> <span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">operand_intervals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">|=</span> <span class="n">interval</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">operand_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="c1"># print([str(x) for x in operand_intervals])</span>
+
+        <span class="k">return</span> <span class="n">operand_intervals</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode.iter_on_bytecodes"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode.iter_on_bytecodes">[docs]</a>    <span class="k">def</span> <span class="nf">iter_on_bytecodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">operand_intervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_operands</span><span class="p">()</span>
+        <span class="n">operand_shift_mask</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">operand_shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">operand_intervals</span><span class="p">:</span>
+            <span class="n">number_of_bits</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+            <span class="n">operand_shift_mask</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">operand_shift</span><span class="p">,</span> <span class="n">sup_for_nbits</span><span class="p">(</span><span class="n">number_of_bits</span><span class="p">),</span> <span class="n">interval</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+            <span class="n">operand_shift</span> <span class="o">+=</span> <span class="n">number_of_bits</span>
+        <span class="k">for</span> <span class="n">operand</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_number_of_operand_bits</span><span class="p">):</span>
+            <span class="n">bytecode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span>
+            <span class="k">for</span> <span class="n">operand_shift</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">opcode_shift</span> <span class="ow">in</span> <span class="n">operand_shift_mask</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="n">operand</span> <span class="o">&gt;&gt;</span> <span class="n">operand_shift</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">opcode_shift</span>
+                <span class="n">bytecode</span> <span class="o">+=</span> <span class="n">value</span>
+            <span class="k">yield</span> <span class="n">bytecode</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Opcode.opcode_intervals"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode.opcode_intervals">[docs]</a>    <span class="k">def</span> <span class="nf">opcode_intervals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Opcodes with less significant bits (e.g. xxxx x100) introduces steps</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+        <span class="n">last_chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">last_chunk</span><span class="p">,</span> <span class="n">OpcodeChunk</span><span class="p">):</span>
+            <span class="n">opcode_step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">last_chunk</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;low bit opcode&#39;</span><span class="p">,</span> <span class="n">last_chunk</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">last_chunk</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opcode_step</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">operand_intervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_operands</span><span class="p">()</span>
+
+        <span class="c1"># Compute a cartesian product of the operand chuncks</span>
+        <span class="n">bytecode_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">combination</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">operand_intervals</span><span class="p">)):</span>
+            <span class="n">bytecode_inf</span> <span class="o">=</span> <span class="n">bytecode_sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode</span>
+            <span class="k">for</span> <span class="n">weight</span><span class="p">,</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">combination</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">operand_intervals</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+                    <span class="c1"># case where bits are unset is take into account by a null weight</span>
+                    <span class="n">bytecode_inf</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">**</span><span class="n">interval</span><span class="o">.</span><span class="n">inf</span> <span class="c1"># lower chunk bit is set</span>
+                    <span class="n">bytecode_sup</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">sup</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">**</span><span class="n">interval</span><span class="o">.</span><span class="n">inf</span> <span class="c1"># all chunk bits are set</span>
+            <span class="c1"># prefix = str(combination)</span>
+            <span class="c1"># print(prefix, bin(bytecode_inf), bytecode_inf)</span>
+            <span class="c1"># print(&#39; &#39;*len(prefix), bin(bytecode_sup), bytecode_sup)</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="n">IntervalInt</span><span class="p">(</span><span class="n">bytecode_inf</span><span class="p">,</span> <span class="n">bytecode_sup</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bytecode_intervals</span> <span class="ow">and</span> <span class="n">interval</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">bytecode_intervals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sup</span> <span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">bytecode_intervals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">|=</span> <span class="n">interval</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bytecode_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="c1"># print([str(x) for x in bytecode_intervals])</span>
+
+        <span class="k">return</span> <span class="n">bytecode_intervals</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="InstructionBase"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionBase">[docs]</a><span class="k">class</span> <span class="nc">InstructionBase</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mnemonic</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mnemonic</span> <span class="o">=</span> <span class="n">mnemonic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mnemonic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mnemonic</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mnemonic</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mnemonic</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Instruction"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Instruction">[docs]</a><span class="k">class</span> <span class="nc">Instruction</span><span class="p">(</span><span class="n">InstructionBase</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements an AVR instruction.</span>
+
+<span class="sd">    An instruction can have one or several associated opcodes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mnemonic</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">opcodes</span><span class="p">,</span> <span class="n">alternate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">Instruction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alternate</span> <span class="o">=</span> <span class="n">alternate</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">Opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">opcode_dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">opcode_dict</span> <span class="ow">in</span> <span class="n">opcodes</span><span class="p">]</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">alternate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alternate</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">single_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">no_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">no_operand</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="InstructionAlias"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionAlias">[docs]</a><span class="k">class</span> <span class="nc">InstructionAlias</span><span class="p">(</span><span class="n">InstructionBase</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mnemonic</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">alias_of</span><span class="p">,</span> <span class="n">alias_substitution</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">InstructionAlias</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alias_of</span> <span class="o">=</span> <span class="n">alias_of</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alias_substitution</span> <span class="o">=</span> <span class="n">alias_substitution</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">opcodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="DecodeError"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecodeError">[docs]</a><span class="k">class</span> <span class="nc">DecodeError</span><span class="p">(</span><span class="ne">NameError</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="DecisionTreeNode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTreeNode">[docs]</a><span class="k">class</span> <span class="nc">DecisionTreeNode</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_branches</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTreeNode.decode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTreeNode.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">,</span> <span class="n">default_node</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># keep track of the default node</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">default_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">bytecode</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_branches</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">Opcode</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">node</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bytecode</span><span class="p">,</span> <span class="n">default_node</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">default_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># default_node should be a singleton (cf. Theiling p2)</span>
+                <span class="k">return</span> <span class="n">default_node</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">DecodeError</span><span class="p">(</span><span class="s1">&#39;Cannot decode bytecode&#39;</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTreeNode.print"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTreeNode.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;    &#39;</span><span class="o">*</span><span class="n">level</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Node mask </span><span class="si">{:016b}</span><span class="s2">  0x</span><span class="si">{:04x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;  default: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_branches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;  </span><span class="si">{:016b}</span><span class="s1">  0x</span><span class="si">{:04x}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">DecisionTreeNode</span><span class="p">):</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">level</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">opcode</span> <span class="o">=</span> <span class="n">node</span>
+                <span class="n">string_format</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;    &gt; </span><span class="si">{:016b}</span><span class="s2">  0x</span><span class="si">{:04x}</span><span class="s2">  </span><span class="si">{:016b}</span><span class="s2">  </span><span class="si">{:6}</span><span class="s2">  </span><span class="si">{}</span><span class="s2">&quot;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">string_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opcode</span><span class="o">.</span><span class="n">opcode</span><span class="p">,</span>
+                                           <span class="n">opcode</span><span class="o">.</span><span class="n">opcode</span><span class="p">,</span>
+                                           <span class="n">opcode</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span>
+                                           <span class="n">opcode</span><span class="o">.</span><span class="n">instruction</span><span class="o">.</span><span class="n">mnemonic</span><span class="p">,</span>
+                                           <span class="n">opcode</span><span class="p">))</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="DecisionTree"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree">[docs]</a><span class="k">class</span> <span class="nc">DecisionTree</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;This class implements a decision tree to decode opcodes of an instruction set.</span>
+
+<span class="sd">    The algorithm is described in the paper Generating Decision Trees for Decoding Binaries, Henrik Theiling, 2001.</span>
+
+<span class="sd">        @inproceedings{Theiling:2001:GDT:384198.384213,</span>
+<span class="sd">         author = {Theiling, Henrik},</span>
+<span class="sd">         title = {Generating Decision Trees for Decoding Binaries},</span>
+<span class="sd">         booktitle = {Proceedings of the 2001 ACM SIGPLAN Workshop on Optimization of Middleware and Distributed Systems},</span>
+<span class="sd">         series = {OM &#39;01},</span>
+<span class="sd">         year = {2001},</span>
+<span class="sd">         isbn = {1-58113-426-6},</span>
+<span class="sd">         location = {Snow Bird, Utah, USA},</span>
+<span class="sd">         pages = {112--120},</span>
+<span class="sd">         numpages = {9},</span>
+<span class="sd">         url = {http://doi.acm.org/10.1145/384198.384213},</span>
+<span class="sd">         doi = {10.1145/384198.384213},</span>
+<span class="sd">         acmid = {384213},</span>
+<span class="sd">         publisher = {ACM},</span>
+<span class="sd">         address = {New York, NY, USA},</span>
+<span class="sd">        }</span>
+
+<span class="sd">        http://dl.acm.org/citation.cfm?id=384198.384213</span>
+
+<span class="sd">    Note: to look further see cited by references.</span>
+
+
+<span class="sd">    .. warning:: Default node was not tested.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;DecisionTree&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instruction_set</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_set</span> <span class="o">=</span> <span class="n">instruction_set</span>
+
+        <span class="n">opcode_set</span> <span class="o">=</span> <span class="n">instruction_set</span><span class="o">.</span><span class="n">opcode_set</span><span class="p">()</span>
+
+        <span class="c1"># opcode_set.sort(key=lambda opcode: opcode.opcode)</span>
+        <span class="c1"># for opcode in opcode_set:</span>
+        <span class="c1">#     string_format = &quot;{:016b}  0x{:04x}  {:016b}  {:6}  {}&quot;</span>
+        <span class="c1">#     print(string_format.format(opcode.opcode, opcode.opcode,</span>
+        <span class="c1">#                                opcode.mask,</span>
+        <span class="c1">#                                opcode.instruction.mnemonic, opcode))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_tree</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="o">=</span><span class="mh">0xFFFF</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree._get_default"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._get_default">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_default</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">):</span>
+
+        <span class="c1"># Compute the set of bits patterns that have empty remaining bit masks</span>
+        <span class="n">singleton</span> <span class="o">=</span> <span class="p">[</span><span class="n">opcode</span> <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">opcode_set</span>
+                     <span class="k">if</span> <span class="ow">not</span> <span class="n">opcode</span><span class="o">.</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="n">gmask</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">singleton</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Not a singleton&#39;</span><span class="p">)</span>
+        <span class="n">singleton</span> <span class="o">=</span> <span class="n">singleton</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># print(&#39;singleton:&#39;, singleton)</span>
+
+        <span class="c1"># Get a mask</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">gmask</span>
+        <span class="n">opcode_subset</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">opcode_set</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">opcode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">singleton</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">opcode</span><span class="o">.</span><span class="n">mask</span>
+                <span class="n">opcode_subset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mask</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Null mask&#39;</span><span class="p">)</span>
+        <span class="c1"># print(&#39;default mask:&#39;, bin(mask))</span>
+
+        <span class="k">return</span> <span class="n">singleton</span><span class="p">,</span> <span class="n">opcode_subset</span><span class="p">,</span> <span class="n">mask</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree._partitions"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._partitions">[docs]</a>    <span class="k">def</span> <span class="nf">_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Group opcodes having the same bit values for the significant bits defined by mask.&quot;&quot;&quot;</span>
+
+        <span class="n">sorted_opcode_set</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">opcode</span><span class="p">:</span> <span class="n">opcode</span><span class="o">.</span><span class="n">opcode</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">)</span>
+
+        <span class="c1"># print(&#39;\nPartitioning of the opcode set with mask:\n{:016b}&#39;.format(mask))</span>
+        <span class="n">partitions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">partition</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">partition_bit_values</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">sorted_opcode_set</span><span class="p">:</span>
+            <span class="n">opcode_bit_values</span> <span class="o">=</span> <span class="n">opcode</span><span class="o">.</span><span class="n">opcode</span> <span class="o">&amp;</span> <span class="n">mask</span>
+            <span class="k">if</span> <span class="n">opcode_bit_values</span> <span class="o">==</span> <span class="n">partition_bit_values</span><span class="p">:</span>
+                <span class="n">partition</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">partition_bit_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">partitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
+                <span class="c1"># print(&#39;  New partition&#39;)</span>
+                <span class="n">partition</span> <span class="o">=</span> <span class="p">[</span><span class="n">opcode</span><span class="p">]</span>
+                <span class="n">partition_bit_values</span> <span class="o">=</span> <span class="n">opcode_bit_values</span>
+            <span class="c1"># coloured_opcode = format_and_colour_with_mask(opcode.opcode, mask, 16)</span>
+            <span class="c1"># coloured_mask = format_and_colour_with_mask(opcode.mask, mask, 16)</span>
+            <span class="c1"># print(&quot;{}  {}  {:6}  {}&quot;.format(coloured_opcode,</span>
+            <span class="c1">#                                 coloured_mask,</span>
+            <span class="c1">#                                 opcode.instruction.mnemonic, opcode))</span>
+        <span class="n">partitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">partitions</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree._make_tree"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._make_tree">[docs]</a>    <span class="k">def</span> <span class="nf">_make_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="c1"># print(&#39;\n\nMake Tree mask level {} {:016b}&#39;.format(level, gmask))</span>
+
+        <span class="c1"># Compute a bit mask of bits that are significant for all bit patterns</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">gmask</span>
+        <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">opcode_set</span><span class="p">:</span>
+            <span class="c1"># print(bin(opcode.mask))</span>
+            <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">opcode</span><span class="o">.</span><span class="n">mask</span>
+        <span class="c1"># print(&#39;mask:&#39;, bin(mask))</span>
+
+        <span class="c1"># Possibly terminate, must be singleton</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mask</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># print(&#39;Terminate for null mask and singleton&#39;)</span>
+            <span class="k">return</span> <span class="n">opcode_set</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Construct an new node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">DecisionTreeNode</span><span class="p">()</span>
+
+        <span class="c1"># Decide about default node</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mask</span><span class="p">:</span>
+            <span class="n">singleton</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_default</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">singleton</span>
+
+        <span class="c1"># label the current node</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">_mask</span> <span class="o">=</span> <span class="n">mask</span>
+
+        <span class="c1"># make partition of the opcode set using mask</span>
+        <span class="n">partitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partitions</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+
+        <span class="c1"># recurse on subsets</span>
+        <span class="k">for</span> <span class="n">partition</span> <span class="ow">in</span> <span class="n">partitions</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">partition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">opcode</span> <span class="o">&amp;</span> <span class="n">mask</span>
+            <span class="n">partition_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_tree</span><span class="p">(</span><span class="n">partition</span><span class="p">,</span> <span class="n">gmask</span> <span class="o">-</span> <span class="n">mask</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">_branches</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">partition_node</span>
+
+        <span class="c1"># Return the new node</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree.decode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree.brut_force_check"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree.brut_force_check">[docs]</a>    <span class="k">def</span> <span class="nf">brut_force_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Try to decode all the bytecodes and check the result. &quot;&quot;&quot;</span>
+
+        <span class="c1"># print(&#39;Brut force check:&#39;)</span>
+        <span class="k">for</span> <span class="n">opcode</span><span class="p">,</span> <span class="n">bytecode</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_set</span><span class="o">.</span><span class="n">yield_bytecode</span><span class="p">():</span>
+            <span class="n">decoded_opcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">bytecode</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">decoded_opcode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">opcode</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Decision tree check failed for opcode </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opcode</span><span class="p">))</span></div>
+            <span class="c1"># else:</span>
+            <span class="c1">#     print(&#39;  {} passed&#39;.format(opcode))</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DecisionTree.print"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">print</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="InstructionSet"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet">[docs]</a><span class="k">class</span> <span class="nc">InstructionSet</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">InstructionSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decision_tree</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">yaml_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InstructionSet._load_yaml"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet._load_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">_load_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_path</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml_dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mnemonic</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">yaml_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">yaml_dict</span><span class="p">[</span><span class="n">mnemonic</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;alias_of&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">instruction</span> <span class="o">=</span> <span class="n">InstructionAlias</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span>
+                                               <span class="n">description</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                                               <span class="n">alias_of</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;alias_of&#39;</span><span class="p">],</span>
+                                               <span class="n">alias_substitution</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;alias_substitution&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">instruction</span> <span class="o">=</span> <span class="n">Instruction</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span>
+                                          <span class="n">description</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                                          <span class="n">alternate</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                          <span class="n">opcodes</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">mnemonic</span><span class="p">]</span> <span class="o">=</span> <span class="n">instruction</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decision_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decision_tree</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_decision_tree</span> <span class="o">=</span> <span class="n">DecisionTree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decision_tree</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InstructionSet.iter_on_instructions"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet.iter_on_instructions">[docs]</a>    <span class="k">def</span> <span class="nf">iter_on_instructions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instruction</span><span class="p">,</span> <span class="n">Instruction</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">instruction</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InstructionSet.opcode_set"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet.opcode_set">[docs]</a>    <span class="k">def</span> <span class="nf">opcode_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">opcode_set</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_on_instructions</span><span class="p">():</span>
+            <span class="n">opcode_set</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">instruction</span><span class="o">.</span><span class="n">opcodes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">opcode_set</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InstructionSet.yield_bytecode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet.yield_bytecode">[docs]</a>    <span class="k">def</span> <span class="nf">yield_bytecode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_on_instructions</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">instruction</span><span class="o">.</span><span class="n">opcodes</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">bytecode</span> <span class="ow">in</span> <span class="n">opcode</span><span class="o">.</span><span class="n">iter_on_bytecodes</span><span class="p">():</span>
+                    <span class="k">yield</span> <span class="n">opcode</span><span class="p">,</span> <span class="n">bytecode</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InstructionSet.check_for_clash"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet.check_for_clash">[docs]</a>    <span class="k">def</span> <span class="nf">check_for_clash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="n">number_of_bytecodes</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
+
+        <span class="n">bytecode_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">number_of_bytecodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">)</span>
+        <span class="n">opcode_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">opcode_clash</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_on_instructions</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">instruction</span><span class="o">.</span><span class="n">opcodes</span><span class="p">:</span>
+                <span class="n">opcode_map</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">opcode</span><span class="p">)]</span> <span class="o">=</span> <span class="n">opcode</span>
+                <span class="k">for</span> <span class="n">bytecode</span> <span class="ow">in</span> <span class="n">opcode</span><span class="o">.</span><span class="n">iter_on_bytecodes</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">bytecode_array</span><span class="p">[</span><span class="n">bytecode</span><span class="p">]:</span>
+                        <span class="n">opcode_clash</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">opcode</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bytecode_array</span><span class="p">[</span><span class="n">bytecode</span><span class="p">]</span>
+                        <span class="c1"># opcode0 = opcode_map[bytecode_array[bytecode]]</span>
+                        <span class="c1"># instruction0 = opcode0.instruction</span>
+                        <span class="c1"># message = &quot;Clash for  {} {}  with  {} {}  for bytecode  {}&quot;</span>
+                        <span class="c1"># print(message.format(instruction.mnemonic, opcode.opcode_string,</span>
+                        <span class="c1">#                      instruction0.mnemonic, opcode0.opcode_string,</span>
+                        <span class="c1">#                      format_as_nibble(bytecode)))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">bytecode_array</span><span class="p">[</span><span class="n">bytecode</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">opcode</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">opcode_id1</span><span class="p">,</span> <span class="n">opcode_id2</span> <span class="ow">in</span> <span class="n">opcode_clash</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">opcode1</span> <span class="o">=</span> <span class="n">opcode_map</span><span class="p">[</span><span class="n">opcode_id1</span><span class="p">]</span>
+            <span class="n">instruction1</span> <span class="o">=</span> <span class="n">opcode1</span><span class="o">.</span><span class="n">instruction</span>
+            <span class="n">opcode2</span> <span class="o">=</span> <span class="n">opcode_map</span><span class="p">[</span><span class="n">opcode_id2</span><span class="p">]</span>
+            <span class="n">instruction2</span> <span class="o">=</span> <span class="n">opcode2</span><span class="o">.</span><span class="n">instruction</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Clash for  </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">  with  </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instruction1</span><span class="o">.</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">opcode1</span><span class="o">.</span><span class="n">opcode_string</span><span class="p">,</span>
+                                 <span class="n">instruction2</span><span class="o">.</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">opcode2</span><span class="o">.</span><span class="n">opcode_string</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">free_bytecodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bytecode_array</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">free_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">free_bytecodes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">inf</span> <span class="o">=</span> <span class="n">sup</span> <span class="o">=</span> <span class="n">free_bytecodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">bytecode</span> <span class="ow">in</span> <span class="n">free_bytecodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                    <span class="k">if</span> <span class="n">bytecode</span> <span class="o">==</span> <span class="n">sup</span> <span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="n">sup</span> <span class="o">=</span> <span class="n">bytecode</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">free_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntervalInt</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
+                        <span class="n">inf</span> <span class="o">=</span> <span class="n">sup</span> <span class="o">=</span> <span class="n">bytecode</span>
+                <span class="n">free_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntervalInt</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Free bytecodes:&#39;</span><span class="p">)</span>
+            <span class="n">bytecode_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">histogram</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">free_intervals</span><span class="p">:</span>
+                <span class="n">interval_length</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">interval_length</span> <span class="ow">in</span> <span class="n">histogram</span><span class="p">:</span>
+                    <span class="n">histogram</span><span class="p">[</span><span class="n">interval_length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">histogram</span><span class="p">[</span><span class="n">interval_length</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">interval_length</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - </span><span class="si">{:016b}</span><span class="se">\n</span><span class="s2">    </span><span class="si">{:016b}</span><span class="s2"> #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                                                                <span class="n">interval</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="n">interval</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                                                                <span class="n">interval_length</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - </span><span class="si">{:016b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+                <span class="n">bytecode_count</span> <span class="o">+=</span> <span class="n">interval_length</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> free bytecodes (</span><span class="si">{:.1f}</span><span class="s2"> %)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bytecode_count</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">bytecode_count</span><span class="o">/</span><span class="n">number_of_bytecodes</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Range distribution:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">interval_length</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">histogram</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{:4}</span><span class="s2"> × </span><span class="si">{:4}</span><span class="s2"> bytecodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">histogram</span><span class="p">[</span><span class="n">interval_length</span><span class="p">],</span> <span class="n">interval_length</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

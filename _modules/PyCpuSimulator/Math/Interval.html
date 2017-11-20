@@ -1,0 +1,1053 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyCpuSimulator.Math.Interval &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>PyCpuSimulator.Math.Interval</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for PyCpuSimulator.Math.Interval</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># PyCpuSimulator - AVR Simulator</span>
+<span class="c1"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1"># Fixme: use https://github.com/FabriceSalvaire/python-arithmetic-interval</span>
+
+<span class="sd">&quot;&quot;&quot; This module implements interval arithmetic.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">__ALL__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Interval&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;IntervalInt&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;IntervalIntSupOpen&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Interval2D&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Interval2DInt&#39;</span><span class="p">,</span>
+           <span class="p">]</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">.Functions</span> <span class="k">import</span> <span class="n">middle</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">Nan</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+<span class="n">FloatMinusInfinity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+<span class="n">FloatPlusInfinity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;+inf&#39;</span><span class="p">)</span>
+<span class="n">IntMinusInfinity</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
+<span class="n">IntPlusInfinity</span> <span class="o">=</span> <span class="o">-</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Interval"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval">[docs]</a><span class="k">class</span> <span class="nc">Interval</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot; Interval [inf, sup] in the float domain.</span>
+
+<span class="sd">    An interval can be constructed using a couple (inf, sup) or an object that support the</span>
+<span class="sd">    :meth:`__getitem__` interface::</span>
+
+<span class="sd">      Interval(inf, sup)</span>
+<span class="sd">      Interval((inf, sup))</span>
+<span class="sd">      Interval(iterable)</span>
+<span class="sd">      Interval(interval)</span>
+
+<span class="sd">    To get the interval boundaries, use the :attr:`inf` and :attr:`sup` attribute.</span>
+
+<span class="sd">    An empty interval is defined with *inf* and *sup* set to :obj:`None`.</span>
+
+<span class="sd">    To compute the union of two intervals use:</span>
+
+<span class="sd">      i3 = i1 | i2</span>
+<span class="sd">      i1 |= i2</span>
+
+<span class="sd">    To compute the intersection of two intervals use:</span>
+
+<span class="sd">      i3 = i1 &amp; i2</span>
+<span class="sd">      i1 &amp;= i2</span>
+
+<span class="sd">    It returns an empty interval if the intersection is null.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__empty_interval_string__</span> <span class="o">=</span> <span class="s1">&#39;[empty]&#39;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left_open</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;left_open&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_right_open</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;right_open&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># if self.inf == FloatMinusInfinity:</span>
+        <span class="c1">#     self.left_open = True</span>
+        <span class="c1"># if self.sup == FloatPlusInfinity:</span>
+        <span class="c1">#     self.right_open = True</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval._check_arguments"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval._check_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">_check_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: cast to float()?</span>
+
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># Fixme: more check?</span>
+            <span class="c1">#   and len(array) == 2</span>
+            <span class="n">inf</span><span class="p">,</span> <span class="n">sup</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># will call __getitem__(slice(None, 2, None))</span>
+        <span class="k">elif</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">inf</span><span class="p">,</span> <span class="n">sup</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Too many arguments&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inf</span> <span class="o">&gt;</span> <span class="n">sup</span><span class="p">:</span> <span class="c1"># None &gt; None = False</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;inf &lt;= sup constraint isn&#39;t true [</span><span class="si">%g</span><span class="s2">, </span><span class="si">%g</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">inf</span><span class="p">,</span> <span class="n">sup</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.copy"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a clone of the interval. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span></div>
+
+    <span class="c1">#: alias of :meth:`copy`</span>
+    <span class="n">clone</span> <span class="o">=</span> <span class="n">copy</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Provide an indexing interface.</span>
+
+<span class="sd">        The parameter *index* can be a location from 0 to 1 or a slice. The location 0 corresponds</span>
+<span class="sd">        to *inf* and 1 to *sup*, respectively.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span>
+            <span class="c1"># Fixme: check index.step</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span>
+            <span class="k">elif</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span>
+            <span class="k">elif</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Wrong &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span>
+        <span class="k">elif</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Out of range index&quot;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">left_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">==</span> <span class="n">FloatMinusInfinity</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left_open</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">right_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">==</span> <span class="n">FloatPlusInfinity</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_open</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a textual representation of the interval. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__empty_interval_string__</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;]&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_open</span> <span class="k">else</span> <span class="s1">&#39;[&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">, </span><span class="si">%g</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;[&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_open</span> <span class="k">else</span> <span class="s1">&#39;]&#39;</span>
+            <span class="k">return</span> <span class="n">s</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.is_empty"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the interval is empty. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+   <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.zero_length"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.zero_length">[docs]</a>    <span class="k">def</span> <span class="nf">zero_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``sup == inf``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.length"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.length">[docs]</a>    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``sup - inf``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.middle"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.middle">[docs]</a>    <span class="k">def</span> <span class="nf">middle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the interval&#39;s middle. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">middle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the intervals are equal. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">==</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span> <span class="o">==</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if ``i1.sup &lt; i2.inf``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if ``i1.inf &gt; i2.sup``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&gt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Shift the interval of *dx*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval shifted of *dx*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">+</span> <span class="n">dx</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.enlarge"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.enlarge">[docs]</a>    <span class="k">def</span> <span class="nf">enlarge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Enlarge the interval of *dx*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">-=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">+=</span> <span class="n">dx</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Shift the interval of -*dx*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">-=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-=</span> <span class="n">dx</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval shifted of -*dx*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="n">dx</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval scaled by *scale*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">*</span> <span class="n">scale</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if *x* is in the interval? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span>
+
+   <span class="c1">###############################################</span>
+
+<div class="viewcode-block" id="Interval.intersect"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the interval intersects with i2? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span> <span class="ow">and</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.is_included_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.is_included_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_included_in</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the interval is included in i1? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.is_outside_of"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.is_outside_of">[docs]</a>    <span class="k">def</span> <span class="nf">is_outside_of</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the interval is outside of i2? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span> <span class="ow">or</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval._intersection"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval._intersection">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Compute the intersection of *i1* and *i2*. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">)),</span>
+                    <span class="nb">min</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the intersection of *i1* and *i2*.</span>
+
+<span class="sd">        Return an empty interval if they don&#39;t intersect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its intersection with *i2*.</span>
+
+<span class="sd">        Return an empty interval if they don&#39;t intersect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval._union"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval._union">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Compute the union of *i1* and *i2*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">min</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">)),</span>
+                <span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">)))</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the union of *i1* and *i2*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__ior__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its union with *i2*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.map_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.map_in">[docs]</a>    <span class="k">def</span> <span class="nf">map_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval_reference</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval shifted of *interval_reference.inf*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">-</span> <span class="n">interval_reference</span><span class="o">.</span><span class="n">inf</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.map_x_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.map_x_in">[docs]</a>    <span class="k">def</span> <span class="nf">map_x_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">clamp</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``x - inf``. If *clamp* parameter is set True then the value is clamped in the</span>
+<span class="sd">        interval.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Fixme: why int?</span>
+        <span class="k">if</span> <span class="n">clamp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval.unmap_x_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval.unmap_x_in">[docs]</a>    <span class="k">def</span> <span class="nf">unmap_x_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``x + inf``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="IntervalInt"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalInt">[docs]</a><span class="k">class</span> <span class="nc">IntervalInt</span><span class="p">(</span><span class="n">Interval</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Interval [inf, sup] in the integer domain.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+                              <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_left_open</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;left_open&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_right_open</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;right_open&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># if self.inf == IntMinusInfinity:</span>
+        <span class="c1">#     self.left_open = True</span>
+        <span class="c1"># if self.sup == IntPlusInfinity:</span>
+        <span class="c1">#     self.right_open = True</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">left_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">==</span> <span class="n">IntMinusInfinity</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left_open</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">right_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">==</span> <span class="n">IntPlusInfinity</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_open</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a textual representation of the interval. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__empty_interval_string__</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;]&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_open</span> <span class="k">else</span> <span class="s1">&#39;[&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;-oo&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">==</span> <span class="n">IntMinusInfinity</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, &#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;+oo&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">==</span> <span class="n">IntPlusInfinity</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;[&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_open</span> <span class="k">else</span> <span class="s1">&#39;]&#39;</span>
+            <span class="k">return</span> <span class="n">s</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="IntervalInt.length"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalInt.length">[docs]</a>    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``sup - inf +1``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span> <span class="o">+</span><span class="mi">1</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="IntervalInt.length_float"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalInt.length_float">[docs]</a>    <span class="k">def</span> <span class="nf">length_float</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``sup - inf``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">inf</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="IntervalInt.to_slice"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalInt.to_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a slice instance. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sup</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="IntervalIntSupOpen"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalIntSupOpen">[docs]</a><span class="k">class</span> <span class="nc">IntervalIntSupOpen</span><span class="p">(</span><span class="n">IntervalInt</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Interval [inf, sup[ in the integer domain.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">left_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">right_open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="IntervalIntSupOpen.intersect"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Does the interval intersect with *i2*? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span> <span class="ow">and</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span></div>
+
+   <span class="c1">###############################################</span>
+
+<div class="viewcode-block" id="IntervalIntSupOpen.minus"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.minus">[docs]</a>    <span class="k">def</span> <span class="nf">minus</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: unused</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a list of intervals corresponding to i1 - intersection of i1 and i2. If i2 is</span>
+<span class="sd">        included in i1 then two intervals can be returned. If the compution is not defined then</span>
+<span class="sd">        :obj:`None` is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span> <span class="c1"># IntervalIntSupOpen(None, None)</span>
+            <span class="k">elif</span> <span class="n">i2</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i1</span><span class="p">):</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">!=</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span> <span class="o">!=</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">))</span>
+                <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">),)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">),)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span> <span class="c1"># IntervalIntSupOpen(None, None)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="IntervalIntSupOpen.exclude"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.exclude">[docs]</a>    <span class="k">def</span> <span class="nf">exclude</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Compute the subset intervals of *i1* given an exclusion interval *i2*.</span>
+
+<span class="sd">        It returns :obj:`None` if the intervals don&#39;t intersect or *i1* is included in *i2*.  Else</span>
+<span class="sd">        it returns a list of couples (interval, excluded_flag) where *interval* is a subset of the</span>
+<span class="sd">        interval *i1* and *excluded_flag* indicated if the subset is excluded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">i2</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i1</span><span class="p">):</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">!=</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">),</span> <span class="kc">True</span><span class="p">))</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i2</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">i2</span><span class="o">.</span><span class="n">sup</span> <span class="o">!=</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">),</span> <span class="kc">True</span><span class="p">))</span>
+                <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">i1</span><span class="o">.</span><span class="n">inf</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span> <span class="c1"># I1 &lt; I2</span>
+                <span class="k">return</span> <span class="p">((</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">inf</span><span class="p">),</span> <span class="kc">True</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># I2 &lt; I1</span>
+                <span class="k">return</span> <span class="p">((</span><span class="n">i2</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">IntervalIntSupOpen</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">sup</span><span class="p">),</span> <span class="kc">True</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+<span class="c1">#################################################################################</span>
+
+<div class="viewcode-block" id="Interval2D"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D">[docs]</a><span class="k">class</span> <span class="nc">Interval2D</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot; Interval [inf, sup]*[inf, sup] in the float domain.</span>
+
+<span class="sd">    The components can be accessed using the :attr:`x` and :attr:`y` attribute, or using an index</span>
+<span class="sd">    interface where the index 0 maps to *x* and 1 to *y*, respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.copy"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a clone of the interval. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
+
+    <span class="c1">#: alias of :meth:`copy`</span>
+    <span class="n">clone</span> <span class="o">=</span> <span class="n">copy</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="k">elif</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Out of range index&quot;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        <span class="k">elif</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Out of range index&quot;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a textual representation of the interval. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.bounding_box"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.bounding_box">[docs]</a>    <span class="k">def</span> <span class="nf">bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the corresponding bounding box ``(x.inf, y.inf, x.sup, y.sup)``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">sup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.is_empty"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the interval is empty. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.size"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the horizontal and vertical length. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">length</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.area"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.area">[docs]</a>    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the area. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">length</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.diagonal"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.diagonal">[docs]</a>    <span class="k">def</span> <span class="nf">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the diagonal&#39;s length. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">length</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.middle"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.middle">[docs]</a>    <span class="k">def</span> <span class="nf">middle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the interval&#39;s middle. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">middle</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">middle</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the intervals are equal. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">i2</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">i2</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxy</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Shift the interval of *dxy*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxy</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval shifted by *dxy*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">dxy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>  <span class="o">+</span> <span class="n">dxy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.shift"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Shift the interval of (dx, dy). &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.enlarge"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.enlarge">[docs]</a>    <span class="k">def</span> <span class="nf">enlarge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Enlarge the interval of dx. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">enlarge</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">enlarge</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Scale the interval by *scale*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*=</span> <span class="n">scale</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new interval scaled by *scale*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.intersect"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the interval intersects with i2? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">y</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.is_included_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.is_included_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_included_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test whether the interval is included in i2? &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">is_included_in</span><span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">y</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the intersection of *i1* and *i2*.</span>
+
+<span class="sd">        Return an empty interval if they don&#39;t intersect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">i2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">y</span> <span class="o">&amp;</span> <span class="n">i2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__iand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its intersection with *i2*.</span>
+
+<span class="sd">        Return an empty interval if they don&#39;t intersect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">&amp;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the union of *i1* and *i2*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">i1</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">i2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">i1</span><span class="o">.</span><span class="n">y</span> <span class="o">|</span> <span class="n">i2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__ior__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its union with *i2*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">|=</span> <span class="n">i2</span><span class="o">.</span><span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">|=</span> <span class="n">i2</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.map_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.map_in">[docs]</a>    <span class="k">def</span> <span class="nf">map_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval_reference</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Construct a new interval shifted of *interval_reference.inf*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">map_in</span><span class="p">(</span><span class="n">interval_reference</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">map_in</span><span class="p">(</span><span class="n">interval_reference</span><span class="o">.</span><span class="n">y</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.map_xy_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.map_xy_in">[docs]</a>    <span class="k">def</span> <span class="nf">map_xy_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clamp</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``(x - y.inf, y - y.inf)``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">map_x_in</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">clamp</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">map_x_in</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">clamp</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Interval2D.unmap_xy_in"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.Interval2D.unmap_xy_in">[docs]</a>    <span class="k">def</span> <span class="nf">unmap_xy_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return ``(x + y.inf, y + y.inf)``. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">unmap_x_in</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">unmap_x_in</span><span class="p">(</span><span class="n">y</span><span class="p">))</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="IntervalInt2D"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Math/Interval.html#PyCpuSimulator.Math.Interval.IntervalInt2D">[docs]</a><span class="k">class</span> <span class="nc">IntervalInt2D</span><span class="p">(</span><span class="n">Interval2D</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Interval [inf, sup]*[inf, sup] in the integer domain.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">IntervalInt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">IntervalInt</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

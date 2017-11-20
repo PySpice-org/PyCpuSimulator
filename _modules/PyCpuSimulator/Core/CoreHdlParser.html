@@ -1,0 +1,633 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyCpuSimulator.Core.CoreHdlParser &mdash; PySimAVR 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">PySimAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>PyCpuSimulator.Core.CoreHdlParser</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for PyCpuSimulator.Core.CoreHdlParser</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># PyCpuSimulator - AVR Simulator</span>
+<span class="c1"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;High Definition Language Parser</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="k">as</span> <span class="nn">lex</span>
+<span class="kn">import</span> <span class="nn">ply.yacc</span> <span class="k">as</span> <span class="nn">yacc</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">.CoreAst</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ensure_statement_list"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.ensure_statement_list">[docs]</a><span class="k">def</span> <span class="nf">ensure_statement_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">StatementList</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">StatementList</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Parser"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser">[docs]</a><span class="k">class</span> <span class="nc">Parser</span><span class="p">:</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Parser&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="n">_operator_to_class</span> <span class="o">=</span> <span class="p">{</span><span class="n">operator_class</span><span class="o">.</span><span class="n">__operator__</span><span class="p">:</span><span class="n">operator_class</span>
+                          <span class="k">for</span> <span class="n">operator_class</span> <span class="ow">in</span> <span class="p">(</span>
+                                  <span class="n">Addition</span><span class="p">,</span>
+                                  <span class="n">And</span><span class="p">,</span>
+                                  <span class="n">Division</span><span class="p">,</span>
+                                  <span class="n">Equal</span><span class="p">,</span>
+                                  <span class="n">Greater</span><span class="p">,</span>
+                                  <span class="n">GreaterEqual</span><span class="p">,</span>
+                                  <span class="n">LeftShift</span><span class="p">,</span>
+                                  <span class="n">Less</span><span class="p">,</span>
+                                  <span class="n">LessEqual</span><span class="p">,</span>
+                                  <span class="n">Multiplication</span><span class="p">,</span>
+                                  <span class="n">NotEqual</span><span class="p">,</span>
+                                  <span class="n">Or</span><span class="p">,</span>
+                                  <span class="n">RightShift</span><span class="p">,</span>
+                                  <span class="n">Subtraction</span><span class="p">,</span>
+                                  <span class="n">Xor</span><span class="p">,</span>
+                          <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="n">reserved</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;if&#39;</span> <span class="p">:</span> <span class="s1">&#39;IF&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;else&#39;</span> <span class="p">:</span> <span class="s1">&#39;ELSE&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;SEMICOLON&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LEFT_PARENTHESIS&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_PARENTHESIS&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LEFT_BRACE&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_BRACE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;SET&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PLUS&#39;</span><span class="p">,</span> <span class="s1">&#39;MINUS&#39;</span><span class="p">,</span> <span class="s1">&#39;TIMES&#39;</span><span class="p">,</span> <span class="s1">&#39;DIVIDE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;AND&#39;</span><span class="p">,</span> <span class="s1">&#39;OR&#39;</span><span class="p">,</span> <span class="s1">&#39;XOR&#39;</span><span class="p">,</span> <span class="s1">&#39;LEFT_SHIFT&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_SHIFT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;EQUAL&#39;</span><span class="p">,</span> <span class="s1">&#39;NOT_EQUAL&#39;</span><span class="p">,</span> <span class="s1">&#39;LESS&#39;</span><span class="p">,</span> <span class="s1">&#39;GREATER&#39;</span><span class="p">,</span> <span class="s1">&#39;LESS_EQUAL&#39;</span><span class="p">,</span> <span class="s1">&#39;GREATER_EQUAL&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LEFT_BRACKET&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_BRACKET&#39;</span><span class="p">,</span> <span class="s1">&#39;COMMA&#39;</span><span class="p">,</span> <span class="s1">&#39;COLON&#39;</span><span class="p">,</span> <span class="s1">&#39;BIT_RANGE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;BINARY_NUMBER&#39;</span><span class="p">,</span> <span class="s1">&#39;OCTAL_NUMBER&#39;</span><span class="p">,</span> <span class="s1">&#39;HEX_NUMBER&#39;</span><span class="p">,</span> <span class="s1">&#39;DECIMAL_NUMBER&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;AT&#39;</span><span class="p">,</span> <span class="s1">&#39;DOLLAR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">reserved</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Parser.t_error"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_error">[docs]</a>    <span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Illegal character &#39;</span><span class="si">%s</span><span class="s2">&#39; at line </span><span class="si">%u</span><span class="s2"> and position </span><span class="si">%u</span><span class="s2">&quot;</span> <span class="o">%</span>
+                           <span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lexpos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_previous_newline_position</span><span class="p">))</span>
+        <span class="c1"># token.lexer.skip(1)</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Lexer error&#39;</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="n">t_ignore</span>  <span class="o">=</span> <span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span>
+
+<div class="viewcode-block" id="Parser.t_newline"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_newline">[docs]</a>    <span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;\n+&#39;</span>
+        <span class="c1"># Track newline</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_newline_position</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lexpos</span></div>
+        <span class="c1"># t.type = &#39;SEMICOLON&#39;</span>
+        <span class="c1"># return t</span>
+
+    <span class="n">t_ignore_COMMENT</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\#[^\n]*&#39;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="n">t_SEMICOLON</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;;&#39;</span>
+
+    <span class="n">t_LEFT_PARENTHESIS</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\(&#39;</span>
+    <span class="n">t_RIGHT_PARENTHESIS</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\)&#39;</span>
+
+    <span class="n">t_LEFT_BRACE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\{&#39;</span>
+    <span class="n">t_RIGHT_BRACE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\}&#39;</span>
+
+    <span class="n">t_SET</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;=&#39;</span>
+
+    <span class="n">t_PLUS</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\+&#39;</span>
+    <span class="n">t_MINUS</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;-&#39;</span>
+    <span class="n">t_TIMES</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\*&#39;</span>
+    <span class="n">t_DIVIDE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;/&#39;</span>
+
+    <span class="n">t_AND</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&amp;&#39;</span> <span class="c1"># was .</span>
+    <span class="n">t_OR</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\|&#39;</span>
+    <span class="n">t_XOR</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\^&#39;</span>
+    <span class="n">t_LEFT_SHIFT</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&lt;&lt;&#39;</span>
+    <span class="n">t_RIGHT_SHIFT</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&gt;&gt;&#39;</span>
+
+    <span class="n">t_EQUAL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;==&#39;</span>
+    <span class="n">t_NOT_EQUAL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;!=&#39;</span>
+    <span class="n">t_LESS</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&lt;&#39;</span>
+    <span class="n">t_GREATER</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&gt;&#39;</span>
+    <span class="n">t_LESS_EQUAL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&lt;=&#39;</span>
+    <span class="n">t_GREATER_EQUAL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&gt;=&#39;</span>
+
+    <span class="n">t_LEFT_BRACKET</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\[&#39;</span>
+    <span class="n">t_RIGHT_BRACKET</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\]&#39;</span>
+    <span class="n">t_COMMA</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;,&#39;</span>
+    <span class="n">t_COLON</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;:&#39;</span>
+    <span class="n">t_BIT_RANGE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\.\.&#39;</span>
+
+    <span class="n">t_AT</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;@&#39;</span>
+    <span class="n">t_DOLLAR</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\$&#39;</span>
+
+<div class="viewcode-block" id="Parser.t_NAME"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_NAME">[docs]</a>    <span class="k">def</span> <span class="nf">t_NAME</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;[a-zA-Z_][a-zA-Z_0-9]*&#39;</span>
+        <span class="c1"># Check for reserved words</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reserved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Parser.t_BINARY_NUMBER"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_BINARY_NUMBER">[docs]</a>    <span class="k">def</span> <span class="nf">t_BINARY_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;0b(0|1)+&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Parser.t_OCTAL_NUMBER"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_OCTAL_NUMBER">[docs]</a>    <span class="k">def</span> <span class="nf">t_OCTAL_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;0o[0-7]+&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Parser.t_HEX_NUMBER"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_HEX_NUMBER">[docs]</a>    <span class="k">def</span> <span class="nf">t_HEX_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;0x[0-9a-fA-F]+&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Parser.t_DECIMAL_NUMBER"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.t_DECIMAL_NUMBER">[docs]</a>    <span class="k">def</span> <span class="nf">t_DECIMAL_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sa">r</span><span class="s1">&#39;\d+&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+    <span class="c1">##############################################</span>
+    <span class="c1">#</span>
+    <span class="c1"># Grammar</span>
+    <span class="c1">#</span>
+
+    <span class="c1"># from lowest</span>
+    <span class="n">precedence</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;COMMA&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;EQUAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;OR&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;XOR&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;AND&#39;</span><span class="p">),</span>
+        <span class="c1"># (&#39;left&#39;, &#39;EQUAL&#39;, &#39;NOT_EQUAL&#39;), # Fixme: EQUAL ???</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;NOT_EQUAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;LESS&#39;</span><span class="p">,</span> <span class="s1">&#39;GREATER&#39;</span><span class="p">,</span> <span class="s1">&#39;LESS_EQUAL&#39;</span><span class="p">,</span> <span class="s1">&#39;GREATER_EQUAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;LEFT_SHIFT&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_SHIFT&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;PLUS&#39;</span><span class="p">,</span> <span class="s1">&#39;MINUS&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;TIMES&#39;</span><span class="p">,</span> <span class="s1">&#39;DIVIDE&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;LEFT_BRACKET&#39;</span><span class="p">,</span> <span class="s1">&#39;RIGHT_BRACKET&#39;</span><span class="p">),</span>
+        <span class="c1"># (&#39;left&#39;, &#39;LEFT_PARENTHESIS&#39;, &#39;RIGHT_PARENTHESIS&#39;),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="Parser.p_error"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_error">[docs]</a>    <span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Syntax error at &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Syntax Error&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Syntax Error at End Of File&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Syntax Error at End Of File&quot;</span> <span class="p">)</span></div>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;program&#39;</span>
+
+<div class="viewcode-block" id="Parser.p_empty"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_empty">[docs]</a>    <span class="k">def</span> <span class="nf">p_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="s1">&#39;empty :&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Parser.p_program"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_program">[docs]</a>    <span class="k">def</span> <span class="nf">p_program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;program : statement</span>
+<span class="sd">                   | program statement</span>
+<span class="sd">                   | empty</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">statement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_program</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Parser.p_statement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_statement">[docs]</a>    <span class="k">def</span> <span class="nf">p_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;statement : expression_statement</span>
+<span class="sd">                     | compound_statement</span>
+<span class="sd">                     | if_statement</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.p_expression_statement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_expression_statement">[docs]</a>    <span class="k">def</span> <span class="nf">p_expression_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;expression_statement : assignation SEMICOLON</span>
+<span class="sd">                                | function SEMICOLON</span>
+<span class="sd">                                | SEMICOLON</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.p_statement_list"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_statement_list">[docs]</a>    <span class="k">def</span> <span class="nf">p_statement_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;statement_list : statement</span>
+<span class="sd">                          | statement_list statement</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">StatementList</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_compound_statement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_compound_statement">[docs]</a>    <span class="k">def</span> <span class="nf">p_compound_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;compound_statement : LEFT_BRACE statement_list RIGHT_BRACE</span>
+<span class="sd">                              | LEFT_BRACE RIGHT_BRACE</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.p_if_statement"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_if_statement">[docs]</a>    <span class="k">def</span> <span class="nf">p_if_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;if_statement : IF LEFT_PARENTHESIS expression RIGHT_PARENTHESIS statement</span>
+<span class="sd">        | IF LEFT_PARENTHESIS expression RIGHT_PARENTHESIS statement ELSE statement</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">condition</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">then_expression</span> <span class="o">=</span> <span class="n">ensure_statement_list</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="n">else_expression</span> <span class="o">=</span> <span class="n">ensure_statement_list</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">If</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">then_expression</span><span class="p">,</span> <span class="n">else_expression</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">If</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">then_expression</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Parser.p_expression_list"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_expression_list">[docs]</a>    <span class="k">def</span> <span class="nf">p_expression_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;expression_list : expression</span>
+<span class="sd">                           | expression_list COMMA expression</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">StatementList</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_function"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_function">[docs]</a>    <span class="k">def</span> <span class="nf">p_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;function : NAME LEFT_PARENTHESIS expression_list RIGHT_PARENTHESIS</span>
+<span class="sd">                    | NAME LEFT_PARENTHESIS RIGHT_PARENTHESIS</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_assignation"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_assignation">[docs]</a>    <span class="k">def</span> <span class="nf">p_assignation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="s1">&#39;assignation : destination SET expression&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Assignation</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># eval value first</span></div>
+
+<div class="viewcode-block" id="Parser.p_destination"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_destination">[docs]</a>    <span class="k">def</span> <span class="nf">p_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R</span>
+        <span class="c1"># Xh:Xl</span>
+        <span class="c1"># R[b]</span>
+        <span class="c1"># R[b..b]</span>
+        <span class="c1"># [...]</span>
+        <span class="c1"># IO[P, b]</span>
+        <span class="sd">&#39;&#39;&#39;destination : register</span>
+<span class="sd">                       | register_concatenation</span>
+<span class="sd">                       | register_bit</span>
+<span class="sd">                       | register_bit_range</span>
+<span class="sd">                       | addressing</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Fixme: | NAME LEFT_BRACKET NAME COMMA NAME RIGHT_BRACKET</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.p_number"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_number">[docs]</a>    <span class="k">def</span> <span class="nf">p_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># constant</span>
+        <span class="sd">&#39;&#39;&#39;constant : DECIMAL_NUMBER</span>
+<span class="sd">                    | BINARY_NUMBER</span>
+<span class="sd">                    | OCTAL_NUMBER</span>
+<span class="sd">                    | HEX_NUMBER</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_register"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_register">[docs]</a>    <span class="k">def</span> <span class="nf">p_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R</span>
+        <span class="sd">&#39;&#39;&#39;register : NAME</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Addressing</span><span class="p">(</span><span class="s1">&#39;REGISTER&#39;</span><span class="p">,</span> <span class="n">Register</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="Parser.p_register_operand"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_register_operand">[docs]</a>    <span class="k">def</span> <span class="nf">p_register_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R</span>
+        <span class="sd">&#39;&#39;&#39;register : AT NAME</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RegisterOperand</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_constant_operand"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_constant_operand">[docs]</a>    <span class="k">def</span> <span class="nf">p_constant_operand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R</span>
+        <span class="sd">&#39;&#39;&#39;constant : DOLLAR NAME</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConstantOperand</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_register_concatenation"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_register_concatenation">[docs]</a>    <span class="k">def</span> <span class="nf">p_register_concatenation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># Xh:Xl</span>
+        <span class="sd">&#39;&#39;&#39;register_concatenation : register COLON register</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Concatenation</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_register_bit"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_register_bit">[docs]</a>    <span class="k">def</span> <span class="nf">p_register_bit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R[b]</span>
+        <span class="sd">&#39;&#39;&#39;register_bit : register LEFT_BRACKET expression RIGHT_BRACKET</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bit</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_register_bit_range"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_register_bit_range">[docs]</a>    <span class="k">def</span> <span class="nf">p_register_bit_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># R[b..b]</span>
+        <span class="sd">&#39;&#39;&#39;register_bit_range : register LEFT_BRACKET constant BIT_RANGE constant RIGHT_BRACKET</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">BitRange</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_addressing"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_addressing">[docs]</a>    <span class="k">def</span> <span class="nf">p_addressing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># [ ... ]</span>
+        <span class="sd">&#39;&#39;&#39;addressing : LEFT_BRACKET expression RIGHT_BRACKET</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Addressing</span><span class="p">(</span><span class="s1">&#39;RAM&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Parser.p_source"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_source">[docs]</a>    <span class="k">def</span> <span class="nf">p_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;expression : register</span>
+<span class="sd">                      | register_concatenation</span>
+<span class="sd">                      | register_bit</span>
+<span class="sd">                      | register_bit_range</span>
+<span class="sd">                      | addressing</span>
+<span class="sd">                      | constant</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Parser.p_binary_operation"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.p_binary_operation">[docs]</a>    <span class="k">def</span> <span class="nf">p_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="c1"># ... OP ...</span>
+        <span class="sd">&#39;&#39;&#39;expression : expression PLUS expression</span>
+<span class="sd">                      | expression MINUS expression</span>
+<span class="sd">                      | expression TIMES expression</span>
+<span class="sd">                      | expression DIVIDE expression</span>
+<span class="sd">                      | expression AND expression</span>
+<span class="sd">                      | expression OR expression</span>
+<span class="sd">                      | expression XOR expression</span>
+<span class="sd">                      | expression LEFT_SHIFT expression</span>
+<span class="sd">                      | expression RIGHT_SHIFT expression</span>
+<span class="sd">                      | expression EQUAL expression</span>
+<span class="sd">                      | expression NOT_EQUAL expression</span>
+<span class="sd">                      | expression LESS expression</span>
+<span class="sd">                      | expression GREATER expression</span>
+<span class="sd">                      | expression LESS_EQUAL expression</span>
+<span class="sd">                      | expression GREATER_EQUAL expression</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_to_class</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]](</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Parser._build"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser._build">[docs]</a>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Parser._reset"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser._reset">[docs]</a>    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_newline_position</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_program</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Parser.parse"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span> <span class="c1"># Fixme: after ?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">lexer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lexer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_program</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Parser.test_lexer"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/CoreHdlParser.html#PyCpuSimulator.Core.CoreHdlParser.Parser.test_lexer">[docs]</a>    <span class="k">def</span> <span class="nf">test_lexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lexer</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

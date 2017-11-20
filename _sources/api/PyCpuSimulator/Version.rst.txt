@@ -1,0 +1,8 @@
+*********
+Version
+*********
+
+.. automodule:: PyCpuSimulator.Version
+   :members:
+   :show-inheritance:
+
