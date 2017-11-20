@@ -61,7 +61,7 @@ setup_dict.update(dict(
         ],
 
     install_requires=[
-        'PyYAML'
+        'PyYAML',
         'numpy',
         'ansicolor',
         'ply',
