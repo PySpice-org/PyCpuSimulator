@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # PyCpuSimulator - AVR Simulator
-# Copyright (C) 2015 Salvaire Fabrice
+# Copyright (C) 2017 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,7 @@
 
 ####################################################################################################
 
-import glob
 import os
-import sys
-import subprocess
-
-from distutils.sysconfig import get_python_lib
-site_packages_path = get_python_lib()
 
 ####################################################################################################
 
@@ -50,7 +44,7 @@ def merge_include(src_lines, doc_path, included_rst_files=None):
 
 # Utility function to read the README file.
 # Used for the long_description.
-def read(file_name):
+def read_readme(file_name):
 
     source_path = os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(source_path) == 'tools':
@@ -69,52 +63,21 @@ def read(file_name):
 
 ####################################################################################################
 
-long_description = read('README.txt')
+if not __file__.endswith('conf.py'):
+    long_description = read_readme('README.txt')
+else:
+    long_description = ''
 
 ####################################################################################################
 
-PyCpuSimulator_path = os.path.join(site_packages_path, 'PySpice')
-
 setup_dict = dict(
     name='PyCpuSimulator',
-    version='0.1.0',
+    version='0.2.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
-    description='PyCpuSimulator is a AVR simulator',
-    license="GPLv3",
-    keywords="avr, simulator",
+    description='PyCpuSimulator is a CPU simulator',
+    license='GPLv3',
+    keywords= 'cpu avr simulator',
     url='https://github.com/FabriceSalvaire/PyCpuSimulator',
-    scripts=glob.glob('bin/*'),
-    packages=['PyCpuSimulator', # Fixme:
-              'PyCpuSimulator.Avr',
-              'PyCpuSimulator.BinaryFormat',
-              'PyCpuSimulator.Config',
-              'PyCpuSimulator.Core',
-              'PyCpuSimulator.Logging',
-              'PyCpuSimulator.Math',
-              'PyCpuSimulator.Tools',
-          ],
-    # package_dir = {'PyCpuSimulator': 'PySpice'},
-    data_files=[
-        (os.path.join(PyCpuSimulator_path, 'Config'),
-         [os.path.join('PyCpuSimulator', 'Config', 'logging.yml')]),
-        (os.path.join(PyCpuSimulator_path, 'Avr'),
-         [os.path.join('PyCpuSimulator', 'Avr', 'opcodes.yml')]),
-    ],
     long_description=long_description,
-    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        "Topic :: Scientific/Engineering",
-        "Intended Audience :: Education",
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.4",
-        ],
-    requires=[
-        'PyYAML'
-        'numpy',
-        'ansicolor',
-        'ply',
-    ],
 )
