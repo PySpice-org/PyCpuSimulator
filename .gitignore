@@ -2,13 +2,13 @@
 __pycache__
 .directory
 #
-build/
-dist/
 MANIFEST
-#
 PyCpuSimulator/Core/parser.out
 PyCpuSimulator/Core/parsetab.py
+build/
+dist/
 doc/sphinx/build/
+doc/sphinx/source/api
 #
 data/blink-led/.build_ano/
 data/blink-led/asm/
