@@ -88,9 +88,9 @@
 
 .. End
 
-=========
+================
  PyCpuSimulator
-=========
+================
 
 The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
 

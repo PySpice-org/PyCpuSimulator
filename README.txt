@@ -3,9 +3,9 @@
 .. include:: project-links.txt
 .. include:: abbreviation.txt
 
-=========
+================
  PyCpuSimulator
-=========
+================
 
 The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
 
