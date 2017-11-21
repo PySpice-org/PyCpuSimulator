@@ -41,5 +41,5 @@ The procedure to install PyCpuSimulator is described in the :ref:`Installation M
   reference-manual
   symbols
   core/alu
-
-.. End
+  todo
+  avr-cross-compilation

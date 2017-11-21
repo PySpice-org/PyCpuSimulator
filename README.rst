@@ -80,90 +80,48 @@
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
 
-.. |cffi| replace:: CFFI
-.. _cffi: http://cffi.readthedocs.org
-
 .. |pypy| replace:: pypy
 .. _pypy: http://pypy.org
-
-.. End
 
 ================
  PyCpuSimulator
 ================
 
-The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
-
-.. The latest documentation build from the git repository is available at readthedocs.org |PyCpuSimulator@readthedocs-badge|
-
-Written by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_.
-
-.. |Build Status|
-
 |Pypi License|
 |Pypi Python Version|
 
 |Pypi Version|
-|Pypi Format|
 
-.. -*- Mode: rst -*-
+.. * Quick Link to `Production Branch <https://github.com/FabriceSalvaire/PyCpuSimulator/tree/master>`_
+.. * Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/PyCpuSimulator/tree/devel>`_
 
+Overview
+========
 
-==============
- Introduction
-==============
-
-.. End
-
-.. -*- Mode: rst -*-
-
-.. _installation-page:
-
-
-==============
- Installation
-==============
-
-Dependencies
-------------
-
-PyCpuSimulator requires the following dependencies:
-
- * |Python|_ 3
-
-For development, you will need in addition:
-
- * |Sphinx|_
-
-Installation from PyPi Repository
----------------------------------
-
-PyCpuSimulator is made available on the |Pypi|_ repository at |PyCpuSimulator@pypi|
-
-Run this command to install the last release:
-
-.. code-block:: sh
-
-  pip install PyCpuSimulator
-
-Installation from Source
+What is PyCpuSimulator ?
 ------------------------
 
-The PyCpuSimulator source code is hosted at |PyCpuSimulator@github|
+PyCpuSimulator is a CPU simulator implemented in Python which use micro-codes to implement CPU core.
 
-To clone the Git repository, run this command in a terminal:
+Where is the Documentation ?
+----------------------------
 
-.. code-block:: sh
+The documentation is available on the |PyCpuSimulatorHomePage|_.
 
-  git clone git@github.com:FabriceSalvaire/PyCpuSimulator.git
+What are the main features ?
+----------------------------
 
-Then to build and install PyCpuSimulator run these commands:
+* Micro-Code Language to describe instruction
+* Opcode Decoder using Decision Tree
+* Read HEX firmware format
+* AVR Core CPU simulation is ongoing
 
-.. code-block:: sh
+How to install it ?
+-------------------
 
-  python setup.py build
-  python setup.py install
+Look at the `installation <@project_url@/installation.html>`_ section in the documentation.
 
-.. End
+Credits
+=======
 
-.. End
+Authors: `Fabrice Salvaire <http://fabrice-salvaire.fr>`_

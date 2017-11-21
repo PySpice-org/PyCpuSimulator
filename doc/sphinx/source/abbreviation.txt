@@ -12,10 +12,5 @@
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
 
-.. |cffi| replace:: CFFI
-.. _cffi: http://cffi.readthedocs.org
-
 .. |pypy| replace:: pypy
 .. _pypy: http://pypy.org
-
-.. End

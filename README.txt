@@ -7,22 +7,41 @@
  PyCpuSimulator
 ================
 
-The official PyCpuSimulator Home Page is located at |PyCpuSimulatorUrl|
-
-.. The latest documentation build from the git repository is available at readthedocs.org |PyCpuSimulator@readthedocs-badge|
-
-Written by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_.
-
-.. |Build Status|
-
 |Pypi License|
 |Pypi Python Version|
 
 |Pypi Version|
-|Pypi Format|
 
-.. include:: introduction.txt
+.. * Quick Link to `Production Branch <https://github.com/FabriceSalvaire/PyCpuSimulator/tree/master>`_
+.. * Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/PyCpuSimulator/tree/devel>`_
 
-.. include:: installation.rst
+Overview
+========
 
-.. End
+What is PyCpuSimulator ?
+------------------------
+
+PyCpuSimulator is a CPU simulator implemented in Python which use micro-codes to implement CPU core.
+
+Where is the Documentation ?
+----------------------------
+
+The documentation is available on the |PyCpuSimulatorHomePage|_.
+
+What are the main features ?
+----------------------------
+
+* Micro-Code Language to describe instruction
+* Opcode Decoder using Decision Tree
+* Read HEX firmware format
+* AVR Core CPU simulation is ongoing
+
+How to install it ?
+-------------------
+
+Look at the `installation <@project_url@/installation.html>`_ section in the documentation.
+
+Credits
+=======
+
+Authors: `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
