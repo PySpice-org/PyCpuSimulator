@@ -77,7 +77,7 @@ setup_dict = dict(
     author_email='fabrice.salvaire@orange.fr',
     description='PyCpuSimulator is a CPU simulator',
     license='GPLv3',
-    keywords= 'cpu avr simulator',
+    keywords= 'cpu core avr simulator micro-code',
     url='https://github.com/FabriceSalvaire/PyCpuSimulator',
     long_description=long_description,
 )
