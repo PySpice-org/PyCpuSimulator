@@ -5,16 +5,18 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PyCpuSimulator.Core.Instruction &mdash; PySimAVR 1.0.0 documentation</title>
+  <title>PyCpuSimulator.Core.Instruction &mdash; PyCpuSimulator 0.2.0 documentation</title>
   
 
   
   
+  
+  
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -24,7 +26,7 @@
 
   
   
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/css/PyCpuSimulator.css" type="text/css" />
   
 
   
@@ -33,25 +35,42 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PyCpuSimulator 0.2.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../../../static/js/modernizr.min.js"></script>
 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyCpuSimulator
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -59,79 +78,91 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
+            
+            
+              
+            
+            
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../api/PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">10. Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr-cross-compilation.html">11. AVR Cross-Compilation</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">PySimAVR</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyCpuSimulator</a>
+        
       </nav>
 
 
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>PyCpuSimulator.Core.Instruction</li>
+        
+      <li>PyCpuSimulator.Core.Instruction</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
+            
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for PyCpuSimulator.Core.Instruction</h1><div class="highlight"><pre>
 <span></span><span class="c1">####################################################################################################</span>
@@ -372,7 +403,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Opcode._parse_opcode"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode._parse_opcode">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_parse_opcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;Parse the opcode bit pattern.</span>
 
@@ -443,7 +474,7 @@
         <span class="k">for</span> <span class="n">operand</span><span class="p">,</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opcode_operands</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
                 <span class="n">operand_size</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-                <span class="n">chunk</span><span class="o">.</span><span class="n">_operand_shift</span> <span class="o">=</span> <span class="n">operand_size</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span></div>
+                <span class="n">chunk</span><span class="o">.</span><span class="n">_operand_shift</span> <span class="o">=</span> <span class="n">operand_size</span><span class="p">[</span><span class="n">operand</span><span class="p">]</span>
 
     <span class="c1">##############################################</span>
 
@@ -479,7 +510,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Opcode._merge_operands"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.Opcode._merge_operands">[docs]</a>    <span class="k">def</span> <span class="nf">_merge_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_merge_operands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Merge contiguous operand bits &quot;&quot;&quot;</span>
 
@@ -495,7 +526,7 @@
                     <span class="n">operand_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
         <span class="c1"># print([str(x) for x in operand_intervals])</span>
 
-        <span class="k">return</span> <span class="n">operand_intervals</span></div>
+        <span class="k">return</span> <span class="n">operand_intervals</span>
 
     <span class="c1">##############################################</span>
 
@@ -762,7 +793,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="DecisionTree._get_default"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._get_default">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_default</span><span class="p">(</span><span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">):</span>
 
         <span class="c1"># Compute the set of bits patterns that have empty remaining bit masks</span>
@@ -784,11 +815,11 @@
             <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Null mask&#39;</span><span class="p">)</span>
         <span class="c1"># print(&#39;default mask:&#39;, bin(mask))</span>
 
-        <span class="k">return</span> <span class="n">singleton</span><span class="p">,</span> <span class="n">opcode_subset</span><span class="p">,</span> <span class="n">mask</span></div>
+        <span class="k">return</span> <span class="n">singleton</span><span class="p">,</span> <span class="n">opcode_subset</span><span class="p">,</span> <span class="n">mask</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="DecisionTree._partitions"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._partitions">[docs]</a>    <span class="k">def</span> <span class="nf">_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;Group opcodes having the same bit values for the significant bits defined by mask.&quot;&quot;&quot;</span>
 
@@ -815,11 +846,11 @@
             <span class="c1">#                                 opcode.instruction.mnemonic, opcode))</span>
         <span class="n">partitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">partitions</span></div>
+        <span class="k">return</span> <span class="n">partitions</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="DecisionTree._make_tree"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.DecisionTree._make_tree">[docs]</a>    <span class="k">def</span> <span class="nf">_make_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_make_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_set</span><span class="p">,</span> <span class="n">gmask</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 
         <span class="c1"># print(&#39;\n\nMake Tree mask level {} {:016b}&#39;.format(level, gmask))</span>
 
@@ -856,7 +887,7 @@
             <span class="n">node</span><span class="o">.</span><span class="n">_branches</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">partition_node</span>
 
         <span class="c1"># Return the new node</span>
-        <span class="k">return</span> <span class="n">node</span></div>
+        <span class="k">return</span> <span class="n">node</span>
 
     <span class="c1">##############################################</span>
 
@@ -902,7 +933,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="InstructionSet._load_yaml"><a class="viewcode-back" href="../../../api/PyCpuSimulator/Core/Instruction.html#PyCpuSimulator.Avr.InstructionSet._load_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">_load_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_path</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_load_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_path</span><span class="p">):</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">yaml_dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -918,7 +949,7 @@
                                           <span class="n">description</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
                                           <span class="n">alternate</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                                           <span class="n">opcodes</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="p">[</span><span class="n">mnemonic</span><span class="p">]</span> <span class="o">=</span> <span class="n">instruction</span></div>
+            <span class="bp">self</span><span class="p">[</span><span class="n">mnemonic</span><span class="p">]</span> <span class="o">=</span> <span class="n">instruction</span>
 
     <span class="c1">##############################################</span>
 
@@ -1023,6 +1054,10 @@
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{:4}</span><span class="s2"> × </span><span class="si">{:4}</span><span class="s2"> bytecodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">histogram</span><span class="p">[</span><span class="n">interval_length</span><span class="p">],</span> <span class="n">interval_length</span><span class="p">))</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -1031,13 +1066,14 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+        &copy; Copyright 2017, Fabrice Salvaire.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 
@@ -1052,16 +1088,18 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.0.0',
+            VERSION:'0.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../static/jquery.js"></script>
       <script type="text/javascript" src="../../../static/underscore.js"></script>
       <script type="text/javascript" src="../../../static/doctools.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../static/hidecode.js"></script>
 
   
 

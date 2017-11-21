@@ -5,16 +5,18 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.1.6.2. Interval &mdash; PySimAVR 1.0.0 documentation</title>
+  <title>6.1.6.2. Interval &mdash; PyCpuSimulator 0.2.0 documentation</title>
   
 
   
   
+  
+  
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -24,7 +26,7 @@
 
   
   
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/css/PyCpuSimulator.css" type="text/css" />
   
 
   
@@ -33,27 +35,44 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="PySimAVR 1.0.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="PyCpuSimulator 0.2.0 documentation" href="../../../index.html"/>
         <link rel="up" title="6.1.6. Math" href="../Math.html"/>
         <link rel="next" title="6.1.7. Tools" href="../Tools.html"/>
         <link rel="prev" title="6.1.6.1. Functions" href="Functions.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../../../static/js/modernizr.min.js"></script>
 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="../../../index.html" class="fa fa-home"> PySimAVR</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyCpuSimulator
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -61,85 +80,113 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
+            
+            
+              
+            
+            
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/atmega-640-1280-2560.register-summary.html">2.1. ATmega640/1280/1281/2560/2561 Register Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#how-to-extract-data-from-atmel-datasheets">2.2. How to Extract Data from Atmel Datasheets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-registers">2.3. AVR Registers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#avr-memories">2.4. AVR Memories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#register-summary">2.5. Register Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../avr/index.html#instructions">2.6. Instructions</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../avr/index.html">2. AVR Datasheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../grammar.html">3. Micro Code Language</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../instruction-set-yaml-format.html">4. Instruction Set YAML Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">5. Glossary</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">6. API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Avr.html">6.1.1. Avr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BinaryFormat.html">6.1.2. BinaryFormat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">6.1.3. Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Core.html">6.1.4. Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Logging.html">6.1.5. Logging</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../Math.html">6.1.6. Math</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Functions.html">6.1.6.1. Functions</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">6.1.6.2. Interval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tools.html">6.1.7. Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Version.html">6.1.8. Version</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">6.2. Indexes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../symbols.html">7. ASCII symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../symbols.html#unicode-symbols">8. Unicode Symbols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#floating-point">9.1. Floating Point</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-addition">9.2. Binary Addition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-subtraction">9.3. Binary Subtraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../core/alu.html#binary-multiplication">9.4. Binary Multiplication</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/alu.html">9. ALU</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">PySimAVR</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyCpuSimulator</a>
+        
       </nav>
 
 
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../../reference-manual.html">6. API Documentation</a> &raquo;</li>
-      
+        
           <li><a href="../../PyCpuSimulator.html">6.1. PyCpuSimulator</a> &raquo;</li>
-      
+        
           <li><a href="../Math.html">6.1.6. Math</a> &raquo;</li>
-      
-    <li>6.1.6.2. Interval</li>
+        
+      <li>6.1.6.2. Interval</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../../../_sources/api/PyCpuSimulator/Math/Interval.rst.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../../../_sources/api/PyCpuSimulator/Math/Interval.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="module-PyCpuSimulator.Math.Interval">
 <span id="interval"></span><h1>6.1.6.2. Interval<a class="headerlink" href="#module-PyCpuSimulator.Math.Interval" title="Permalink to this headline">¶</a></h1>
@@ -147,7 +194,7 @@
 <dl class="class">
 <dt id="PyCpuSimulator.Math.Interval.Interval">
 <em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">Interval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Interval [inf, sup] in the float domain.</p>
 <p>An interval can be constructed using a couple (inf, sup) or an object that support the
 <code class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></code> interface:</p>
@@ -158,7 +205,7 @@
 </pre></div>
 </div>
 <p>To get the interval boundaries, use the <code class="xref py py-attr docutils literal"><span class="pre">inf</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">sup</span></code> attribute.</p>
-<p>An empty interval is defined with <em>inf</em> and <em>sup</em> set to <code class="xref py py-obj docutils literal"><span class="pre">None</span></code>.</p>
+<p>An empty interval is defined with <em>inf</em> and <em>sup</em> set to <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a>.</p>
 <p>To compute the union of two intervals use:</p>
 <blockquote>
 <div>i3 = i1 | i2
@@ -168,23 +215,6 @@ i1 <a href="#id1"><span class="problematic" id="id2">|</span></a>= i2</div></blo
 <div>i3 = i1 &amp; i2
 i1 &amp;= i2</div></blockquote>
 <p>It returns an empty interval if the intersection is null.</p>
-<dl class="method">
-<dt id="PyCpuSimulator.Math.Interval.Interval._check_arguments">
-<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._check_arguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="PyCpuSimulator.Math.Interval.Interval._intersection">
-<em class="property">static </em><code class="descname">_intersection</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._intersection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the intersection of <em>i1</em> and <em>i2</em>.</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="PyCpuSimulator.Math.Interval.Interval._union">
-<em class="property">static </em><code class="descname">_union</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval._union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval._union" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the union of <em>i1</em> and <em>i2</em>.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="PyCpuSimulator.Math.Interval.Interval.clone">
 <code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval.clone" title="Permalink to this definition">¶</a></dt>
@@ -279,7 +309,7 @@ interval.</p>
 <dl class="class">
 <dt id="PyCpuSimulator.Math.Interval.Interval2D">
 <em class="property">class </em><code class="descclassname">PyCpuSimulator.Math.Interval.</code><code class="descname">Interval2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#Interval2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.Interval2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Interval [inf, sup]*[inf, sup] in the float domain.</p>
 <p>The components can be accessed using the <code class="xref py py-attr docutils literal"><span class="pre">x</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">y</span></code> attribute, or using an index
 interface where the index 0 maps to <em>x</em> and 1 to <em>y</em>, respectively.</p>
@@ -426,7 +456,7 @@ interface where the index 0 maps to <em>x</em> and 1 to <em>y</em>, respectively
 <dt id="PyCpuSimulator.Math.Interval.IntervalIntSupOpen.exclude">
 <code class="descname">exclude</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen.exclude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.exclude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the subset intervals of <em>i1</em> given an exclusion interval <em>i2</em>.</p>
-<p>It returns <code class="xref py py-obj docutils literal"><span class="pre">None</span></code> if the intervals don’t intersect or <em>i1</em> is included in <em>i2</em>.  Else
+<p>It returns <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a> if the intervals don’t intersect or <em>i1</em> is included in <em>i2</em>.  Else
 it returns a list of couples (interval, excluded_flag) where <em>interval</em> is a subset of the
 interval <em>i1</em> and <em>excluded_flag</em> indicated if the subset is excluded.</p>
 </dd></dl>
@@ -442,7 +472,7 @@ interval <em>i1</em> and <em>excluded_flag</em> indicated if the subset is exclu
 <code class="descname">minus</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/PyCpuSimulator/Math/Interval.html#IntervalIntSupOpen.minus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyCpuSimulator.Math.Interval.IntervalIntSupOpen.minus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of intervals corresponding to i1 - intersection of i1 and i2. If i2 is
 included in i1 then two intervals can be returned. If the compution is not defined then
-<code class="xref py py-obj docutils literal"><span class="pre">None</span></code> is returned.</p>
+<a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a> is returned.</p>
 </dd></dl>
 
 </dd></dl>
@@ -450,15 +480,19 @@ included in i1 then two intervals can be returned. If the compution is not defin
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Tools.html" class="btn btn-neutral float-right" title="6.1.7. Tools">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../Tools.html" class="btn btn-neutral float-right" title="6.1.7. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Functions.html" class="btn btn-neutral" title="6.1.6.1. Functions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Functions.html" class="btn btn-neutral" title="6.1.6.1. Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -467,13 +501,14 @@ included in i1 then two intervals can be returned. If the compution is not defin
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright (C) 2015 Fabrice Salvaire.
+        &copy; Copyright 2017, Fabrice Salvaire.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 
@@ -488,16 +523,18 @@ included in i1 then two intervals can be returned. If the compution is not defin
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.0.0',
+            VERSION:'0.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../static/jquery.js"></script>
       <script type="text/javascript" src="../../../static/underscore.js"></script>
       <script type="text/javascript" src="../../../static/doctools.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../static/hidecode.js"></script>
 
   
 
