@@ -119,7 +119,7 @@ What are the main features ?
 How to install it ?
 -------------------
 
-Look at the `installation <@project_url@/installation.html>`_ section in the documentation.
+Look at the `installation <https://fabricesalvaire.github.io/PyCpuSimulator/installation.html>`_ section in the documentation.
 
 Credits
 =======
