@@ -72,7 +72,7 @@ else:
 
 setup_dict = dict(
     name='PyCpuSimulator',
-    version='0.2.0',
+    version='0.2.1',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='PyCpuSimulator is a CPU simulator',
