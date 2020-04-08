@@ -1,15 +1,16 @@
 *~
 __pycache__
 .directory
-#
+
 MANIFEST
+PyCpuSimulator.egg-info/
 PyCpuSimulator/Core/parser.out
 PyCpuSimulator/Core/parsetab.py
 build/
 dist/
 doc/sphinx/build/
 doc/sphinx/source/api
-#
+
 data/blink-led/.build_ano/
 data/blink-led/asm/
 data/blink-led/ino-env
@@ -17,3 +18,35 @@ data/blink-led/make-asm
 data/blink-led/make.log
 data/blink-led/sketch/
 data/blink-led/trash/
+
+# doc/sphinx/source/_static/
+# doc/sphinx/source/bibliography.rst
+# doc/sphinx/source/design-notes.rst
+# doc/sphinx/source/development.rst
+# doc/sphinx/source/donate.rst
+# doc/sphinx/source/faq.rst
+# doc/sphinx/source/how-to-refer.rst
+# doc/sphinx/source/news.rst
+# doc/sphinx/source/overview.rst
+# doc/sphinx/source/related-projects.rst
+# doc/sphinx/source/roadmap.rst
+
+doc/documents/AVR32-architecture.pdf
+doc/documents/Atmel-0856-AVR-Instruction-Set-Manual.pdf
+doc/documents/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf
+doc/documents/theiling-2001.pdf
+
+# setenv.sh
+# requirements-dev.txt
+
+TOFIX.txt
+diff-simavr.sh
+du.log
+notes.txt
+notes/
+open-doc.sh
+ressources/
+simavr-diff.txt
+template-variables.txt
+tools/upload-www
+trash/
